@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="profile"
+            type="String" />
+
+        <variable
+            name="price"
+            type="Integer" />
+
+        <variable
+            name="count"
+            type="Integer" />
+
+        <variable
+            name="cash"
+            type="Integer" />
+
+        <variable
+            name="card"
+            type="Integer" />
+
+        <variable
+            name="rate"
+            type="Integer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/left_all_round_solid_yellow"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:circleImage="@{profile}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/user_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_recipe"
+            android:text="@{@string/format_name(name)}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="홍기찬님" />
+
+        <TextView
+            android:id="@+id/user_price_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/spending_of_this_month"
+            android:textColor="@color/primaryBlack"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/user_name_text"
+            app:layout_constraintTop_toBottomOf="@id/user_name_text" />
+
+        <TextView
+            android:id="@+id/user_price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:includeFontPadding="false"
+            android:text="@{@string/format_price(Converter.INSTANCE.moneyFormat(price))}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@id/user_name_text"
+            app:layout_constraintTop_toBottomOf="@id/user_price_desc_text"
+            tools:text="100,000원" />
+
+        <LinearLayout
+            android:id="@+id/transaction_count_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/user_name_text"
+            app:layout_constraintTop_toBottomOf="@id/user_price_text">
+
+            <TextView
+                android:id="@+id/transaction_count_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@string/count_of_transaction"
+                android:textColor="@color/red01" />
+
+            <TextView
+                android:id="@+id/transaction_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@{@string/format_count_01(count)}"
+                android:textColor="@color/primaryBlack"
+                tools:text="20건" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cash_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/user_name_text"
+            app:layout_constraintTop_toBottomOf="@id/transaction_count_parent">
+
+            <TextView
+                android:id="@+id/cash_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@string/cash"
+                android:textColor="@color/green01" />
+
+            <TextView
+                android:id="@+id/cash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@{Converter.INSTANCE.moneyToText(Long.valueOf(cash))}"
+                android:textColor="@color/primaryBlack"
+                tools:text="50,000원" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/card_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@id/cash_parent"
+            app:layout_constraintTop_toTopOf="@id/cash_parent">
+
+            <TextView
+                android:id="@+id/card_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@string/card"
+                android:textColor="@color/secondaryBlue" />
+
+            <TextView
+                android:id="@+id/card_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@{Converter.INSTANCE.moneyToText(Long.valueOf(card))}"
+                android:textColor="@color/primaryBlack"
+                tools:text="50,000원" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/budget_progress_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/budget_spending"
+            android:textColor="@color/purple"
+            app:layout_constraintStart_toEndOf="@id/transaction_count_parent"
+            app:layout_constraintTop_toTopOf="@id/transaction_count_parent" />
+
+        <TextView
+            android:id="@+id/budget_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{@string/format_usage(rate)}"
+            android:textColor="@color/primaryBlack"
+            app:layout_constraintStart_toEndOf="@id/budget_progress_desc_text"
+            app:layout_constraintTop_toTopOf="@id/budget_progress_desc_text"
+            tools:text="50%" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

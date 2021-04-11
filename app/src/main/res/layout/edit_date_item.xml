@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.ui.edit.EditFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/date_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/date"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@{viewModel.isEmptyDate ? @drawable/round_stroke_grey_03 : @drawable/round_stroke_green}"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.edit(EditFilterType.DATE)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{viewModel.editDate}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/time_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_desc_text"
+            tools:text="2020.1.5" />
+
+        <TextView
+            android:id="@+id/time_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/time"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/time_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@{viewModel.isEmptyTime ? @drawable/round_stroke_grey_03 : @drawable/round_stroke_green}"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.edit(EditFilterType.TIME)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{viewModel.editTime}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/date_text"
+            app:layout_constraintTop_toBottomOf="@id/date_desc_text"
+            tools:text="1:30 PM" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

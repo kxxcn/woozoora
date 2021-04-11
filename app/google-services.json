@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836419254226",
+    "project_id": "would-u-write",
+    "storage_bucket": "would-u-write.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836419254226:android:11a8648f0957adc8877a0b",
+        "android_client_info": {
+          "package_name": "dev.kxxcn.woozoora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836419254226-t686vrlgt4i3tn6j21020fhhup0ftqoj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.kxxcn.woozoora",
+            "certificate_hash": "dc74d1546b1926c82c26e2009a049a4061854ea5"
+          }
+        },
+        {
+          "client_id": "836419254226-grj91c2dusm5sog1rkepl4560paig81f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3u9l4iWw0uIApNNJA_2C5zblVV3QDljA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836419254226-grj91c2dusm5sog1rkepl4560paig81f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

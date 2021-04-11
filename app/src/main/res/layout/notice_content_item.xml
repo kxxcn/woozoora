@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.notice.NoticeViewModel" />
+
+        <variable
+            name="notice"
+            type="dev.kxxcn.woozoora.domain.model.NoticeData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/arrow_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_arrow_down"
+            app:layout_constraintBottom_toBottomOf="@id/subject_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/subject_parent"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/subject_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/subject_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_swagger"
+                android:text="@{notice.subject}"
+                android:textColor="@color/primaryBlack"
+                android:textSize="20sp"
+                tools:text="테스트 공지사항입니다." />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:text="@{notice.dateText}"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp"
+                tools:text="2020.1.31" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/grey01"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subject_parent">
+
+            <TextView
+                android:id="@+id/content_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_nexon_light"
+                android:lineSpacingExtra="10dp"
+                android:text="@{notice.content}"
+                android:textColor="@color/secondaryBlack"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/grey01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

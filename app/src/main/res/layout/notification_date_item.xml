@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.notification.NotificationViewModel" />
+
+        <variable
+            name="notification"
+            type="dev.kxxcn.woozoora.domain.model.NotificationData" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{notification.dateText}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2021.3.25 (목)" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

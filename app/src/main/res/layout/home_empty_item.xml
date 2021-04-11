@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.contact()}"
+        android:paddingHorizontal="20dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardBackgroundColor="@color/primaryBlue"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/invite_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/invite_text" />
+
+        <TextView
+            android:id="@+id/invite_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/font_swagger"
+            android:lineSpacingExtra="5dp"
+            android:paddingVertical="20dp"
+            android:text="@string/invite_loved_ones_to_record_together"
+            android:textColor="@color/white01"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@id/animation_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/animation_view" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="0dp"
+            android:elevation="10dp"
+            android:translationX="80dp"
+            android:translationY="-20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_fileName="lottie_couple.json"
+            app:lottie_loop="false" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

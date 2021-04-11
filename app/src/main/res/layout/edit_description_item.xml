@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.ui.edit.EditFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/description_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/memo"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/option"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/description_desc_text"
+            app:layout_constraintTop_toTopOf="@id/description_desc_text" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@{viewModel.isEmptyDescription ? @drawable/round_stroke_grey_03 : @drawable/round_stroke_green}"
+            android:fontFamily="@font/font_nexon_light"
+            android:hint="@string/enter_the_memo"
+            android:onClick="@{() -> viewModel.edit(EditFilterType.DESCRIPTION)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{viewModel.editDescription}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_desc_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

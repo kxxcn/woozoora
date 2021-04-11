@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.register()}">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/round_solid_navy_02"
+            app:layout_constraintBottom_toBottomOf="@id/registration_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/registration_text" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/round_solid_white_03"
+            android:padding="5dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/registration_text"
+            app:layout_constraintEnd_toStartOf="@id/registration_text"
+            app:layout_constraintTop_toTopOf="@id/registration_text"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/registration_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:paddingVertical="20dp"
+            android:text="@{viewModel.isEditable ? @string/edit : @string/register}"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/register" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

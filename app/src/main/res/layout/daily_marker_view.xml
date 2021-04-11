@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="price"
+            type="dev.kxxcn.woozoora.ui.intro.IntroViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_solid_navy_01"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_spoqa"
+            android:textColor="@color/white01"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="15일" />
+
+        <TextView
+            android:id="@+id/money_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_spoqa"
+            android:text="@{Converter.INSTANCE.moneyFormat(String.valueOf(price))}"
+            android:textColor="@color/white01"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_text"
+            tools:text="125,000원" />
+
+        <TextView
+            android:id="@+id/category_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_spoqa"
+            android:textColor="@color/white01"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/money_text"
+            tools:text="식비" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

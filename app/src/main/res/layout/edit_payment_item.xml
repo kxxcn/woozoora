@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="dev.kxxcn.woozoora.common.Payment" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/payment_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/transaction_method"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cash_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@{viewModel.isSelectCash ? @drawable/round_solid_green_03 : @drawable/round_stroke_grey_03}"
+            android:fontFamily="@font/font_nexon_light"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.payment(Payment.CASH)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@string/cash"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toStartOf="@id/card_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payment_desc_text"
+            tools:background="@drawable/round_solid_orange_02" />
+
+        <TextView
+            android:id="@+id/card_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@{viewModel.isSelectCard ? @drawable/round_solid_green_03 : @drawable/round_stroke_grey_03}"
+            android:fontFamily="@font/font_nexon_light"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.payment(Payment.CARD)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@string/card"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/cash_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cash_text"
+            app:layout_constraintTop_toBottomOf="@id/payment_desc_text"
+            tools:background="@drawable/round_stroke_grey_03" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

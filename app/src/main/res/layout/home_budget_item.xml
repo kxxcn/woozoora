@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <import type="dev.kxxcn.woozoora.ui.direction.home.HomeFilterType" />
+
+        <variable
+            name="overview"
+            type="dev.kxxcn.woozoora.domain.model.OverviewData" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/budget_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/budgetCardBackground"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/budget_desc_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@string/budget_of_month"
+                android:textColor="@color/secondaryNavy"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/ic_emoji_face_with_hearts"
+                app:layout_constraintBottom_toBottomOf="@id/budget_desc_text"
+                app:layout_constraintStart_toEndOf="@id/budget_desc_text"
+                app:layout_constraintTop_toTopOf="@id/budget_desc_text"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/budget_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_solid_navy_04"
+                android:fontFamily="@font/font_nexon_regular"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="7dp"
+                android:text="@{Converter.INSTANCE.moneyToText(overview.user.budget)}"
+                android:textColor="@color/white01"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="20만원" />
+
+            <com.vaibhavlakhera.circularprogressview.CircularProgressView
+                android:id="@+id/budget_progress"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:animateDuration="1000"
+                app:layout_constraintBottom_toBottomOf="@id/budget_chart"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/budget_chart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/budget_chart"
+                app:layout_constraintWidth_percent="0.4"
+                app:progressColor="@color/budgetActive"
+                app:progressInterpolator="@android:anim/decelerate_interpolator"
+                app:progressRoundCap="true"
+                app:progressTextColor="@color/budgetInactive"
+                app:progressTextEnabled="true"
+                app:progressTextSize="32sp"
+                app:progressTextType="percent"
+                app:progressValue="0"
+                app:progressWidth="12dp"
+                app:totalColor="@color/budgetInactive"
+                app:totalValue="100"
+                app:totalWidth="20dp" />
+
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:id="@+id/budget_chart"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/budget_progress"
+                app:layout_constraintTop_toBottomOf="@id/budget_text"
+                app:layout_constraintWidth_percent="0.6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

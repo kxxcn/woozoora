@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <import type="dev.kxxcn.woozoora.ui.edit.EditFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.input.InputViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/green03">
+
+        <ImageView
+            android:id="@+id/close_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> viewModel.hideAndClose()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primaryBlack"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/input_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:lineSpacingExtra="5dp"
+            android:text="@{@string/format_input(context.getString(viewModel.currentFilterType.titleRes))}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/close_icon"
+            app:layout_constraintTop_toBottomOf="@id/close_icon"
+            tools:text="결제금액\n입력하기" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:hint="@{context.getString(viewModel.currentFilterType.hintRes)}"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:paddingBottom="20dp"
+            android:text="@={viewModel.editText}"
+            android:textColor="@color/primaryBlack"
+            android:textColorHint="@color/white02"
+            android:visibility="@{viewModel.currentFilterType != EditFilterType.PRICE ? View.VISIBLE : View.GONE}"
+            app:inputType="@{viewModel.currentFilterType.inputType}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_desc_text"
+            tools:hint="결제금액을 입력해주세요."
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:hint="@{context.getString(viewModel.currentFilterType.hintRes)}"
+            android:imeOptions="actionDone"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingBottom="20dp"
+            android:textColor="@color/primaryBlack"
+            android:textColorHint="@color/white02"
+            android:visibility="@{viewModel.currentFilterType == EditFilterType.PRICE ? View.VISIBLE : View.GONE}"
+            app:bindingText="@={Converter.INSTANCE.moneyFormat(viewModel.priceText)}"
+            app:inputType="@{viewModel.currentFilterType.inputType}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_desc_text"
+            tools:hint="결제금액을 입력해주세요."
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_solid_green_02"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.emitAndClose()}"
+            android:paddingVertical="20dp"
+            android:text="@string/input"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

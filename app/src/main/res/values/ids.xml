@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="kakao_native_app_key">f02955718d42e8fd1c5c2f82acf43900</string>
+    <string name="kakao_scheme">kakaof02955718d42e8fd1c5c2f82acf43900</string>
+
+    <item name="tag_loading_decor_view" type="id" />
+    <item name="tag_toggle_animation_view" type="id" />
+    <item name="tag_skeleton_history_day_list" type="id" />
+    <item name="tag_skeleton_history_transaction_list" type="id" />
+    <item name="tag_skeleton_statistic_list" type="id" />
+    <item name="tag_notice_expand" type="id"/>
+    <item name="tag_notice_expand_animator" type="id"/>
+    <item name="tag_notice_rotate_animator" type="id"/>
+</resources>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="dev.kxxcn.woozoora.ui.change.ChangeFilterType" />
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.change.ChangeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryNavy">
+
+        <ImageView
+            android:id="@+id/close_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> viewModel.hideAndClose()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/input_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:lineSpacingExtra="5dp"
+            android:text="@{context.getString(viewModel.nameRes)}"
+            android:textColor="@color/white01"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/close_icon"
+            app:layout_constraintTop_toBottomOf="@id/close_icon"
+            tools:text="@string/birth_year" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/white01"
+            android:fontFamily="@font/font_nexon_regular"
+            android:hint="@{viewModel.change.defaultValue}"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:paddingBottom="20dp"
+            android:textColor="@color/white01"
+            android:textColorHint="@color/primaryGreen"
+            android:visibility="@{viewModel.currentFilterType == ChangeFilterType.BUDGET ? View.VISIBLE : View.GONE}"
+            app:bindingText="@={Converter.INSTANCE.moneyFormat(viewModel.budgetText)}"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_desc_text"
+            app:layout_constraintVertical_bias="0.0"
+            tools:hint="1990"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/white01"
+            android:fontFamily="@font/font_nexon_regular"
+            android:hint="@{viewModel.change.defaultValue}"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLength="4"
+            android:paddingBottom="20dp"
+            android:text="@={viewModel.yearText}"
+            android:textColor="@color/white01"
+            android:textColorHint="@color/primaryGreen"
+            android:visibility="@{viewModel.currentFilterType == ChangeFilterType.YEAR ? View.VISIBLE : View.GONE}"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/edit_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_desc_text"
+            app:layout_constraintVertical_bias="0.0"
+            tools:hint="1990"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <TextView
+            android:id="@+id/edit_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_solid_white_03"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.edit()}"
+            android:paddingVertical="20dp"
+            android:text="@string/change"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

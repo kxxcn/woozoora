@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.domain.model.OptionData" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.more.MoreViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="@dimen/more_icon_size"
+            android:layout_height="@dimen/more_icon_size"
+            android:background="@drawable/round_oval_blue"
+            android:padding="@dimen/more_icon_padding"
+            android:src="@drawable/ic_notification"
+            app:layout_constraintBottom_toBottomOf="@id/notification_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notification_text"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/notification_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:paddingVertical="10dp"
+            android:text="@string/notification"
+            android:textColor="@color/primaryBlue"
+            android:textSize="@dimen/more_header_text_size"
+            app:layout_constraintStart_toEndOf="@id/notification_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/default_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.DEFAULT)}"
+            android:paddingVertical="10dp"
+            android:text="@string/default_notification"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notification_text"
+            app:layout_constraintTop_toBottomOf="@id/notification_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.DEFAULT)}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/default_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/default_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.defaultNotification}" />
+
+        <TextView
+            android:id="@+id/register_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.REGISTRATION)}"
+            android:paddingVertical="10dp"
+            android:text="@string/register_transaction_notification"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notification_text"
+            app:layout_constraintTop_toBottomOf="@id/default_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.REGISTRATION)}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/register_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/register_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.registrationNotification}" />
+
+        <TextView
+            android:id="@+id/daily_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.DAILY)}"
+            android:paddingVertical="10dp"
+            android:text="@string/daily_transaction_notification"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notification_text"
+            app:layout_constraintTop_toBottomOf="@id/register_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.DAILY)}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/daily_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/daily_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.dailyNotification}" />
+
+        <TextView
+            android:id="@+id/weekly_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.WEEKLY)}"
+            android:paddingVertical="10dp"
+            android:text="@string/weekly_transaction_notification"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notification_text"
+            app:layout_constraintTop_toBottomOf="@id/daily_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.WEEKLY)}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/weekly_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/weekly_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.weeklyNotification}" />
+
+        <TextView
+            android:id="@+id/notice_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.NOTICE)}"
+            android:paddingVertical="10dp"
+            android:text="@string/notice_notification"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notification_text"
+            app:layout_constraintTop_toBottomOf="@id/weekly_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setNotification(OptionData.NOTICE)}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/notice_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/notice_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.noticeNotification}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

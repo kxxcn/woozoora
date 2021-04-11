@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="history"
+            type="dev.kxxcn.woozoora.domain.model.HistoryData" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.receipt(history)}">
+
+        <View
+            android:id="@+id/round_view"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/round_solid_blue_03"
+            android:backgroundTint="@{context.getColor(history.transaction.categoryColorRes)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/category_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@{context.getDrawable(history.transaction.categoryIconRes)}"
+            app:layout_constraintBottom_toBottomOf="@id/round_view"
+            app:layout_constraintEnd_toEndOf="@id/round_view"
+            app:layout_constraintStart_toStartOf="@id/round_view"
+            app:layout_constraintTop_toTopOf="@id/round_view"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/ic_emoji_cart" />
+
+        <TextView
+            android:id="@+id/category_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@{context.getString(history.transaction.categoryNameRes)}"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/round_view"
+            app:layout_constraintTop_toTopOf="@id/round_view"
+            tools:text="@string/category_cultural_life" />
+
+        <TextView
+            android:id="@+id/transaction_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@{history.transaction.name}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/category_name_text"
+            app:layout_constraintTop_toBottomOf="@id/category_name_text"
+            tools:text="롯데시네마" />
+
+        <TextView
+            android:id="@+id/price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{@string/format_price(Converter.INSTANCE.moneyFormat(history.transaction.price))}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/category_name_text"
+            app:layout_constraintTop_toBottomOf="@id/transaction_name_text"
+            tools:text="14,500원" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@{history.time}"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/round_view"
+            tools:text="오후 4:55" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:circleImage="@{history.profile}"
+            app:layout_constraintBottom_toBottomOf="@id/price_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/grey01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

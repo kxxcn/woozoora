@@ -19,3 +19,15 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class * extends androidx.fragment.app.Fragment{}
+
+-keep class dev.kxxcn.woozoora.domain.model.UserData
+-keep class dev.kxxcn.woozoora.domain.model.TransactionData
+-keep class dev.kxxcn.woozoora.domain.model.HistoryData
+-keep class dev.kxxcn.woozoora.domain.model.ChangeData
+-keep class dev.kxxcn.woozoora.domain.model.InvitationData
+-keep class dev.kxxcn.woozoora.domain.model.TimelineData
+
+-keep class dev.kxxcn.woozoora.ui.policy.PolicyFilterType
+-keep class dev.kxxcn.woozoora.ui.edit.EditFilterType

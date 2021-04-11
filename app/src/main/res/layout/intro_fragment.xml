@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.intro.IntroViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/intro_fragment_scene">
+
+        <TextView
+            android:id="@+id/sign_in_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:lineSpacingExtra="5dp"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:signInDesc="@{@string/which_way_are_you_more_comfortable_getting_started_with}"
+            tools:text="@string/which_way_are_you_more_comfortable_getting_started_with" />
+
+        <TextView
+            android:id="@+id/budget_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:lineSpacingExtra="5dp"
+            android:textSize="25sp"
+            app:budgetDesc="@{@string/enter_your_budget_for_this_month}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/year_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:lineSpacingExtra="5dp"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:yearDesc="@{@string/enter_your_birth_year}" />
+
+        <EditText
+            android:id="@+id/budget_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/font_recipe"
+            android:hint="@string/zero"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColorHint="@color/grey02"
+            android:textSize="25sp"
+            app:bindingText="@={Converter.INSTANCE.moneyFormat(viewModel.budgetEdit)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/budget_desc_text"
+            tools:ignore="Autofill,LabelFor" />
+
+        <EditText
+            android:id="@+id/year_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/font_recipe"
+            android:hint="@string/hint_year"
+            android:inputType="number"
+            android:maxLength="4"
+            android:text="@={viewModel.yearEdit}"
+            android:textColorHint="@color/grey02"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/budget_desc_text"
+            tools:ignore="Autofill,LabelFor" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/round_solid_white_02"
+            android:src="@drawable/round_stroke_grey_01"
+            app:altSrc="@drawable/round_solid_yellow"
+            app:layout_constraintBottom_toTopOf="@id/verify_text"
+            app:layout_constraintEnd_toStartOf="@id/google_background"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sign_in_desc_text" />
+
+        <ImageView
+            android:id="@+id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_kakao"
+            app:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            app:layout_constraintEnd_toEndOf="@id/kakao_background"
+            app:layout_constraintStart_toStartOf="@id/kakao_background"
+            app:layout_constraintTop_toTopOf="@id/kakao_background"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_solid_white_02"
+            android:src="@drawable/round_stroke_grey_01"
+            app:altSrc="@drawable/round_solid_white_02"
+            app:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/kakao_background"
+            app:layout_constraintTop_toTopOf="@id/kakao_background"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_google"
+            app:layout_constraintBottom_toBottomOf="@id/google_background"
+            app:layout_constraintEnd_toEndOf="@id/google_background"
+            app:layout_constraintStart_toStartOf="@id/google_background"
+            app:layout_constraintTop_toTopOf="@id/google_background"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/round_solid_grey_01"
+            app:altSrc="@drawable/round_solid_orange_01"
+            app:layout_constraintBottom_toBottomOf="@id/verify_text"
+            app:layout_constraintEnd_toEndOf="@id/verify_text"
+            app:layout_constraintStart_toStartOf="@id/verify_text"
+            app:layout_constraintTop_toTopOf="@id/verify_text" />
+
+        <TextView
+            android:id="@+id/verify_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.signIn()}"
+            android:padding="20dp"
+            android:text="@string/authenticate"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/round_solid_grey_01"
+            app:altSrc="@drawable/round_solid_orange_01"
+            app:layout_constraintBottom_toBottomOf="@id/next_text"
+            app:layout_constraintEnd_toEndOf="@id/next_text"
+            app:layout_constraintStart_toStartOf="@id/next_text"
+            app:layout_constraintTop_toTopOf="@id/next_text" />
+
+        <TextView
+            android:id="@+id/next_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.next()}"
+            android:padding="20dp"
+            android:text="@string/next"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/start_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/round_solid_grey_01"
+            app:altSrc="@drawable/round_solid_orange_01"
+            app:layout_constraintBottom_toBottomOf="@id/start_text"
+            app:layout_constraintEnd_toEndOf="@id/start_text"
+            app:layout_constraintStart_toStartOf="@id/start_text"
+            app:layout_constraintTop_toTopOf="@id/start_text" />
+
+        <TextView
+            android:id="@+id/start_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.start()}"
+            android:padding="20dp"
+            android:text="@string/start"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

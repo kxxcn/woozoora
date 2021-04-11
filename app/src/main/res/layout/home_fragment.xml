@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="dev.kxxcn.woozoora.util.Calculator" />
+
+        <import type="dev.kxxcn.woozoora.ui.direction.home.HomeFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/home_fragment_scene">
+
+        <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView
+            android:id="@+id/greeting_skeleton"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            app:autoStart="true"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/greeting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/have_a_nice_day"
+            android:textColor="@color/primaryBlack"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView
+            android:id="@+id/name_skeleton"
+            android:layout_width="120dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            app:autoStart="true"
+            app:layout_constraintStart_toStartOf="@id/greeting_skeleton"
+            app:layout_constraintTop_toBottomOf="@id/greeting_skeleton" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{@string/format_name(viewModel.userName)}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@id/profile_image"
+            app:layout_constraintTop_toBottomOf="@id/greeting_text"
+            tools:text="홍기찬님" />
+
+        <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView
+            android:id="@+id/profile_skeleton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:autoStart="true"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintEnd_toEndOf="@id/profile_image"
+            app:layout_constraintStart_toStartOf="@id/profile_image"
+            app:layout_constraintTop_toTopOf="@id/profile_image"
+            app:radius="50dp" />
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:elevation="5dp"
+            app:circleImage="@{viewModel.userProfile}"
+            app:layout_constraintBottom_toBottomOf="@id/name_text"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/greeting_text"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/notification_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="5dp"
+            android:onClick="@{() -> viewModel.notification()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_notification_blue"
+            app:altSrc="@drawable/ic_notification_orange"
+            app:layout_constraintBottom_toBottomOf="@id/name_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/greeting_text"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/notification_dot_icon"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:elevation="5dp"
+            android:src="@drawable/round_solid_orange_01"
+            app:layout_constraintCircle="@id/notification_icon"
+            app:layout_constraintCircleAngle="45"
+            app:layout_constraintCircleRadius="15dp"
+            app:visibleOnMotionLayout="@{viewModel.hasNewNotification}"
+            tools:ignore="ContentDescription" />
+
+        <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView
+            android:id="@+id/background_skeleton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:autoStart="true"
+            app:layout_constraintBottom_toBottomOf="@id/money_background"
+            app:layout_constraintEnd_toEndOf="@id/money_background"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toTopOf="@id/money_background" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/money_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/round_solid_navy_03"
+            app:altSrc="@drawable/round_solid_blue_01"
+            app:layout_constraintBottom_toBottomOf="@id/bottom_margin_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notification_icon" />
+
+        <TextView
+            android:id="@+id/year_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_spoqa"
+            android:text="@{@string/format_string(Calculator.INSTANCE.calculateCurrentYear())}"
+            android:textColor="@color/grey02"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toTopOf="@id/money_background"
+            tools:text="2021" />
+
+        <TextView
+            android:id="@+id/month_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/font_spoqa"
+            android:text="@{@string/format_month(Calculator.INSTANCE.calculateCurrentMonth())}"
+            android:textColor="@color/grey01"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toBottomOf="@id/year_text"
+            tools:text="1월" />
+
+        <TextView
+            android:id="@+id/selected_range_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:alpha="0"
+            android:background="@drawable/round_solid_white_03"
+            android:fontFamily="@font/font_nexon_light"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:textColor="@color/white01"
+            android:textSize="12sp"
+            app:dateRangeText="@{viewModel.filterType}"
+            app:layout_constraintStart_toStartOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/money_icon"
+            tools:background="@drawable/round_solid_orange_01"
+            tools:text="1.1 ~ 1.31" />
+
+        <TextView
+            android:id="@+id/monthly_money_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/spending_of_this_month"
+            android:textColor="@color/white01"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/month_text" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/money_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_krw_white"
+            app:altSrc="@drawable/ic_krw_black"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toTopOf="@id/monthly_money_text"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/monthly_money_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/font_swagger"
+            android:text="@string/zero"
+            android:textColor="@color/white01"
+            android:textSize="30sp"
+            app:filterType="@{HomeFilterType.MONTHLY}"
+            app:layout_constraintEnd_toEndOf="@id/money_background"
+            app:layout_constraintStart_toEndOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/monthly_money_desc_text"
+            app:overview="@{viewModel.overview}"
+            tools:text="30,000,000" />
+
+        <TextView
+            android:id="@+id/monthly_money_hidden_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/font_swagger"
+            android:text="@string/zero"
+            android:textColor="@color/white01"
+            android:textSize="20sp"
+            app:filterType="@{HomeFilterType.MONTHLY}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:overview="@{viewModel.overview}"
+            tools:text="30,000,000" />
+
+        <TextView
+            android:id="@+id/daily_money_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/spending_of_today"
+            android:textColor="@color/white01"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/monthly_money_text" />
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/daily_money_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/ic_krw_white"
+            app:altSrc="@drawable/ic_krw_black"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toTopOf="@id/daily_money_text"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/daily_money_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/font_swagger"
+            android:text="@string/zero"
+            android:textColor="@color/white01"
+            android:textSize="30sp"
+            app:filterType="@{HomeFilterType.DAILY}"
+            app:layout_constraintEnd_toEndOf="@id/money_background"
+            app:layout_constraintStart_toEndOf="@id/daily_money_icon"
+            app:layout_constraintTop_toBottomOf="@id/daily_money_desc_text"
+            app:overview="@{viewModel.overview}"
+            tools:text="250,000" />
+
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/transaction_chart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            app:chart="@{viewModel.overview}"
+            app:filterType="@{viewModel.filterType}"
+            app:layout_constraintDimensionRatio="16:7"
+            app:layout_constraintEnd_toEndOf="@id/money_background"
+            app:layout_constraintStart_toStartOf="@id/money_background"
+            app:layout_constraintTop_toBottomOf="@id/monthly_money_text" />
+
+        <View
+            android:id="@+id/bottom_margin_view"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/transaction_chart" />
+
+        <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView
+            android:id="@+id/list_skeleton"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:autoStart="true"
+            app:layout_constraintBottom_toBottomOf="@id/overview_list"
+            app:layout_constraintEnd_toEndOf="@id/overview_list"
+            app:layout_constraintStart_toStartOf="@id/overview_list"
+            app:layout_constraintTop_toTopOf="@id/overview_list" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/overview_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/top_all_round_solid_light_blue"
+            android:clipToPadding="true"
+            android:elevation="10dp"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/money_background"
+            app:overview="@{viewModel.overview}" />
+
+        <FrameLayout
+            android:id="@+id/prevent_transition_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:elevation="20dp"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UselessLeaf" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

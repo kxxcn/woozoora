@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.policy.PolicyViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/close_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> viewModel.close()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primaryBlack"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/policy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_recipe"
+            android:text="@{context.getString(viewModel.currentFilterType.nameRes)}"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="@id/close_icon"
+            app:layout_constraintTop_toBottomOf="@id/close_icon"
+            tools:text="@string/terms" />
+
+        <WebView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/policy_text"
+            app:loadUrl="@{viewModel.currentFilterType.url}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

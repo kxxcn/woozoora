@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="dev.kxxcn.woozoora.ui.input.InputViewModel" />
+
+        <variable
+            name="editItems"
+            type="List&lt;Integer>" />
+
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBlue"
+        app:layoutDescription="@xml/edit_fragment_scene">
+
+        <ImageView
+            android:id="@+id/close_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> viewModel.close()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_astronaut.json"
+            app:lottie_loop="true" />
+
+        <View
+            android:id="@+id/list_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/top_left_round_solid_white"
+            app:layout_constraintBottom_toBottomOf="@id/edit_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/animation_view" />
+
+        <TextView
+            android:id="@+id/new_account_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/font_recipe"
+            android:text="@{viewModel.isEditable ? @string/account_edit : @string/new_account}"
+            android:textSize="28sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/list_background" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/edit_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingHorizontal="20dp"
+            app:editItems="@{editItems}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/new_account_text" />
+
+        <View
+            android:id="@+id/shadow_view"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shadow_bottom_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

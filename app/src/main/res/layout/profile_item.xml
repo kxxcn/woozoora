@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.profile.ProfileViewModel" />
+
+        <variable
+            name="item"
+            type="dev.kxxcn.woozoora.ui.profile.item.ProfileItem" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/year_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@{context.getString(item.res)}"
+            android:textColor="@color/grey03"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/content_text"
+            app:layout_constraintWidth_percent="0.3"
+            tools:text="@string/birth_year" />
+
+        <TextView
+            android:id="@+id/content_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/font_nexon_light"
+            android:maxLines="1"
+            android:text="@{item.content}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/change_text"
+            app:layout_constraintStart_toEndOf="@id/year_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="20dp"
+            tools:text="@string/hint_year" />
+
+        <TextView
+            android:id="@+id/change_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_solid_navy_01"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.change(item)}"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="7dp"
+            android:text="@string/change_short"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            android:visibility="@{item.isEditable ?  View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/content_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/content_text" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/grey01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

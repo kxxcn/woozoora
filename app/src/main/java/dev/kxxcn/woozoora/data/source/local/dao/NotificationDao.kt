@@ -1,0 +1,27 @@
+package dev.kxxcn.woozoora.data.source.local.dao
+
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import dev.kxxcn.woozoora.data.source.entity.NotificationEntity
+
+@Dao
+interface NotificationDao {
+
+    @Query("SELECT * FROM Notification ORDER BY date DESC")
+    fun observeNotifications(): LiveData<List<NotificationEntity>>
+
+    @Query("SELECT * FROM Notification")
+    suspend fun getNotifications(): List<NotificationEntity>
+
+    @Query("DELETE FROM Notification")
+    suspend fun deleteAll()
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNotification(notification: NotificationEntity)
+
+    @Update
+    suspend fun updateNotifications(notifications: List<NotificationEntity>): Int
+
+    @Delete
+    suspend fun deleteNotification(notification: NotificationEntity)
+}

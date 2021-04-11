@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <variable
+            name="nameRes"
+            type="Integer" />
+
+        <variable
+            name="colorRes"
+            type="Integer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/circle_view"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/round_solid_grey_01"
+            android:backgroundTint="@{context.getColor(colorRes)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/font_nexon_light"
+            android:maxLines="1"
+            android:text="@{context.getString(nameRes)}"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/circle_view"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="생활용품" />
+
+        <ImageView
+            android:id="@+id/money_icon"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginBottom="2dp"
+            android:src="@drawable/ic_krw"
+            app:layout_constraintBottom_toBottomOf="@id/money_text"
+            app:layout_constraintStart_toStartOf="@id/name_text"
+            app:layout_constraintTop_toTopOf="@id/money_text"
+            app:tint="@color/categoryCardText"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/money_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/font_nexon_regular"
+            android:maxLines="1"
+            android:text="@{Converter.INSTANCE.moneyFormat(String.valueOf(0))}"
+            android:textColor="@color/categoryCardText"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/name_text"
+            tools:text="90,000" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

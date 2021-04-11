@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.contact.ContactViewModel" />
+
+        <variable
+            name="item"
+            type="dev.kxxcn.woozoora.ui.contact.item.ContactItem" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/primaryNavy">
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{item.name}"
+            android:textColor="@color/white01"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="홍기찬" />
+
+        <TextView
+            android:id="@+id/phone_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@{item.phone}"
+            android:textColor="@color/grey02"
+            app:layout_constraintStart_toStartOf="@id/name_text"
+            app:layout_constraintTop_toBottomOf="@id/name_text"
+            tools:text="01051455126" />
+
+        <TextView
+            android:id="@+id/invite_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_solid_blue_04"
+            android:fontFamily="@font/font_swagger"
+            android:onClick="@{() -> viewModel.invite(item)}"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@string/invite"
+            android:textColor="@color/white01"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="30dp"
+            android:background="@color/white01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/invite_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

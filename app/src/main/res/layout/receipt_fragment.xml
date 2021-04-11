@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
+        <import type="dev.kxxcn.woozoora.common.DatesKt" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.receipt.ReceiptViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBlue">
+
+        <View
+            android:id="@+id/receipt_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_solid_white_01"
+            app:layout_constraintBottom_toBottomOf="@id/check_padding_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/complete_view" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="60dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="60dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/congratulation_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.history.isNew ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_congratulation.json"
+            app:lottie_loop="false"
+            app:lottie_play="@{viewModel.history.isNew}"
+            tools:lottie_progress="0.15" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/complete_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:visibility="@{viewModel.history.isNew ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/complete_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="lottie_complete.json"
+            app:lottie_loop="false"
+            tools:lottie_progress="1" />
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:visibility="@{viewModel.history.isNew ? View.GONE : View.VISIBLE}"
+            app:circleImage="@{viewModel.history.profile}"
+            app:layout_constraintBottom_toBottomOf="@id/complete_view"
+            app:layout_constraintEnd_toEndOf="@id/complete_view"
+            app:layout_constraintStart_toStartOf="@id/complete_view"
+            app:layout_constraintTop_toTopOf="@id/complete_view"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/complete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_recipe"
+            android:textColor="@color/primaryNavy"
+            android:textSize="20sp"
+            app:completeText="@{viewModel.history}"
+            app:layout_constraintBottom_toTopOf="@id/complete_desc_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/complete_view"
+            tools:text="@string/complete_registration" />
+
+        <TextView
+            android:id="@+id/complete_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{viewModel.history.isNew ? @string/account_has_been_successfully_registered : context.getString(viewModel.history.transaction.categoryNameRes)}"
+            android:textColor="@color/grey03"
+            app:layout_constraintBottom_toTopOf="@id/money_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/complete_text"
+            tools:text="@string/account_has_been_successfully_registered" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/round_solid_grey_01"
+            android:backgroundTint="@color/primaryLightBlue"
+            app:layout_constraintBottom_toBottomOf="@id/money_text"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/money_text" />
+
+        <ImageView
+            android:id="@+id/money_icon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="6dp"
+            android:src="@drawable/ic_krw"
+            app:layout_constraintBottom_toBottomOf="@id/money_text"
+            app:layout_constraintEnd_toStartOf="@id/money_text"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/money_text"
+            app:tint="@color/primaryNavy"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/money_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@{Converter.INSTANCE.moneyFormat(viewModel.history.transaction.price)}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/date_desc_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/money_icon"
+            app:layout_constraintTop_toBottomOf="@id/complete_desc_text"
+            tools:text="25,000" />
+
+        <TextView
+            android:id="@+id/date_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/date"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/date_text"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/money_text" />
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{Converter.INSTANCE.dateFormat(DatesKt.FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, viewModel.history.transaction.date)}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/date_divider"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/date_desc_text"
+            tools:text="2021.2.28 (일)" />
+
+        <TextView
+            android:id="@+id/time_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/time"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintTop_toTopOf="@id/date_desc_text" />
+
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{Converter.INSTANCE.dateFormat(DatesKt.FORMAT_TIME_HOUR_MINUTE_WITH_MARKER, viewModel.history.transaction.date)}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintTop_toTopOf="@id/date_text"
+            tools:text="오후 11:00" />
+
+        <View
+            android:id="@+id/date_divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey01"
+            app:layout_constraintBottom_toTopOf="@id/name_desc_text"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/date_text" />
+
+        <TextView
+            android:id="@+id/name_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/transaction_name_no_spacing"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/name_text"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/date_divider" />
+
+        <TextView
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{viewModel.history.transaction.name}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/name_divider"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/name_desc_text"
+            tools:text="롯데시네마" />
+
+        <TextView
+            android:id="@+id/payment_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/transaction_method_no_spacing"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintTop_toTopOf="@id/name_desc_text" />
+
+        <TextView
+            android:id="@+id/payment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{context.getString(viewModel.history.transaction.paymentNameRes)}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintTop_toTopOf="@id/name_text"
+            tools:text="현금" />
+
+        <View
+            android:id="@+id/name_divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey01"
+            app:layout_constraintBottom_toTopOf="@id/memo_desc_text"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/name_text" />
+
+        <TextView
+            android:id="@+id/memo_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/memo"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            android:visibility="@{viewModel.history.hasMemo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/memo_text"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/name_divider" />
+
+        <TextView
+            android:id="@+id/memo_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/font_nexon_regular"
+            android:maxLines="2"
+            android:text="@{viewModel.history.transaction.description}"
+            android:textColor="@color/primaryNavy"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.history.hasMemo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/memo_divider"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/memo_desc_text"
+            tools:text="테스트 메모입니다." />
+
+        <View
+            android:id="@+id/memo_divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey01"
+            android:visibility="@{viewModel.history.hasMemo ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/check_text"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/memo_text" />
+
+        <TextView
+            android:id="@+id/delete_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/round_solid_red"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.ask()}"
+            android:paddingVertical="20dp"
+            android:text="@string/delete"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.isEditable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/check_text"
+            app:layout_constraintEnd_toStartOf="@id/edit_text"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toTopOf="@id/check_text" />
+
+        <TextView
+            android:id="@+id/edit_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/round_solid_green_02"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.edit()}"
+            android:paddingVertical="20dp"
+            android:text="@string/edit_short"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.isEditable ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/check_text"
+            app:layout_constraintEnd_toStartOf="@id/check_text"
+            app:layout_constraintStart_toEndOf="@id/delete_text"
+            app:layout_constraintTop_toTopOf="@id/check_text" />
+
+        <TextView
+            android:id="@+id/check_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/round_solid_blue_02"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.saveStateHandle()}"
+            android:paddingVertical="20dp"
+            android:text="@string/check"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/check_padding_view"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toEndOf="@id/edit_text"
+            app:layout_constraintTop_toBottomOf="@id/memo_divider"
+            app:layout_goneMarginStart="0dp" />
+
+        <View
+            android:id="@+id/check_padding_view"
+            android:layout_width="1dp"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guide_end"
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/check_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

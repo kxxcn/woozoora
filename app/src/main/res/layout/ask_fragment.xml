@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.ask.AskViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBlue">
+
+        <ImageView
+            android:id="@+id/close_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> viewModel.hideAndClose()}"
+            android:padding="10dp"
+            android:src="@drawable/ic_cancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/input_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:lineSpacingExtra="5dp"
+            android:text="@string/ask"
+            android:textColor="@color/white01"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="@id/close_icon"
+            app:layout_constraintTop_toBottomOf="@id/close_icon" />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/white01"
+            android:fontFamily="@font/font_nexon_regular"
+            android:hint="@string/enter_your_ask"
+            android:imeOptions="actionDone"
+            android:paddingBottom="20dp"
+            android:text="@={viewModel.editText}"
+            android:textColor="@color/white01"
+            android:textColorHint="@color/white01"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@id/transfer_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_desc_text"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="Autofill,LabelFor,TextFields" />
+
+        <TextView
+            android:id="@+id/transfer_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_solid_white_03"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.send()}"
+            android:paddingVertical="20dp"
+            android:text="@string/transfer"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

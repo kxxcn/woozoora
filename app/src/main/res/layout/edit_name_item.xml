@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.ui.edit.EditFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/name_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:text="@string/transaction_name"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@{viewModel.isEmptyName ? @drawable/round_stroke_grey_03 : @drawable/round_stroke_green}"
+            android:fontFamily="@font/font_nexon_light"
+            android:hint="@string/enter_the_content"
+            android:onClick="@{() -> viewModel.edit(EditFilterType.NAME)}"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="@{viewModel.editName}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name_desc_text"
+            tools:background="@drawable/round_stroke_green"
+            tools:text="맥도날드" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

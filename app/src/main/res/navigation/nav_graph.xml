@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="dev.kxxcn.woozoora.ui.splash.SplashFragment"
+        android:label="SplashFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/splash_fragment">
+
+        <action
+            android:id="@+id/action_splashFragment_to_introFragment"
+            app:destination="@id/introFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="invitation_item"
+                app:argType=".domain.model.InvitationData" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_splashFragment_to_directionFragment"
+            app:destination="@id/directionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="invitation_item"
+                app:argType=".domain.model.InvitationData" />
+
+        </action>
+
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://woozoora/invite?user_name={user_name}&amp;user_id={user_id}" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="dev.kxxcn.woozoora.ui.intro.IntroFragment"
+        android:label="IntroFragment"
+        tools:layout="@layout/intro_fragment">
+
+        <action
+            android:id="@+id/action_introFragment_to_directionFragment"
+            app:destination="@id/directionFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:popUpTo="@id/introFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/directionFragment"
+        android:name="dev.kxxcn.woozoora.ui.direction.DirectionFragment"
+        android:label="DirectionFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/action_directionFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="history_item"
+                android:defaultValue="@null"
+                app:argType=".domain.model.HistoryData"
+                app:nullable="true" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_directionFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="history_item"
+                app:argType=".domain.model.HistoryData" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_directionFragment_to_timelineFragment"
+            app:destination="@id/timelineFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="timeline_item"
+                app:argType=".domain.model.TimelineData" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_directionFragment_to_contactFragment"
+            app:destination="@id/contactFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_directionFragment_to_policyFragment"
+            app:destination="@id/policyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="policy_type"
+                app:argType=".ui.policy.PolicyFilterType" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_directionFragment_to_askFragment"
+            app:destination="@id/askFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="user_id"
+                app:argType="string" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_directionFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_directionFragment_to_noticeFragment"
+            app:destination="@id/noticeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_directionFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="dev.kxxcn.woozoora.ui.edit.EditFragment"
+        android:label="EditFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/edit_fragment">
+
+        <action
+            android:id="@+id/action_editFragment_to_inputFragment"
+            app:destination="@id/inputFragment">
+
+            <argument
+                android:name="edit_item"
+                app:argType=".ui.edit.EditFilterType" />
+
+        </action>
+
+        <action
+            android:id="@+id/action_editFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/editFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="history_item"
+                app:argType=".domain.model.HistoryData" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/inputFragment"
+        android:name="dev.kxxcn.woozoora.ui.input.InputFragment"
+        android:label="InputFragment"
+        tools:layout="@layout/input_fragment" />
+
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="dev.kxxcn.woozoora.ui.receipt.ReceiptFragment"
+        android:label="ReceiptFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/receipt_fragment">
+
+        <action
+            android:id="@+id/action_receiptFragment_to_editFragment"
+            app:destination="@id/editFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/receiptFragment"
+            app:popUpToInclusive="true">
+
+            <argument
+                android:name="history_item"
+                app:argType=".domain.model.HistoryData" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/timelineFragment"
+        android:name="dev.kxxcn.woozoora.ui.timeline.TimelineFragment"
+        android:label="TimelineFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/timeline_fragment">
+
+        <action
+            android:id="@+id/action_timelineFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="history_item"
+                app:argType=".domain.model.HistoryData" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="dev.kxxcn.woozoora.ui.contact.ContactFragment"
+        android:label="ContactFragment"
+        tools:layout="@layout/contact_fragment" />
+
+    <fragment
+        android:id="@+id/policyFragment"
+        android:name="dev.kxxcn.woozoora.ui.policy.PolicyFragment"
+        android:label="PolicyFragment"
+        tools:layout="@layout/policy_fragment" />
+
+    <fragment
+        android:id="@+id/askFragment"
+        android:name="dev.kxxcn.woozoora.ui.ask.AskFragment"
+        android:label="AskFragment"
+        tools:layout="@layout/ask_fragment" />
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="dev.kxxcn.woozoora.ui.notification.NotificationFragment"
+        android:label="NotificationFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/notification_fragment">
+
+        <action
+            android:id="@+id/action_notificationFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="history_item"
+                app:argType=".domain.model.HistoryData" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="dev.kxxcn.woozoora.ui.notice.NoticeFragment"
+        android:label="NoticeFragment"
+        tools:layout="@layout/notice_fragment" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="dev.kxxcn.woozoora.ui.profile.ProfileFragment"
+        android:label="ProfileFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/profile_fragment">
+
+        <action
+            android:id="@+id/action_profileFragment_to_changeFragment"
+            app:destination="@id/changeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="change_item"
+                app:argType=".domain.model.ChangeData" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/changeFragment"
+        android:name="dev.kxxcn.woozoora.ui.change.ChangeFragment"
+        android:label="ChangeFragment"
+        tools:layout="@layout/change_fragment" />
+
+</navigation>

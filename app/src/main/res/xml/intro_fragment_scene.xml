@@ -1,0 +1,1114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@id/scene_kakao"
+        motion:constraintSetStart="@id/scene_start"
+        motion:duration="400">
+
+        <OnClick
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/kakao_background" />
+
+    </Transition>
+
+    <Transition
+        motion:constraintSetEnd="@id/scene_google"
+        motion:constraintSetStart="@id/scene_start"
+        motion:duration="400">
+
+        <OnClick
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/google_background" />
+
+    </Transition>
+
+    <Transition
+        motion:constraintSetEnd="@id/scene_kakao"
+        motion:constraintSetStart="@id/scene_google"
+        motion:duration="400">
+
+        <OnClick
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/kakao_background" />
+
+    </Transition>
+
+    <Transition
+        motion:constraintSetEnd="@id/scene_google"
+        motion:constraintSetStart="@id/scene_kakao"
+        motion:duration="400">
+
+        <OnClick
+            motion:clickAction="transitionToEnd"
+            motion:targetId="@id/google_background" />
+
+    </Transition>
+
+    <Transition
+        android:id="@+id/transition_prepare_from_scene_kakao"
+        motion:constraintSetEnd="@id/scene_budget_prepare"
+        motion:constraintSetStart="@id/scene_kakao"
+        motion:duration="400">
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/sign_in_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/kakao_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/kakao_icon" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/google_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/google_icon" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/verify_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/verify_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_edit" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <Transition
+        android:id="@+id/transition_prepare_from_scene_google"
+        motion:constraintSetEnd="@id/scene_budget_prepare"
+        motion:constraintSetStart="@id/scene_google"
+        motion:duration="400">
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/sign_in_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/kakao_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/kakao_icon" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/google_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/google_icon" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/verify_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/verify_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_edit" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <Transition
+        android:id="@+id/transition_year_from_budget"
+        motion:constraintSetEnd="@id/scene_year_prepare"
+        motion:constraintSetStart="@id/scene_budget_complete"
+        motion:duration="400">
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/budget_edit" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/next_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/year_desc_text" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/year_edit" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/start_text_background" />
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="50"
+                motion:motionTarget="@id/start_text" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/scene_start">
+
+        <Constraint
+            android:id="@id/sign_in_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/year_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/budget_desc_text">
+            <CustomAttribute
+                motion:attributeName="Text"
+                motion:customStringValue="" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/year_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/year_desc_text">
+
+            <CustomAttribute
+                motion:attributeName="Text"
+                motion:customStringValue="" />
+
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toTopOf="@id/verify_text"
+            motion:layout_constraintEnd_toStartOf="@id/google_background"
+            motion:layout_constraintHeight_percent="0.3"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/sign_in_desc_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="@id/kakao_background"
+            motion:layout_constraintStart_toStartOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background" />
+
+        <Constraint
+            android:id="@id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/google_background"
+            motion:layout_constraintEnd_toEndOf="@id/google_background"
+            motion:layout_constraintStart_toStartOf="@id/google_background"
+            motion:layout_constraintTop_toTopOf="@id/google_background" />
+
+        <Constraint
+            android:id="@id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/verify_text"
+            motion:layout_constraintEnd_toEndOf="@id/verify_text"
+            motion:layout_constraintStart_toStartOf="@id/verify_text"
+            motion:layout_constraintTop_toTopOf="@id/verify_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/verify_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/next_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/start_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/start_text"
+            motion:layout_constraintEnd_toEndOf="@id/start_text"
+            motion:layout_constraintStart_toStartOf="@id/start_text"
+            motion:layout_constraintTop_toTopOf="@id/start_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/start_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/scene_kakao"
+        motion:deriveConstraintsFrom="@id/scene_start">
+
+        <Constraint
+            android:id="@id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="10dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            motion:layout_constraintBottom_toTopOf="@id/verify_text"
+            motion:layout_constraintEnd_toStartOf="@id/google_background"
+            motion:layout_constraintHeight_percent="0.3"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/sign_in_desc_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:elevation="20dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="@id/kakao_background"
+            motion:layout_constraintStart_toStartOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background" />
+
+        <Constraint
+            android:id="@id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:elevation="20dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/google_background"
+            motion:layout_constraintEnd_toEndOf="@id/google_background"
+            motion:layout_constraintStart_toStartOf="@id/google_background"
+            motion:layout_constraintTop_toTopOf="@id/google_background" />
+
+        <Constraint
+            android:id="@id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/verify_text"
+            motion:layout_constraintEnd_toEndOf="@id/verify_text"
+            motion:layout_constraintStart_toStartOf="@id/verify_text"
+            motion:layout_constraintTop_toTopOf="@id/verify_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/scene_google"
+        motion:deriveConstraintsFrom="@id/scene_start">
+
+        <Constraint
+            android:id="@id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toTopOf="@id/verify_text"
+            motion:layout_constraintEnd_toStartOf="@id/google_background"
+            motion:layout_constraintHeight_percent="0.3"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/sign_in_desc_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:elevation="20dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="@id/kakao_background"
+            motion:layout_constraintStart_toStartOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background" />
+
+        <Constraint
+            android:id="@id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:elevation="10dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:elevation="20dp"
+            android:scaleX="1"
+            android:scaleY="1"
+            motion:layout_constraintBottom_toBottomOf="@id/google_background"
+            motion:layout_constraintEnd_toEndOf="@id/google_background"
+            motion:layout_constraintStart_toStartOf="@id/google_background"
+            motion:layout_constraintTop_toTopOf="@id/google_background" />
+
+        <Constraint
+            android:id="@id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/verify_text"
+            motion:layout_constraintEnd_toEndOf="@id/verify_text"
+            motion:layout_constraintStart_toStartOf="@id/verify_text"
+            motion:layout_constraintTop_toTopOf="@id/verify_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/scene_budget_prepare">
+
+        <Constraint
+            android:id="@id/sign_in_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="1"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/year_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="1"
+            android:visibility="visible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/budget_desc_text" />
+
+        <Constraint
+            android:id="@id/year_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/year_desc_text" />
+
+        <Constraint
+            android:id="@id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:alpha="0"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toTopOf="@id/verify_text"
+            motion:layout_constraintEnd_toStartOf="@id/google_background"
+            motion:layout_constraintHeight_percent="0.3"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/sign_in_desc_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:alpha="0"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="@id/kakao_background"
+            motion:layout_constraintStart_toStartOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background" />
+
+        <Constraint
+            android:id="@id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:alpha="0"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/google_background"
+            motion:layout_constraintEnd_toEndOf="@id/google_background"
+            motion:layout_constraintStart_toStartOf="@id/google_background"
+            motion:layout_constraintTop_toTopOf="@id/google_background" />
+
+        <Constraint
+            android:id="@id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/verify_text"
+            motion:layout_constraintEnd_toEndOf="@id/verify_text"
+            motion:layout_constraintStart_toStartOf="@id/verify_text"
+            motion:layout_constraintTop_toTopOf="@id/verify_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/verify_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/next_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="1"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/start_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/start_text"
+            motion:layout_constraintEnd_toEndOf="@id/start_text"
+            motion:layout_constraintStart_toStartOf="@id/start_text"
+            motion:layout_constraintTop_toTopOf="@id/start_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/start_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/scene_budget_complete"
+        motion:deriveConstraintsFrom="@id/scene_budget_prepare">
+
+        <Constraint
+            android:id="@id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="1"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/scene_year_prepare">
+
+        <Constraint
+            android:id="@id/sign_in_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/kakao_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:alpha="0"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toTopOf="@id/verify_text"
+            motion:layout_constraintEnd_toStartOf="@id/google_background"
+            motion:layout_constraintHeight_percent="0.3"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/sign_in_desc_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/kakao_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:alpha="0"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="@id/kakao_background"
+            motion:layout_constraintStart_toStartOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background" />
+
+        <Constraint
+            android:id="@id/google_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/kakao_background"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/kakao_background"
+            motion:layout_constraintTop_toTopOf="@id/kakao_background">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/google_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:alpha="0"
+            android:elevation="0dp"
+            android:scaleX="@dimen/down_scale_low"
+            android:scaleY="@dimen/down_scale_low"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/google_background"
+            motion:layout_constraintEnd_toEndOf="@id/google_background"
+            motion:layout_constraintStart_toStartOf="@id/google_background"
+            motion:layout_constraintTop_toTopOf="@id/google_background" />
+
+        <Constraint
+            android:id="@id/verify_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/verify_text"
+            motion:layout_constraintEnd_toEndOf="@id/verify_text"
+            motion:layout_constraintStart_toStartOf="@id/verify_text"
+            motion:layout_constraintTop_toTopOf="@id/verify_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/verify_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/budget_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/budget_desc_text" />
+
+        <Constraint
+            android:id="@id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text" />
+
+        <Constraint
+            android:id="@id/next_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/year_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:alpha="1"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@id/year_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:alpha="1"
+            android:visibility="visible"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@id/year_desc_text" />
+
+        <Constraint
+            android:id="@id/next_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text" />
+
+        <Constraint
+            android:id="@id/next_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="0"
+            android:translationY="-50dp"
+            android:visibility="invisible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@id/start_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="@id/start_text"
+            motion:layout_constraintEnd_toEndOf="@id/start_text"
+            motion:layout_constraintStart_toStartOf="@id/start_text"
+            motion:layout_constraintTop_toTopOf="@id/start_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="0" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/start_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:alpha="1"
+            android:visibility="visible"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+    <ConstraintSet
+        android:id="@+id/scene_year_complete"
+        motion:deriveConstraintsFrom="@id/scene_year_prepare">
+
+        <Constraint
+            android:id="@id/start_text_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="@id/next_text"
+            motion:layout_constraintEnd_toEndOf="@id/next_text"
+            motion:layout_constraintStart_toStartOf="@id/next_text"
+            motion:layout_constraintTop_toTopOf="@id/next_text">
+            <CustomAttribute
+                motion:attributeName="crossfade"
+                motion:customFloatValue="1" />
+        </Constraint>
+
+    </ConstraintSet>
+
+</MotionScene>

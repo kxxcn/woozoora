@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.more.MoreViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.profile()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/user_profile_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="40dp"
+                app:circleImage="@{viewModel.user.profile}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/user_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@{viewModel.user.name}"
+                android:textColor="@color/primaryBlack"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/user_email_text"
+                app:layout_constraintStart_toEndOf="@id/user_profile_image"
+                app:layout_constraintTop_toTopOf="@id/user_profile_image"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="홍기찬" />
+
+            <TextView
+                android:id="@+id/user_email_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:text="@{viewModel.user.email}"
+                android:textColor="@color/grey03"
+                android:textSize="12sp"
+                android:visibility="@{viewModel.user.hasEmail ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@id/user_profile_image"
+                app:layout_constraintStart_toStartOf="@id/user_name_text"
+                app:layout_constraintTop_toBottomOf="@id/user_name_text"
+                tools:text="kxxcn.dev@gmail.com" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/more_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:overScrollMode="never"
+            android:paddingHorizontal="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

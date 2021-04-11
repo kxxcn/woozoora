@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="category"
+            type="dev.kxxcn.woozoora.common.Category" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> viewModel.category(category)}">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/round_solid_grey_02"
+            android:backgroundTint="@{context.getColor(category.colorRes)}"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:backgroundTint="@color/primaryOrange">
+
+            <ImageView
+                android:id="@+id/category_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@{context.getDrawable(category.iconRes)}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/ic_emoji_books" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:text="@{context.getString(category.nameRes)}"
+                android:textColor="@color/white_alpha_80"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/category_icon"
+                app:layout_constraintStart_toEndOf="@id/category_icon"
+                app:layout_constraintTop_toTopOf="@id/category_icon"
+                tools:text="@string/category_transportation" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/round_solid_green_02"
+            android:padding="5dp"
+            android:src="@drawable/ic_check"
+            android:visibility="@{viewModel.categoryFilterType == category ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

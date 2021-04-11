@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/date_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:onClick="@{() -> viewModel.date(true)}"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseCompoundDrawables"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_recipe"
+                android:textColor="@color/primaryBlack"
+                android:textSize="20sp"
+                app:dateTime="@{viewModel.dateTimeMs}"
+                tools:text="2021년 3월" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/ic_arrow_down"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:text="@{String.valueOf(viewModel.selectedDay)}"
+            android:textColor="@color/white02"
+            android:textSize="150sp"
+            android:translationX="25dp"
+            android:translationY="-25dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="25" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/day_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:elevation="10dp"
+            app:dayItem="@{viewModel.dayItems}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transaction_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/top_all_round_solid_light_blue"
+            android:layoutAnimation="@anim/slide_down_animation"
+            android:overScrollMode="never"
+            android:padding="20dp"
+            app:histories="@{viewModel.histories}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_list"
+            tools:listitem="@layout/history_transaction_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

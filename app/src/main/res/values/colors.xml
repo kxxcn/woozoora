@@ -5,6 +5,99 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white01">#FFFFFF</color>
+    <color name="white02">#F7F7F7</color>
+    <color name="grey01">#E8E8E8</color>
+    <color name="grey02">#CCCCCC</color>
+    <color name="grey03">#9E9E9E</color>
+    <color name="navy">#120078</color>
+    <color name="green01">#34626C</color>
+    <color name="green02">#75CFB8</color>
+    <color name="green03">#BBDFC8</color>
+    <color name="green04">#51C2D5</color>
+    <color name="green05">#00D377</color>
+    <color name="yellow01">#FFF5C0</color>
+    <color name="yellow02">#FED32C</color>
+    <color name="red01">#EC4646</color>
+    <color name="purple">#845EC2</color>
+
+    <color name="white_alpha_20">#33FFFFFF</color>
+    <color name="white_alpha_40">#66FFFFFF</color>
+    <color name="white_alpha_80">#CCFFFFFF</color>
+    <color name="grey_alpha_100">#FFEDEDED</color>
+    <color name="green01_alpha_20">#3334626C</color>
+    <color name="green01_alpha_40">#6634626C</color>
+    <color name="green02_alpha_40">#6675CFB8</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="orange_alpha_40">#66FF7F2D</color>
+    <color name="blue_alpha_20">#33375FBE</color>
+    <color name="blue_alpha_40">#66375FBE</color>
+    <color name="blue_alpha_80">#CC375FBE</color>
+
+    <color name="primaryBlue">#375FBE</color>
+    <color name="primaryLightBlue">#F4F7FE</color>
+    <color name="primaryNavy">#002140</color>
+    <color name="primaryOrange">#FF7F2D</color>
+    <color name="primaryBlack">#040404</color>
+    <color name="primaryPink">#FF577F</color>
+    <color name="primaryGreen">#839B97</color>
+
+    <color name="secondaryBlue">#0052FF</color>
+    <color name="secondaryLightBlue">#F7FAFF</color>
+    <color name="secondaryNavy">#17365E</color>
+    <color name="secondaryOrange">#FBA331</color>
+    <color name="secondaryBlack">#3D4043</color>
+
+    <color name="kakaoContainer">#FEE500</color>
+
+    <color name="categoryFoodExpenses">#6DDCCF</color>
+    <color name="categoryTransportation">#6ECEDA</color>
+    <color name="categoryCulturalLife">#FF75A0</color>
+    <color name="categoryMart">#A4EBF3</color>
+    <color name="categoryFashion">#21209C</color>
+    <color name="categoryHouseholdGoods">#F8DC81</color>
+    <color name="categoryTelecommunication">#C1A1D3</color>
+    <color name="categoryHealth">#1A508B</color>
+    <color name="categoryEducation">#BEE5D3</color>
+    <color name="categoryMembershipFees">#F8A1D1</color>
+    <color name="categoryParents">#845EC2</color>
+    <color name="categoryEtc">#E27802</color>
+
+    <color name="paymentCash">#FD3A69</color>
+    <color name="paymentCard">#FECD1A</color>
+
+    <color name="spendingCardBackground">#C9CBFF</color>
+
+    <color name="weekdayCardBackground">#9ECCA4</color>
+
+    <color name="categoryCardBackground">#F0C929</color>
+    <color name="categoryCardText">@color/primaryBlack</color>
+
+    <color name="paymentCardBackground">#EE9595</color>
+    <color name="paymentCardProgress">#FFE3D8</color>
+    <color name="paymentCardProgressDefault">#33FFFFFF</color>
+
+    <color name="inviteGradientStart">#302B63</color>
+    <color name="inviteGradientEnd">#0F0C29</color>
+
+    <color name="ringGradientStart">#FEB47B</color>
+    <color name="ringGradientEnd">#FF7E5F</color>
+
+    <color name="budgetCardBackground">#FFE3D8</color>
+    <color name="budgetInactive">#0A043C</color>
+    <color name="budgetActive">#BBBBBB</color>
+
+    <color name="groupCardBackground">#3C415C</color>
+
+    <color name="generate_color_01">#94B5C0</color>
+    <color name="generate_color_03">#BB8082</color>
+    <color name="generate_color_02">#E1BC91</color>
+    <color name="generate_color_04">#487E95</color>
+
+    <color name="shimmerBase">#E8E8E8</color>
+    <color name="shimmerHighlight">#FFFFFF</color>
+
+    <color name="notificationIcon">#FF375FBE</color>
 </resources>

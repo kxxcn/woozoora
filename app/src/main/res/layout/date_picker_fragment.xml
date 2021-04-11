@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.date.DatePickerViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@drawable/top_all_round_solid_navy">
+
+        <TextView
+            android:id="@+id/date_picker_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/font_recipe"
+            android:text="@string/select_month"
+            android:textColor="@color/white01"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/today_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/today_text" />
+
+        <TextView
+            android:id="@+id/today_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/round_solid_white_03"
+            android:fontFamily="@font/font_nexon_regular"
+            android:onClick="@{() -> viewModel.today()}"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:text="@{context.getString(viewModel.item.nameRes)}"
+            android:textColor="@color/yellow02"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/today" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/date_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            app:datePicker="@{viewModel.createDateList()}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

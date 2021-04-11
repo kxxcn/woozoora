@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.DirectionViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/direction_pager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <nl.joery.animatedbottombar.AnimatedBottomBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white01"
+            android:elevation="15dp"
+            app:abb_indicatorAppearance="invisible"
+            app:abb_selectedIndex="0"
+            app:abb_selectedTabType="text"
+            app:abb_tabAnimation="fade"
+            app:abb_tabColor="@color/secondaryBlack"
+            app:abb_tabColorSelected="@color/primaryBlue"
+            app:abb_tabs="@menu/menu_bottom"
+            app:abb_textAppearance="@style/BottomBarText"
+            app:currentTab="@{viewModel.currentTabPosition}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shadow_bottom_bar"
+            app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="@{() -> viewModel.create()}"
+            android:src="@drawable/ic_plus"
+            app:backgroundTint="@color/primaryOrange"
+            app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

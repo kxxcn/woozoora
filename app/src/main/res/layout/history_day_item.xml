@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel" />
+
+        <variable
+            name="item"
+            type="dev.kxxcn.woozoora.ui.direction.history.item.DayItem" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="60dp"
+        android:layout_height="65dp"
+        android:background="@{viewModel.selectedDay == item.day ? @drawable/round_solid_blue_03 : @drawable/round_stroke_grey_01}"
+        android:onClick="@{() -> viewModel.select(item.day)}"
+        tools:background="@drawable/round_solid_blue_03">
+
+        <TextView
+            android:id="@+id/day_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{@string/format_day(item.day)}"
+            android:textColor="@{viewModel.selectedDay == item.day ? @color/white01 : @color/primaryBlack}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10일"
+            tools:textColor="@color/white01" />
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="@{item.hasTransaction ? @drawable/round_solid_orange_01 : null}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_text"
+            tools:background="@drawable/round_solid_orange_01" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

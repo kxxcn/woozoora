@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primaryBlue"
+        app:layoutDescription="@xml/splash_fragment_scene">
+
+        <View
+            android:id="@+id/app_icon_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_solid_white_01" />
+
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_woozoora"
+            app:tint="@color/primaryBlue"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/app_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_recipe"
+            android:text="@string/app_name"
+            android:textColor="@color/primaryLightBlue"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/app_name_en_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/font_caviar"
+            android:text="@string/app_name_en"
+            android:textColor="@color/primaryLightBlue"
+            android:textSize="12sp" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

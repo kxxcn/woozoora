@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.kxxcn.woozoora.ui.policy.PolicyFilterType" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.direction.more.MoreViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/policy_icon"
+            android:layout_width="@dimen/more_icon_size"
+            android:layout_height="@dimen/more_icon_size"
+            android:background="@drawable/round_oval_blue"
+            android:padding="@dimen/more_icon_padding"
+            android:src="@drawable/ic_policy"
+            app:layout_constraintBottom_toBottomOf="@id/policy_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/policy_text"
+            app:tint="@color/white01"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/policy_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:paddingVertical="10dp"
+            android:text="@string/policy"
+            android:textColor="@color/primaryBlue"
+            android:textSize="@dimen/more_header_text_size"
+            app:layout_constraintStart_toEndOf="@id/policy_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/terms_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.policy(PolicyFilterType.PERSONAL)}"
+            android:paddingVertical="10dp"
+            android:text="@string/terms"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/policy_text"
+            app:layout_constraintTop_toBottomOf="@id/policy_text" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.policy(PolicyFilterType.SOURCE)}"
+            android:paddingVertical="10dp"
+            android:text="@string/open_source_license"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/policy_text"
+            app:layout_constraintTop_toBottomOf="@id/terms_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
