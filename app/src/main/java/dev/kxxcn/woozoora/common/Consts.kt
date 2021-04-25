@@ -18,5 +18,3 @@ const val MATCH_PARENT = android.view.ViewGroup.LayoutParams.MATCH_PARENT
 const val WRAP_CONTENT = android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 
 const val INTERVAL_WEEK = android.app.AlarmManager.INTERVAL_DAY * 7
-
-const val TEST_USER_ID = "20200608"
