@@ -44,7 +44,7 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun saveUser(userData: UserData): Result<Any> {
-        TODO("Not yet implemented")
+        return Result.Success(Unit)
     }
 
     override suspend fun saveToken(newToken: String) {
@@ -67,7 +67,7 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun updateToken() {
-        TODO("Not yet implemented")
+        Result.Success(Unit)
     }
 
     override suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<String?> {

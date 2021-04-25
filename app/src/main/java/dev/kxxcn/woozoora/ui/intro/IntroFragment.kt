@@ -17,6 +17,7 @@ import dev.kxxcn.woozoora.common.EventObserver
 import dev.kxxcn.woozoora.common.REQUEST_CODE_SIGN_IN_GOOGLE
 import dev.kxxcn.woozoora.common.extension.doOnTransition
 import dev.kxxcn.woozoora.common.extension.isTransitionEnabled
+import dev.kxxcn.woozoora.common.extension.toData
 import dev.kxxcn.woozoora.databinding.IntroFragmentBinding
 import dev.kxxcn.woozoora.di.SavedStateViewModelFactory
 import dev.kxxcn.woozoora.ui.base.BaseFragment
@@ -83,7 +84,7 @@ class IntroFragment : BaseFragment<IntroFragmentBinding>() {
                 try {
                     val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                     val account = task.getResult(ApiException::class.java)
-                    viewModel.validateUser(googleAccount = account)
+                    viewModel.validateUser(account?.toData())
                 } catch (e: ApiException) {
                     toast(R.string.user_information_cannot_be_verified)
                 }
@@ -151,7 +152,7 @@ class IntroFragment : BaseFragment<IntroFragmentBinding>() {
             kakaoClient.signIn()
                 .flatMapMerge { kakaoClient.userInfo() }
                 .catch { toast(R.string.try_again_after_a_while) }
-                .collect { viewModel.validateUser(kakaoUser = it) }
+                .collect { viewModel.validateUser(it.toData()) }
         }
     }
 

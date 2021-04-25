@@ -1,14 +1,11 @@
 package dev.kxxcn.woozoora.ui.intro
 
 import androidx.lifecycle.*
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.kakao.sdk.user.model.User
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.Event
 import dev.kxxcn.woozoora.common.KEY_INVITATION_ITEM
-import dev.kxxcn.woozoora.common.extension.toData
 import dev.kxxcn.woozoora.common.extension.year
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.succeeded
@@ -44,6 +41,10 @@ class IntroViewModel @AssistedInject constructor(
 
     val yearEdit = MutableLiveData<String?>()
 
+    var filterType: IntroFilterType? = null
+
+    var account: AccountData? = null
+
     val editEvent = MediatorLiveData<Event<Pair<Int, Int>>>().apply {
         addSource(budgetEdit) { value = validateBudget(it) }
         addSource(yearEdit) { value = validateYear(it) }
@@ -63,10 +64,6 @@ class IntroViewModel @AssistedInject constructor(
 
     private val _homeEvent = MutableLiveData<Event<Unit>>()
     val homeEvent: LiveData<Event<Unit>> = _homeEvent
-
-    private var filterType: IntroFilterType? = null
-
-    private var account: AccountData? = null
 
     private var saveJob: Job? = null
 
@@ -88,12 +85,8 @@ class IntroViewModel @AssistedInject constructor(
         }
     }
 
-    fun validateUser(
-        googleAccount: GoogleSignInAccount? = null,
-        kakaoUser: User? = null,
-    ) {
-        account = googleAccount?.toData() ?: kakaoUser?.toData()
-
+    fun validateUser(accountData: AccountData?) {
+        account = accountData
         viewModelScope.launch {
             val result = getUserUseCase(account?.id)
             when {
