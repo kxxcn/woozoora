@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class InvitationData(
-    var name: String?,
-    var id: String?,
+    var name: String? = null,
+    var id: String? = null,
 ) : Parcelable {
 
     val hasInvitation: Boolean
