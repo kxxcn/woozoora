@@ -64,6 +64,11 @@
     <color name="categoryMembershipFees">#F8A1D1</color>
     <color name="categoryParents">#845EC2</color>
     <color name="categoryEtc">#E27802</color>
+    <color name="categoryCafe">#A0937D</color>
+    <color name="categoryBaby">#2978B5</color>
+    <color name="categoryMedical">#28B5B5</color>
+    <color name="categoryLoan">#FFB037</color>
+    <color name="categoryInsurance">#966C3B</color>
 
     <color name="paymentCash">#FD3A69</color>
     <color name="paymentCard">#FECD1A</color>

@@ -5,7 +5,7 @@ import dev.kxxcn.woozoora.R
 enum class Category(
     val nameRes: Int,
     val colorRes: Int,
-    val iconRes: Int
+    val iconRes: Int,
 ) {
 
     FOOD_EXPENSES(
@@ -67,6 +67,31 @@ enum class Category(
         R.string.category_etc,
         R.color.categoryEtc,
         R.drawable.ic_emoji_rainbow
+    ),
+    CAFE(
+        R.string.category_cafe,
+        R.color.categoryCafe,
+        R.drawable.ic_emoji_cafe
+    ),
+    BABY(
+        R.string.category_baby,
+        R.color.categoryBaby,
+        R.drawable.ic_emoji_baby
+    ),
+    MEDICAL(
+        R.string.category_medical,
+        R.color.categoryMedical,
+        R.drawable.ic_emoji_medical
+    ),
+    LOAN(
+        R.string.category_loan,
+        R.color.categoryLoan,
+        R.drawable.ic_emoji_loan
+    ),
+    INSURANCE(
+        R.string.category_insurance,
+        R.color.categoryInsurance,
+        R.drawable.ic_emoji_insurance
     );
 
     companion object {

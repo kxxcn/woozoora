@@ -48,6 +48,11 @@
     <string name="category_membership_fees">경조사/회비</string>
     <string name="category_parents">부모님</string>
     <string name="category_etc">기타</string>
+    <string name="category_cafe">카페</string>
+    <string name="category_baby">육아</string>
+    <string name="category_medical">의료</string>
+    <string name="category_loan">대출</string>
+    <string name="category_insurance">보험</string>
 
     <string name="monday">월요일</string>
     <string name="tuesday">화요일</string>
