@@ -7,8 +7,8 @@ import dev.kxxcn.woozoora.data.source.entity.NotificationEntity
 @Dao
 interface NotificationDao {
 
-    @Query("SELECT * FROM Notification ORDER BY date DESC")
-    fun observeNotifications(): LiveData<List<NotificationEntity>>
+    @Query("SELECT * FROM Notification WHERE date > :minimum ORDER BY date DESC")
+    fun observeNotifications(minimum: Long): LiveData<List<NotificationEntity>>
 
     @Query("SELECT * FROM Notification")
     suspend fun getNotifications(): List<NotificationEntity>

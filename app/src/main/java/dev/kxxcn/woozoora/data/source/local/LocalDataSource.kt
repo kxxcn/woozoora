@@ -13,6 +13,7 @@ import dev.kxxcn.woozoora.data.source.local.dao.UserDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 
 class LocalDataSource(
     private val sharedPreferences: SharedPreferences,
@@ -66,7 +67,8 @@ class LocalDataSource(
     }
 
     override fun getNotifications(): LiveData<List<NotificationEntity>> {
-        return notificationDao.observeNotifications()
+        val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
+        return notificationDao.observeNotifications(date)
     }
 
     override suspend fun saveUser(user: UserEntity) = withContext(ioDispatcher) {
