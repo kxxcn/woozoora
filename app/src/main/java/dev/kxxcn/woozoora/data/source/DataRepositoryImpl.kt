@@ -175,6 +175,18 @@ class DataRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAsks(): Result<List<AskData>> {
+        return when (val result = remoteDataSource.getAsks()) {
+            is Result.Success -> Result.Success(
+                result.data
+                    .map { it.toData() }
+                    .sortedByDescending { it.date }
+            )
+            is Result.Error -> Result.Error(result.exception)
+            else -> Result.Error(InvalidRequestException())
+        }
+    }
+
     override suspend fun leave(): Result<Any> {
         val cache = localDataSource.getUser(null)
         return if (cache is Result.Success) {

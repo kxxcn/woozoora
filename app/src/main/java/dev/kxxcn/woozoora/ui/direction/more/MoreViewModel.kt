@@ -27,8 +27,8 @@ class MoreViewModel @Inject constructor(
     private val _reviewEvent = MutableLiveData<Event<Unit>>()
     val reviewEvent: LiveData<Event<Unit>> = _reviewEvent
 
-    private val _askEvent = MutableLiveData<Event<String>>()
-    val askEvent: LiveData<Event<String>> = _askEvent
+    private val _askEvent = MutableLiveData<Event<Unit>>()
+    val askEvent: LiveData<Event<Unit>> = _askEvent
 
     private val _noticeEvent = MutableLiveData<Event<Unit>>()
     val noticeEvent: LiveData<Event<Unit>> = _noticeEvent
@@ -108,7 +108,7 @@ class MoreViewModel @Inject constructor(
     }
 
     fun ask() {
-        user.value?.let { _askEvent.value = Event(it.id) }
+        _askEvent.value = Event(Unit)
     }
 
     fun notice() {

@@ -59,5 +59,7 @@ interface DataSource {
 
     suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any>
 
+    suspend fun getAsks(): Result<List<AskEntity>>
+
     suspend fun leave(userId: String): Result<Any>
 }

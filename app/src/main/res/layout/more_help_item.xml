@@ -49,7 +49,7 @@
             android:fontFamily="@font/font_nexon_light"
             android:onClick="@{() -> viewModel.ask()}"
             android:paddingVertical="10dp"
-            android:text="@string/ask"
+            android:text="@string/communication"
             android:textColor="@color/secondaryBlack"
             android:textSize="@dimen/more_content_text_size"
             app:layout_constraintEnd_toEndOf="parent"

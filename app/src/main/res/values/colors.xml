@@ -35,6 +35,7 @@
     <color name="blue_alpha_20">#33375FBE</color>
     <color name="blue_alpha_40">#66375FBE</color>
     <color name="blue_alpha_80">#CC375FBE</color>
+    <color name="pink_alpha_80">#33FF577F</color>
 
     <color name="primaryBlue">#375FBE</color>
     <color name="primaryLightBlue">#F4F7FE</color>
