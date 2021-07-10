@@ -18,7 +18,7 @@ class ReplySpacingDecoration : RecyclerView.ItemDecoration() {
             state.itemCount - 1 -> 20.dpToPx
             else -> 0
         }
-        outRect.top = 20.dpToPx
+        outRect.top = 30.dpToPx
         outRect.bottom = marginBottom
     }
 }

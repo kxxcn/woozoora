@@ -39,6 +39,11 @@ class ReplyFragment : BaseFragment<ReplyFragmentBinding>() {
         setupListener()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.start()
+    }
+
     private fun setupListAdapter() {
         with(binding.askList) {
             addItemDecoration(ReplySpacingDecoration())

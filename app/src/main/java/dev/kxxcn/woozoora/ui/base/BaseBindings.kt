@@ -69,7 +69,7 @@ fun setMonthText(view: TextView, month: Int) {
 
 @BindingAdapter("app:price")
 fun setPriceText(view: TextView, price: String?) {
-    price?.let {
+    price?.takeIf { it.isNotEmpty() }?.let {
         view.text = view.context.getString(R.string.format_price, Converter.moneyFormat(it))
     }
 }

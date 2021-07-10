@@ -49,7 +49,10 @@ abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
     }
 
     fun NavDirections.show() {
-        findNavController().navigate(this)
+        try {
+            findNavController().navigate(this)
+        } catch (ignore: Exception) {
+        }
     }
 
     fun close() {

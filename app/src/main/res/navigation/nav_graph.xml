@@ -199,6 +199,11 @@
                 android:name="edit_item"
                 app:argType=".ui.edit.EditFilterType" />
 
+            <argument
+                android:name="edit_content"
+                app:argType="string"
+                app:nullable="true" />
+
         </action>
 
         <action

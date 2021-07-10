@@ -41,6 +41,7 @@ const val KEY_DEFAULT_DATE = "default_date"
 const val KEY_TIMELINE_ITEM = "timeline_item"
 const val KEY_CHANGE_ITEM = "change_item"
 const val KEY_EDIT_ITEM = "edit_item"
+const val KEY_EDIT_CONTENT = "edit_content"
 
 const val CHANNEL_DEFAULT = "channel_default"
 const val CHANNEL_REGISTRATION = "channel_registration"
