@@ -37,7 +37,7 @@ class EditViewModel @AssistedInject constructor(
         value = history?.transaction?.name
     }
 
-    val isEmptyName = editName.map { it == null }
+    val isEmptyName = editName.map { it == null || it.isEmpty() }
 
     val editDate = MutableLiveData<String?>().apply {
         val date = history?.date ?: run {
@@ -47,7 +47,7 @@ class EditViewModel @AssistedInject constructor(
         value = date
     }
 
-    val isEmptyDate = editDate.map { it == null }
+    val isEmptyDate = editDate.map { it == null || it.isEmpty() }
 
     val editTime = MutableLiveData<String?>().apply {
         val time = history?.time ?: run {
@@ -57,23 +57,23 @@ class EditViewModel @AssistedInject constructor(
         value = time
     }
 
-    val isEmptyTime = editTime.map { it == null }
+    val isEmptyTime = editTime.map { it == null || it.isEmpty() }
 
     val editPrice = MutableLiveData<String?>().apply {
         val price = history?.transaction?.price
         value = price?.let { Converter.moneyFormat(price) }
     }
 
-    val isEmptyPrice = editPrice.map { it == null }
+    val isEmptyPrice = editPrice.map { it == null || it.isEmpty() }
 
     val editDescription = MutableLiveData<String?>().apply {
         value = history?.transaction?.description
     }
 
-    val isEmptyDescription = editDescription.map { it == null }
+    val isEmptyDescription = editDescription.map { it == null || it.isEmpty() }
 
-    private val _inputEvent = MutableLiveData<Event<EditFilterType>>()
-    val inputEvent: LiveData<Event<EditFilterType>> = _inputEvent
+    private val _inputEvent = MutableLiveData<Event<Pair<EditFilterType, String?>>>()
+    val inputEvent: LiveData<Event<Pair<EditFilterType, String?>>> = _inputEvent
 
     private val _datePickerEvent = MutableLiveData<Event<String?>>()
     val datePickerEvent: LiveData<Event<String?>> = _datePickerEvent
@@ -102,7 +102,8 @@ class EditViewModel @AssistedInject constructor(
     fun edit(filterType: EditFilterType) {
         setFiltering(filterType)
         when {
-            filterType.needToInputScreen() -> _inputEvent.value = Event(filterType)
+            filterType.needToInputScreen() -> _inputEvent.value =
+                Event(filterType to getContentByFilterType())
             filterType == EditFilterType.DATE -> _datePickerEvent.value = Event(editDate.value)
             filterType == EditFilterType.TIME -> _timePickerEvent.value = Event(editTime.value)
         }
@@ -116,7 +117,7 @@ class EditViewModel @AssistedInject constructor(
         _categoryFilterType.value = category
     }
 
-    fun setFilter(text: String) {
+    fun setFilter(text: String?) {
         when (currentFilterType) {
             EditFilterType.NAME -> editName
             EditFilterType.DATE -> editDate
@@ -149,7 +150,7 @@ class EditViewModel @AssistedInject constructor(
 
             val price = Converter.numberFormat(editPrice.value)?.takeIf { it > 0 }
 
-            if (date == null || time == null || category == null || payment == null || price == null) {
+            if (isEmptyName.value == true || isEmptyDate.value == true || isEmptyTime.value == true || price == null || category == null || payment == null) {
                 toast(R.string.enter_all_items)
                 return@launch
             }
@@ -218,6 +219,15 @@ class EditViewModel @AssistedInject constructor(
 
     private fun setFiltering(filterType: EditFilterType) {
         currentFilterType = filterType
+    }
+
+    private fun getContentByFilterType(): String? {
+        return when (currentFilterType) {
+            EditFilterType.NAME -> editName.value
+            EditFilterType.PRICE -> editPrice.value
+            EditFilterType.DESCRIPTION -> editDescription.value
+            else -> throw InvalidFilterTypeException()
+        }
     }
 
     private fun receipt(history: HistoryData) {

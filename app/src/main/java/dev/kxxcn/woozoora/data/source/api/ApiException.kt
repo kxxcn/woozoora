@@ -23,4 +23,6 @@ class UnverifiedUserException : BaseException(R.string.user_information_cannot_b
 
 class SendAskException : BaseException(R.string.try_again_after_a_while)
 
+class GetAsksException : BaseException(R.string.try_again_after_a_while)
+
 class LeaveException : BaseException(R.string.try_again_after_a_while)

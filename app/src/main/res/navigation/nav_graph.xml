@@ -148,20 +148,6 @@
         </action>
 
         <action
-            android:id="@+id/action_directionFragment_to_askFragment"
-            app:destination="@id/askFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-
-            <argument
-                android:name="user_id"
-                app:argType="string" />
-
-        </action>
-
-        <action
             android:id="@+id/action_directionFragment_to_notificationFragment"
             app:destination="@id/notificationFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -180,6 +166,14 @@
         <action
             android:id="@+id/action_directionFragment_to_profileFragment"
             app:destination="@id/profileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_directionFragment_to_replyFragment"
+            app:destination="@id/replyFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -204,6 +198,11 @@
             <argument
                 android:name="edit_item"
                 app:argType=".ui.edit.EditFilterType" />
+
+            <argument
+                android:name="edit_content"
+                app:argType="string"
+                app:nullable="true" />
 
         </action>
 
@@ -366,5 +365,25 @@
         android:name="dev.kxxcn.woozoora.ui.change.ChangeFragment"
         android:label="ChangeFragment"
         tools:layout="@layout/change_fragment" />
+
+    <fragment
+        android:id="@+id/replyFragment"
+        android:name="dev.kxxcn.woozoora.ui.reply.ReplyFragment"
+        android:label="ReplyFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/reply_fragment">
+
+        <action
+            android:id="@+id/action_replyFragment_to_askFragment"
+            app:destination="@id/askFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
 
 </navigation>

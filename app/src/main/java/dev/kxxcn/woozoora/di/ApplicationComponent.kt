@@ -39,6 +39,7 @@ import javax.inject.Singleton
         NoticeModule::class,
         ProfileModule::class,
         ChangeModule::class,
+        ReplyModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<WoozooraApplication> {

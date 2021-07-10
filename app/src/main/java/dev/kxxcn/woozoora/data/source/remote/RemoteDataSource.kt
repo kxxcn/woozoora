@@ -200,6 +200,16 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
+    override suspend fun getAsks(): Result<List<AskEntity>> {
+        return try {
+            apiService.getAsks().body()
+                ?.let { Result.Success(it) }
+                ?: throw GetAsksException()
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun leave(userId: String): Result<Any> {
         return try {
             apiService.leave(userId)

@@ -47,6 +47,12 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideGetAsksUseCase(repository: DataRepository): GetAsksUseCase {
+        return GetAsksUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideSaveUserUseCase(repository: DataRepository): SaveUserUseCase {
         return SaveUserUseCase(repository)
     }

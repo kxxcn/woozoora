@@ -52,6 +52,7 @@
             tools:text="결제금액\n입력하기" />
 
         <EditText
+            android:id="@+id/name_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -61,10 +62,10 @@
             android:imeOptions="actionDone"
             android:maxLines="1"
             android:paddingBottom="20dp"
-            android:text="@={viewModel.editText}"
             android:textColor="@color/primaryBlack"
             android:textColorHint="@color/white02"
             android:visibility="@{viewModel.currentFilterType != EditFilterType.PRICE ? View.VISIBLE : View.GONE}"
+            app:bindingText="@={viewModel.editText}"
             app:inputType="@{viewModel.currentFilterType.inputType}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,6 +74,7 @@
             tools:ignore="Autofill,LabelFor,TextFields" />
 
         <EditText
+            android:id="@+id/price_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"

@@ -149,7 +149,8 @@ fun AskData.toEntity(): AskEntity {
         version,
         device,
         os,
-        date
+        date,
+        reply?.toEntity()
     )
 }
 
@@ -160,6 +161,21 @@ fun AskEntity.toData(): AskData {
         version,
         device,
         os,
+        date,
+        reply?.toData()
+    )
+}
+
+fun ReplyData.toEntity(): ReplyEntity {
+    return ReplyEntity(
+        message,
+        date
+    )
+}
+
+fun ReplyEntity.toData(): ReplyData {
+    return ReplyData(
+        message,
         date
     )
 }

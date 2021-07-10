@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ask"
+            type="dev.kxxcn.woozoora.domain.model.AskData" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/white01"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/quote_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_quote"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/pink_alpha_20"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/question_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/font_recipe"
+                android:includeFontPadding="false"
+                android:text="@string/question"
+                android:textColor="@color/pink_alpha_20"
+                android:textSize="85sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/quote_icon" />
+
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:lineSpacingExtra="10dp"
+                android:text="@{ask.message}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/question_text"
+                app:layout_constraintStart_toStartOf="@id/quote_icon"
+                app:layout_constraintTop_toBottomOf="@id/quote_icon"
+                tools:text="예산을 초반에 정하는 것도 좋지만 가끔 용" />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:paddingBottom="20dp"
+                android:text="@{ask.dateText}"
+                android:textColor="@color/grey03"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/question_text"
+                app:layout_constraintStart_toStartOf="@id/quote_icon"
+                app:layout_constraintTop_toBottomOf="@id/message_text"
+                tools:text="2020.6.21 (월)" />
+
+            <View
+                android:id="@+id/answer_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/top_all_round_solid_turquoise"
+                android:visibility="@{ask.hasReply ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_text" />
+
+            <ImageView
+                android:id="@+id/woozoora_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_woozoora"
+                android:visibility="@{ask.hasReply ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@id/quote_icon"
+                app:layout_constraintTop_toTopOf="@id/answer_container"
+                app:tint="@color/primarySkyBlue"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_recipe"
+                android:includeFontPadding="false"
+                android:text="@string/answer"
+                android:textColor="@color/primarySkyBlue"
+                android:textSize="85sp"
+                android:visibility="@{ask.hasReply ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@id/question_text"
+                app:layout_constraintTop_toTopOf="@id/woozoora_icon" />
+
+            <TextView
+                android:id="@+id/reply_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:lineSpacingExtra="10dp"
+                android:text="@{ask.reply.message}"
+                android:textColor="@color/secondarySkyBlue"
+                android:textSize="14sp"
+                android:visibility="@{ask.hasReply ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="@id/question_text"
+                app:layout_constraintStart_toStartOf="@id/quote_icon"
+                app:layout_constraintTop_toBottomOf="@id/woozoora_icon"
+                tools:text="수입을 추가하는 부분도 고려하고 있지만 :)" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/font_nexon_light"
+                android:paddingBottom="20dp"
+                android:text="@{ask.reply.dateText}"
+                android:textColor="@color/secondarySkyBlue"
+                android:textSize="12sp"
+                android:visibility="@{ask.hasReply ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/question_text"
+                app:layout_constraintStart_toStartOf="@id/quote_icon"
+                app:layout_constraintTop_toBottomOf="@id/reply_text"
+                tools:text="2020.6.21 (월)" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

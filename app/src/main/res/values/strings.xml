@@ -123,6 +123,9 @@
     <string name="change_short">변경</string>
     <string name="change">변경하기</string>
     <string name="delete">삭제</string>
+    <string name="communication">개발자와 소통하기</string>
+    <string name="question">Q</string>
+    <string name="answer">A</string>
 
     <string name="try_again_after_a_while">잠시 후 다시 시도해주세요.</string>
     <string name="which_way_are_you_more_comfortable_getting_started_with">"어떤\n방법으로\n인증하는 것이\n더 편하신가요?"</string>

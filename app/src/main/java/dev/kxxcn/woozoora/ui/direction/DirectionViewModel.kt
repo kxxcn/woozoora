@@ -52,8 +52,8 @@ class DirectionViewModel @AssistedInject constructor(
     private val _policyEvent = MutableLiveData<Event<PolicyFilterType>>()
     val policyEvent: LiveData<Event<PolicyFilterType>> = _policyEvent
 
-    private val _askEvent = MutableLiveData<Event<String>>()
-    val askEvent: LiveData<Event<String>> = _askEvent
+    private val _askEvent = MutableLiveData<Event<Unit>>()
+    val askEvent: LiveData<Event<Unit>> = _askEvent
 
     private val _notificationEvent = MutableLiveData<Event<Unit>>()
     val notificationEvent: LiveData<Event<Unit>> = _notificationEvent
@@ -105,8 +105,8 @@ class DirectionViewModel @AssistedInject constructor(
         _policyEvent.value = Event(requestType)
     }
 
-    fun ask(userId: String) {
-        _askEvent.value = Event(userId)
+    fun ask() {
+        _askEvent.value = Event(Unit)
     }
 
     fun notification() {

@@ -70,7 +70,7 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
             review()
         })
         viewModel.askEvent.observe(viewLifecycleOwner, EventObserver {
-            ask(it)
+            ask()
         })
         viewModel.noticeEvent.observe(viewLifecycleOwner, EventObserver {
             notice()
@@ -128,8 +128,8 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
         sharedViewModel.policy(requestType)
     }
 
-    private fun ask(userId: String) {
-        sharedViewModel.ask(userId)
+    private fun ask() {
+        sharedViewModel.ask()
     }
 
     private fun notice() {

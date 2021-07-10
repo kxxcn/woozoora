@@ -34,7 +34,7 @@ class AskViewModel @Inject constructor(
                 saveJob = viewModelScope.launch {
                     loading(true)
                     delay(DURATION_ONE_SECONDS)
-                    val ask = AskData(it)
+                    val ask = AskData(message = it)
                     val result = sendAskUseCase(ask)
                     if (result is Result.Success) {
                         toast(R.string.thank_you_for_your_valuable_feedback)

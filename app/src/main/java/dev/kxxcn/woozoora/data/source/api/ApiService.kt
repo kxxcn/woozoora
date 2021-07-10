@@ -82,6 +82,9 @@ interface ApiService {
         @Body ask: AskEntity,
     ): Response<Unit>
 
+    @GET(REPLY)
+    suspend fun getAsks(): Response<List<AskEntity>>
+
     @POST(USER_LEAVE)
     suspend fun leave(
         @Path("id") userId: String,
@@ -108,5 +111,7 @@ interface ApiService {
         private const val TRANSACTION = "transaction"
 
         private const val NOTICE = "notice"
+
+        private const val REPLY = "reply"
     }
 }

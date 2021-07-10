@@ -97,7 +97,7 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
 
     private fun setupListener() {
         viewModel.inputEvent.observe(viewLifecycleOwner, EventObserver {
-            EditFragmentDirections.actionEditFragmentToInputFragment(it).show()
+            EditFragmentDirections.actionEditFragmentToInputFragment(it.first, it.second).show()
         })
         viewModel.datePickerEvent.observe(viewLifecycleOwner, EventObserver {
             showDatePicker(it)

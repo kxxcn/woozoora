@@ -46,7 +46,7 @@ object Converter {
     }
 
     fun numberFormat(money: String?): Int? {
-        return money?.replace(",", "")?.toInt()
+        return money?.takeIf { it.isNotEmpty() }?.replace(",", "")?.toInt()
     }
 
     fun rangeOfHomeFilterType(

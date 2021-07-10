@@ -35,6 +35,9 @@
     <color name="blue_alpha_20">#33375FBE</color>
     <color name="blue_alpha_40">#66375FBE</color>
     <color name="blue_alpha_80">#CC375FBE</color>
+    <color name="pink_alpha_20">#33FF577F</color>
+    <color name="pink_alpha_40">#66FF577F</color>
+    <color name="pink_alpha_80">#CCFF577F</color>
 
     <color name="primaryBlue">#375FBE</color>
     <color name="primaryLightBlue">#F4F7FE</color>
@@ -43,12 +46,15 @@
     <color name="primaryBlack">#040404</color>
     <color name="primaryPink">#FF577F</color>
     <color name="primaryGreen">#839B97</color>
+    <color name="primaryTurquoise">#053742</color>
+    <color name="primarySkyBlue">#39A2DB</color>
 
     <color name="secondaryBlue">#0052FF</color>
     <color name="secondaryLightBlue">#F7FAFF</color>
     <color name="secondaryNavy">#17365E</color>
     <color name="secondaryOrange">#FBA331</color>
     <color name="secondaryBlack">#3D4043</color>
+    <color name="secondarySkyBlue">#E8F0F2</color>
 
     <color name="kakaoContainer">#FEE500</color>
 

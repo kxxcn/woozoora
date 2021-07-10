@@ -27,4 +27,8 @@ data class AskEntity(
     @SerializedName("date")
     @ColumnInfo
     val date: Long,
+
+    @SerializedName("reply")
+    @ColumnInfo
+    val reply: ReplyEntity?,
 )

@@ -112,7 +112,7 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
             policy(it)
         })
         viewModel.askEvent.observe(viewLifecycleOwner, EventObserver {
-            ask(it)
+            ask()
         })
         viewModel.notificationEvent.observe(viewLifecycleOwner, EventObserver {
             notification()
@@ -210,8 +210,8 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         DirectionFragmentDirections.actionDirectionFragmentToPolicyFragment(requestType).show()
     }
 
-    private fun ask(userId: String) {
-        DirectionFragmentDirections.actionDirectionFragmentToAskFragment(userId).show()
+    private fun ask() {
+        DirectionFragmentDirections.actionDirectionFragmentToReplyFragment().show()
     }
 
     private fun notification() {

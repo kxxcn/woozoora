@@ -47,5 +47,7 @@ interface DataRepository {
 
     suspend fun sendAsk(ask: AskData): Result<Any>
 
+    suspend fun getAsks(): Result<List<AskData>>
+
     suspend fun leave(): Result<Any>
 }

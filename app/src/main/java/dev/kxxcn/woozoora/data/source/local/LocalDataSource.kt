@@ -188,6 +188,10 @@ class LocalDataSource(
         throw InvalidRequestException()
     }
 
+    override suspend fun getAsks(): Result<List<AskEntity>> {
+        throw InvalidRequestException()
+    }
+
     override suspend fun leave(userId: String) = withContext(ioDispatcher) {
         return@withContext try {
             userDao.deleteAll()
