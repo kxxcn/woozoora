@@ -11,6 +11,8 @@ class FakeRepository : DataRepository {
 
     var usersData: LinkedHashMap<String, UserData> = LinkedHashMap()
 
+    private var asksData: LinkedList<AskData> = LinkedList()
+
     override suspend fun getUser(userId: String?, dirtyCache: Boolean): Result<UserData> {
         return try {
             Result.Success(usersData[TEST_USER_ID]!!)
@@ -95,7 +97,7 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getAsks(): Result<List<AskData>> {
-        TODO("Not yet implemented")
+        return Result.Success(asksData)
     }
 
     override suspend fun leave(): Result<Any> {
@@ -105,6 +107,13 @@ class FakeRepository : DataRepository {
     @VisibleForTesting
     fun addUser(user: UserData) {
         usersData[user.id] = user
+    }
+
+    @VisibleForTesting
+    fun addAsks(vararg asks: AskData) {
+        for (ask in asks) {
+            asksData.add(ask)
+        }
     }
 
     @VisibleForTesting

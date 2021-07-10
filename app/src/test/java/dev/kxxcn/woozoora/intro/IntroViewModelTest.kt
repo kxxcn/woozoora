@@ -1,15 +1,13 @@
 package dev.kxxcn.woozoora.intro
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import com.google.common.truth.Truth.assertThat
-import dev.kxxcn.woozoora.MainCoroutineRule
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.assertLiveDataEventTriggered
+import dev.kxxcn.woozoora.base.BaseViewModelTest
 import dev.kxxcn.woozoora.common.TEST_USER_BUDGET
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.common.TEST_USER_YEAR
-import dev.kxxcn.woozoora.data.source.FakeRepository
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.SaveUserUseCase
 import dev.kxxcn.woozoora.domain.UpdateTokenUseCase
@@ -20,27 +18,16 @@ import dev.kxxcn.woozoora.ui.intro.IntroViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 @FlowPreview
-class IntroViewModelTest {
-
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-    private lateinit var repository: FakeRepository
+class IntroViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: IntroViewModel
 
     @Before
     fun setupViewModel() {
-        repository = FakeRepository()
-
         viewModel = IntroViewModel(
             GetUserUseCase(repository),
             UpdateTokenUseCase(repository),

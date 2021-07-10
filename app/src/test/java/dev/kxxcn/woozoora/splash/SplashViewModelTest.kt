@@ -1,37 +1,26 @@
 package dev.kxxcn.woozoora.splash
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
-import dev.kxxcn.woozoora.MainCoroutineRule
 import dev.kxxcn.woozoora.assertLiveDataEventTriggered
+import dev.kxxcn.woozoora.base.BaseViewModelTest
 import dev.kxxcn.woozoora.common.TEST_USER_ID
-import dev.kxxcn.woozoora.data.source.FakeRepository
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.model.InvitationData
 import dev.kxxcn.woozoora.domain.model.UserData
 import dev.kxxcn.woozoora.ui.splash.SplashViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-class SplashViewModelTest {
-
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
-    @get:Rule
-    var instantExecutorRule = InstantTaskExecutorRule()
-
-    private lateinit var repository: FakeRepository
+@ExperimentalCoroutinesApi
+@FlowPreview
+class SplashViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: SplashViewModel
 
     @Before
     fun setupViewModel() {
-        repository = FakeRepository()
-
         viewModel = SplashViewModel(
             GetUserUseCase(repository),
             SavedStateHandle()
