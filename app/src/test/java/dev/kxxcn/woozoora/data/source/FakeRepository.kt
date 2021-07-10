@@ -94,6 +94,10 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getAsks(): Result<List<AskData>> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun leave(): Result<Any> {
         TODO("Not yet implemented")
     }
