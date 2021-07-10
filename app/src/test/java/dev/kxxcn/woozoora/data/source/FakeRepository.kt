@@ -4,12 +4,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.data.Result
+import dev.kxxcn.woozoora.data.source.api.SendAskException
 import dev.kxxcn.woozoora.domain.model.*
 import java.util.*
 
 class FakeRepository : DataRepository {
 
-    var usersData: LinkedHashMap<String, UserData> = LinkedHashMap()
+    private var usersData: LinkedHashMap<String, UserData> = LinkedHashMap()
 
     private var asksData: LinkedList<AskData> = LinkedList()
 
@@ -93,7 +94,11 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun sendAsk(ask: AskData): Result<Any> {
-        TODO("Not yet implemented")
+        return if (usersData.isEmpty()) {
+            Result.Error(SendAskException())
+        } else {
+            Result.Success(Unit)
+        }
     }
 
     override suspend fun getAsks(): Result<List<AskData>> {
