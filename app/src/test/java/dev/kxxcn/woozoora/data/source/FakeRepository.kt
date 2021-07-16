@@ -4,6 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.data.Result
+import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.api.SendAskException
 import dev.kxxcn.woozoora.domain.model.*
 import java.util.*
@@ -78,11 +79,11 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun updateUser(year: Int): Result<Any> {
-        TODO("Not yet implemented")
+        return if (year == 1000) Result.Error(InvalidRequestException()) else Result.Success(Unit)
     }
 
     override suspend fun updateUser(budget: Long): Result<Any> {
-        TODO("Not yet implemented")
+        return if (budget == -1L) Result.Error(InvalidRequestException()) else Result.Success(Unit)
     }
 
     override suspend fun updateNotification() {
