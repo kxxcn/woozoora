@@ -7,11 +7,15 @@ import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.api.SendAskException
 import dev.kxxcn.woozoora.domain.model.*
+import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
+import dev.kxxcn.woozoora.util.Converter
 import java.util.*
 
 class FakeRepository : DataRepository {
 
     private var usersData: LinkedHashMap<String, UserData> = LinkedHashMap()
+
+    private var transactionsData: LinkedHashMap<Int, TransactionData> = LinkedHashMap()
 
     private var asksData: LinkedList<AskData> = LinkedList()
 
@@ -32,7 +36,18 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getOverview(year: Int?, month: Int?): Result<OverviewData> {
-        TODO("Not yet implemented")
+        val (startDate, endDate) = Converter.rangeOfHomeFilterType(
+            HomeFilterType.MONTHLY,
+            year,
+            month
+        )
+
+        val overview = OverviewData(
+            usersData[TEST_USER_ID]!!,
+            emptyList(),
+            transactionsData.values.filter { it.date in startDate..endDate }
+        )
+        return Result.Success(overview)
     }
 
     override suspend fun getNotificationOption(option: OptionData): Boolean {
@@ -119,6 +134,13 @@ class FakeRepository : DataRepository {
     fun addAsks(vararg asks: AskData) {
         for (ask in asks) {
             asksData.add(ask)
+        }
+    }
+
+    @VisibleForTesting
+    fun addTransactions(vararg transactions: TransactionData) {
+        for (transaction in transactions) {
+            transactionsData[transaction.id] = transaction
         }
     }
 
