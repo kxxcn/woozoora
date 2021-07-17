@@ -28,7 +28,7 @@ class ContactViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun set_contacts() {
+    fun loadContactsFromDevice() {
         val contact1 = ContactItem("Contact 1", "010-1234-5678")
         val contact2 = ContactItem("Contact 2", "010-3377-6688")
         val contact3 = ContactItem("Contact 3", "010-2323-0707")
@@ -36,11 +36,11 @@ class ContactViewModelTest : BaseViewModelTest() {
 
         viewModel.contact(contacts)
 
-        assertThat(LiveDataTestUtil.getValue(viewModel.contacts)).isEqualTo(contacts)
+        assertThat(LiveDataTestUtil.getValue(viewModel.contacts)).hasSize(3)
     }
 
     @Test
-    fun invite_user() {
+    fun inviteFromSelectedUser() {
         val user = UserData(TEST_USER_ID)
 
         repository.addUser(user)
