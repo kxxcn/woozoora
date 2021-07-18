@@ -8,6 +8,7 @@ import dev.kxxcn.woozoora.base.BaseViewModelTest
 import dev.kxxcn.woozoora.common.KEY_DEFAULT_DATE
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.domain.GetOverviewUseCase
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.domain.model.UserData
@@ -25,7 +26,7 @@ class HistoryViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: HistoryViewModel
 
-    private val currentMs = System.currentTimeMillis()
+    private val currentMs = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
 
     private val timeMsAfter60Days = TimeUnit.DAYS.toMillis(60)
 
@@ -73,10 +74,12 @@ class HistoryViewModelTest : BaseViewModelTest() {
             transaction2,
             transaction3,
             transaction4,
-            transaction5)
+            transaction5
+        )
 
         viewModel = HistoryViewModel(
             GetOverviewUseCase(repository),
+            GetUsageTransactionTimeUseCase(repository),
             SavedStateHandle().apply { set(KEY_DEFAULT_DATE, currentMs) }
         )
     }
@@ -85,6 +88,7 @@ class HistoryViewModelTest : BaseViewModelTest() {
     fun passedParam_emptyValue() {
         viewModel = HistoryViewModel(
             GetOverviewUseCase(repository),
+            GetUsageTransactionTimeUseCase(repository),
             SavedStateHandle()
         )
 

@@ -6,9 +6,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import dev.kxxcn.woozoora.common.Event
 import dev.kxxcn.woozoora.data.Result
-import dev.kxxcn.woozoora.domain.GetNotificationOptionUseCase
-import dev.kxxcn.woozoora.domain.GetUserUseCase
-import dev.kxxcn.woozoora.domain.SaveNotificationOptionUseCase
+import dev.kxxcn.woozoora.data.ifSucceeded
+import dev.kxxcn.woozoora.domain.*
 import dev.kxxcn.woozoora.domain.model.OptionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
@@ -19,6 +18,8 @@ class MoreViewModel @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getNotificationOptionUseCase: GetNotificationOptionUseCase,
     private val saveNotificationOptionUseCase: SaveNotificationOptionUseCase,
+    private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
+    private val saveUsageTransactionTimeUseCase: SaveUsageTransactionTimeUseCase,
 ) : BaseViewModel() {
 
     private val _contactEvent = MutableLiveData<Event<Unit>>()
@@ -84,6 +85,13 @@ class MoreViewModel @Inject constructor(
     }
     val noticeNotification: LiveData<Boolean> = _noticeNotification
 
+    private val _usageTransactionTime = MutableLiveData<Boolean>().apply {
+        viewModelScope.launch {
+            value = getUsageTransactionTimeUseCase()
+        }
+    }
+    val usageTransactionTime: LiveData<Boolean> = _usageTransactionTime
+
     private val currentDefaultFlag: Boolean
         get() = defaultNotification.value ?: false
 
@@ -125,6 +133,16 @@ class MoreViewModel @Inject constructor(
 
     fun policy(requestType: PolicyFilterType) {
         _policyEvent.value = Event(requestType)
+    }
+
+    fun setUsageTransactionTime() {
+        _usageTransactionTime.value?.let { usage ->
+            viewModelScope.launch {
+                saveUsageTransactionTimeUseCase(!usage).ifSucceeded {
+                    _usageTransactionTime.value = it
+                }
+            }
+        }
     }
 
     fun saveNotificationOption(option: OptionData) {

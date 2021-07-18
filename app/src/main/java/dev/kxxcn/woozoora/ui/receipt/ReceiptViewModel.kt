@@ -1,9 +1,6 @@
 package dev.kxxcn.woozoora.ui.receipt
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import dev.kxxcn.woozoora.R
@@ -12,6 +9,7 @@ import dev.kxxcn.woozoora.common.KEY_HISTORY_ITEM
 import dev.kxxcn.woozoora.data.ifSucceeded
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.DeleteTransactionUseCase
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
@@ -19,6 +17,7 @@ import kotlinx.coroutines.launch
 
 class ReceiptViewModel @AssistedInject constructor(
     private val deleteTransactionUseCase: DeleteTransactionUseCase,
+    private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
@@ -37,6 +36,8 @@ class ReceiptViewModel @AssistedInject constructor(
 
     private val _deleteEvent = MutableLiveData<Event<Unit>>()
     val deleteEvent: LiveData<Event<Unit>> = _deleteEvent
+
+    val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
 
     fun edit() {
         history?.let { _editEvent.value = Event(it) }

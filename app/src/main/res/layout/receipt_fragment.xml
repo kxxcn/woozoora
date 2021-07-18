@@ -193,6 +193,7 @@
             android:text="@string/time"
             android:textColor="@color/grey03"
             android:textSize="12sp"
+            android:visibility="@{viewModel.usageTransactionTime ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintTop_toTopOf="@id/date_desc_text" />
 
@@ -204,6 +205,7 @@
             android:text="@{Converter.INSTANCE.dateFormat(DatesKt.FORMAT_TIME_HOUR_MINUTE_WITH_MARKER, viewModel.history.transaction.date)}"
             android:textColor="@color/primaryNavy"
             android:textSize="16sp"
+            android:visibility="@{viewModel.usageTransactionTime ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintTop_toTopOf="@id/date_text"
             tools:text="오후 11:00" />

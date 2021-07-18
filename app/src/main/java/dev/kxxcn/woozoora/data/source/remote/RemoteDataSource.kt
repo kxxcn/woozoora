@@ -84,6 +84,20 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
+    override suspend fun getAsks(): Result<List<AskEntity>> {
+        return try {
+            apiService.getAsks().body()
+                ?.let { Result.Success(it) }
+                ?: throw GetAsksException()
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getUsageTransactionTime(): Boolean {
+        throw InvalidRequestException()
+    }
+
     override fun getNotifications(): LiveData<List<NotificationEntity>> {
         throw InvalidRequestException()
     }
@@ -122,6 +136,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     }
 
     override suspend fun saveNotification(notification: NotificationEntity) {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean> {
         throw InvalidRequestException()
     }
 
@@ -195,16 +213,6 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
                 .takeIf { it.isSuccessful }
                 ?.let { Result.Success(Unit) }
                 ?: throw SendAskException()
-        } catch (e: Exception) {
-            Result.Error(e)
-        }
-    }
-
-    override suspend fun getAsks(): Result<List<AskEntity>> {
-        return try {
-            apiService.getAsks().body()
-                ?.let { Result.Success(it) }
-                ?: throw GetAsksException()
         } catch (e: Exception) {
             Result.Error(e)
         }

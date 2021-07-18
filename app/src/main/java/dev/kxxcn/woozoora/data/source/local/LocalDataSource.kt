@@ -66,6 +66,14 @@ class LocalDataSource(
         throw InvalidRequestException()
     }
 
+    override suspend fun getAsks(): Result<List<AskEntity>> {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun getUsageTransactionTime(): Boolean {
+        return sharedPreferences.getBoolean(PREF_USAGE_TRANSACTION_TIME, true)
+    }
+
     override fun getNotifications(): LiveData<List<NotificationEntity>> {
         val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
         return notificationDao.observeNotifications(date)
@@ -105,6 +113,15 @@ class LocalDataSource(
             notificationDao.insertNotification(notification)
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    override suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean> {
+        return try {
+            sharedPreferences.put(PREF_USAGE_TRANSACTION_TIME, value)
+            Result.Success(value)
+        } catch (e: Exception) {
+            Result.Error(e)
         }
     }
 
@@ -185,10 +202,6 @@ class LocalDataSource(
     }
 
     override suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any> {
-        throw InvalidRequestException()
-    }
-
-    override suspend fun getAsks(): Result<List<AskEntity>> {
         throw InvalidRequestException()
     }
 

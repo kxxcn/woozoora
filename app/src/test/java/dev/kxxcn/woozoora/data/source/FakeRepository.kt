@@ -58,6 +58,14 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getAsks(): Result<List<AskData>> {
+        return Result.Success(asksData)
+    }
+
+    override suspend fun getUsageTransactionTime(): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun getNotifications(): LiveData<List<NotificationData>> {
         TODO("Not yet implemented")
     }
@@ -82,6 +90,10 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun saveNotification(notification: NotificationData) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean> {
         TODO("Not yet implemented")
     }
 
@@ -115,10 +127,6 @@ class FakeRepository : DataRepository {
         } else {
             Result.Success(Unit)
         }
-    }
-
-    override suspend fun getAsks(): Result<List<AskData>> {
-        return Result.Success(asksData)
     }
 
     override suspend fun leave(): Result<Any> {

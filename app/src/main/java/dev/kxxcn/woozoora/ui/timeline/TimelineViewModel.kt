@@ -1,9 +1,6 @@
 package dev.kxxcn.woozoora.ui.timeline
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import dev.kxxcn.woozoora.common.Event
@@ -12,6 +9,7 @@ import dev.kxxcn.woozoora.common.extension.replace
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.GetGroupUseCase
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.TimelineData
@@ -23,6 +21,7 @@ import kotlinx.coroutines.launch
 class TimelineViewModel @AssistedInject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getGroupUseCase: GetGroupUseCase,
+    private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
@@ -38,6 +37,8 @@ class TimelineViewModel @AssistedInject constructor(
     val receiptEvent: LiveData<Event<HistoryData>> = _receiptEvent
 
     private var cache: List<UserData>? = null
+
+    val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
 
     fun start(transaction: TransactionData?) {
         val currentList = timeline

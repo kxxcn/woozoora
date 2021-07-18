@@ -86,6 +86,34 @@
             app:layout_constraintStart_toStartOf="@id/group_text"
             app:layout_constraintTop_toBottomOf="@id/invite_text" />
 
+        <TextView
+            android:id="@+id/use_transaction_time_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.setUsageTransactionTime()}"
+            android:paddingVertical="10dp"
+            android:text="@string/use_transaction_time"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/notice_text"
+            app:layout_constraintTop_toBottomOf="@id/notice_text" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.setUsageTransactionTime()}"
+            android:paddingVertical="5dp"
+            app:layout_constraintBottom_toBottomOf="@id/use_transaction_time_text"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/use_transaction_time_text"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="lottie_toggle.json"
+            app:lottie_loop="false"
+            app:lottie_toggle="@{viewModel.usageTransactionTime}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

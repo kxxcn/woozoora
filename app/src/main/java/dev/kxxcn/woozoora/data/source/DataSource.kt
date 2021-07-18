@@ -28,6 +28,10 @@ interface DataSource {
 
     suspend fun getNotice(): Result<List<NoticeEntity>>
 
+    suspend fun getAsks(): Result<List<AskEntity>>
+
+    suspend fun getUsageTransactionTime(): Boolean
+
     fun getNotifications(): LiveData<List<NotificationEntity>>
 
     suspend fun saveUser(user: UserEntity): Result<Any>
@@ -42,6 +46,8 @@ interface DataSource {
     ): Result<Boolean>
 
     suspend fun saveNotification(notification: NotificationEntity)
+
+    suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean>
 
     suspend fun updateToken(userId: String, token: String?)
 
@@ -58,8 +64,6 @@ interface DataSource {
     suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any>
 
     suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any>
-
-    suspend fun getAsks(): Result<List<AskEntity>>
 
     suspend fun leave(userId: String): Result<Any>
 }
