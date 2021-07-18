@@ -26,7 +26,7 @@ class HistoryViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: HistoryViewModel
 
-    private val currentMs = System.currentTimeMillis()
+    private val currentMs = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
 
     private val timeMsAfter60Days = TimeUnit.DAYS.toMillis(60)
 
