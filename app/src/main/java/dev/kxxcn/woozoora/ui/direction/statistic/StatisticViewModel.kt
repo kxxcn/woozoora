@@ -8,6 +8,7 @@ import dev.kxxcn.woozoora.common.extension.month
 import dev.kxxcn.woozoora.common.extension.year
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.GetOverviewUseCase
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.model.TimelineData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel
@@ -16,8 +17,9 @@ import dev.kxxcn.woozoora.ui.direction.statistic.item.CategoryItem
 
 class StatisticViewModel @AssistedInject constructor(
     getOverviewUseCase: GetOverviewUseCase,
+    getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
-) : HistoryViewModel(getOverviewUseCase, savedStateHandle) {
+) : HistoryViewModel(getOverviewUseCase, getUsageTransactionTimeUseCase, savedStateHandle) {
 
     @AssistedInject.Factory
     interface Factory : AssistedSavedStateViewModelFactory<StatisticViewModel>

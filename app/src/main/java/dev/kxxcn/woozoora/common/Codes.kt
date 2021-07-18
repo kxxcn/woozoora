@@ -22,6 +22,7 @@ const val PREF_NOTIFICATION_REGISTRATION = "notification_registration"
 const val PREF_NOTIFICATION_DAILY = "notification_daily"
 const val PREF_NOTIFICATION_WEEKLY = "notification_weekly"
 const val PREF_NOTIFICATION_NOTICE = "notification_notice"
+const val PREF_USAGE_TRANSACTION_TIME = "usage_transaction_time"
 
 const val KEY_DEBUG = "Debug"
 const val KEY_HISTORY_ITEM = "history_item"

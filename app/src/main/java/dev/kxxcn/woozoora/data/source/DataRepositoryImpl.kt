@@ -75,6 +75,22 @@ class DataRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getAsks(): Result<List<AskData>> {
+        return when (val result = remoteDataSource.getAsks()) {
+            is Result.Success -> Result.Success(
+                result.data
+                    .map { it.toData() }
+                    .sortedByDescending { it.date }
+            )
+            is Result.Error -> Result.Error(result.exception)
+            else -> Result.Error(InvalidRequestException())
+        }
+    }
+
+    override suspend fun getUsageTransactionTime(): Boolean {
+        return localDataSource.getUsageTransactionTime()
+    }
+
     override fun getNotifications(): LiveData<List<NotificationData>> {
         return MediatorLiveData<List<NotificationData>>().apply {
             addSource(localDataSource.getNotifications()) {
@@ -110,6 +126,10 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun saveNotification(notification: NotificationData) {
         localDataSource.saveNotification(notification.toEntity())
+    }
+
+    override suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean> {
+        return localDataSource.saveUsageTransactionTime(value)
     }
 
     override suspend fun updateToken() {
@@ -172,18 +192,6 @@ class DataRepositoryImpl @Inject constructor(
             remoteDataSource.sendAsk(cache.data.id, ask.toEntity())
         } else {
             Result.Error(UnverifiedUserException())
-        }
-    }
-
-    override suspend fun getAsks(): Result<List<AskData>> {
-        return when (val result = remoteDataSource.getAsks()) {
-            is Result.Success -> Result.Success(
-                result.data
-                    .map { it.toData() }
-                    .sortedByDescending { it.date }
-            )
-            is Result.Error -> Result.Error(result.exception)
-            else -> Result.Error(InvalidRequestException())
         }
     }
 

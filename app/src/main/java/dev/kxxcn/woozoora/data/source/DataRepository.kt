@@ -18,6 +18,10 @@ interface DataRepository {
 
     suspend fun getNotice(): Result<List<NoticeData>>
 
+    suspend fun getAsks(): Result<List<AskData>>
+
+    suspend fun getUsageTransactionTime(): Boolean
+
     fun getNotifications(): LiveData<List<NotificationData>>
 
     suspend fun saveUser(userData: UserData): Result<Any>
@@ -33,6 +37,8 @@ interface DataRepository {
 
     suspend fun saveNotification(notification: NotificationData)
 
+    suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean>
+
     suspend fun updateToken()
 
     suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<String?>
@@ -46,8 +52,6 @@ interface DataRepository {
     suspend fun deleteTransaction(transaction: TransactionData?): Result<Any>
 
     suspend fun sendAsk(ask: AskData): Result<Any>
-
-    suspend fun getAsks(): Result<List<AskData>>
 
     suspend fun leave(): Result<Any>
 }

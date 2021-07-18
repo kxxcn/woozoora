@@ -10,6 +10,7 @@ import dev.kxxcn.woozoora.common.extension.year
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.GetOverviewUseCase
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
@@ -18,6 +19,7 @@ import java.util.*
 
 open class HistoryViewModel @AssistedInject constructor(
     private val getOverviewUseCase: GetOverviewUseCase,
+    private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel(savedStateHandle) {
 
@@ -31,6 +33,8 @@ open class HistoryViewModel @AssistedInject constructor(
     }
 
     private val forceUpdate = MutableLiveData<Unit>()
+
+    val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
 
     val overview = MediatorLiveData<OverviewData>().apply {
         addSource(forceUpdate) {

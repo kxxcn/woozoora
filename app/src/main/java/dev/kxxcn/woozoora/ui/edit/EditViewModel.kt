@@ -8,6 +8,7 @@ import dev.kxxcn.woozoora.common.*
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.succeeded
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
+import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.SaveTransactionUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
@@ -23,6 +24,7 @@ import kotlin.coroutines.suspendCoroutine
 class EditViewModel @AssistedInject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val saveTransactionUseCase: SaveTransactionUseCase,
+    private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : MotionViewModel(savedStateHandle) {
 
@@ -98,6 +100,8 @@ class EditViewModel @AssistedInject constructor(
     private var currentFilterType: EditFilterType? = null
 
     private var saveJob: Job? = null
+
+    val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
 
     fun edit(filterType: EditFilterType) {
         setFiltering(filterType)
