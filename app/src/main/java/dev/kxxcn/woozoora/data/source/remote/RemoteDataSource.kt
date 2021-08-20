@@ -151,10 +151,6 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
-    override suspend fun updateCode(code: String?) {
-        throw InvalidRequestException()
-    }
-
     override suspend fun updateUser(
         userId: String,
         sponsorId: String,
@@ -187,6 +183,21 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
                 .takeIf { it.isSuccessful }
                 ?.let { Result.Success(Unit) }
                 ?: throw UserUpdateException()
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun updateCode(
+        userId: String,
+        code: String?,
+        isTransfer: Boolean,
+    ): Result<Any> {
+        return try {
+            apiService.updateCode(userId, CodeEntity(code, isTransfer))
+                .takeIf { it.isSuccessful }
+                ?.let { Result.Success(Unit) }
+                ?: throw CodeUpdateException()
         } catch (e: Exception) {
             Result.Error(e)
         }

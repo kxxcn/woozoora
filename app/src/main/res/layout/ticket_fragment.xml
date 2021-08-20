@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.ticket.TicketViewModel" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/arrived_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/font_recipe"
+                android:text="@string/invitation_has_arrived"
+                android:textColor="@color/primaryBlue"
+                android:textSize="22sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/gift_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_emoji_gift"
+                app:layout_constraintStart_toEndOf="@id/arrived_text"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/together_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:gravity="center"
+                android:lineSpacingExtra="5dp"
+                android:text="@{@string/format_shared_transaction(viewModel.invitation.name)}"
+                android:textColor="@color/primaryBlack"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/arrived_text"
+                tools:text="홍기찬님과 함께 공유 가계부를\n작성하시겠습니까?" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintDimensionRatio="16:10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/together_text"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="lottie_profile.json"
+                app:lottie_loop="true" />
+
+            <View
+                android:id="@+id/check_target_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toStartOf="@id/transfer_text"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/animation_view" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/check_animation_view"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:onClick="@{() -> viewModel.toggle()}"
+                app:layout_constraintBottom_toBottomOf="@id/check_target_view"
+                app:layout_constraintEnd_toEndOf="@id/check_target_view"
+                app:layout_constraintStart_toStartOf="@id/check_target_view"
+                app:layout_constraintTop_toTopOf="@id/check_target_view"
+                app:lottie_autoPlay="false"
+                app:lottie_check="@{viewModel.isAgree}"
+                app:lottie_fileName="lottie_check.json"
+                app:lottie_loop="false"
+                app:lottie_progress="0" />
+
+            <TextView
+                android:id="@+id/transfer_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:lineSpacingExtra="5dp"
+                android:onClick="@{() -> viewModel.toggle()}"
+                android:paddingVertical="10dp"
+                android:text="@string/transfer_to_shared_transaction"
+                android:textColor="@{viewModel.isAgree ? @color/green05 : @color/grey03}"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/check_target_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/check_target_view"
+                app:layout_constraintTop_toTopOf="@id/check_target_view"
+                tools:textColor="@color/grey03" />
+
+            <TextView
+                android:id="@+id/agree_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/round_solid_blue_03"
+                android:fontFamily="@font/font_nexon_regular"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.together()}"
+                android:paddingVertical="15dp"
+                android:text="@string/yes_use_it_together"
+                android:textColor="@color/white01"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transfer_text" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/font_nexon_regular"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.close()}"
+                android:paddingVertical="15dp"
+                android:text="@string/no_use_it_alone"
+                android:textColor="@color/grey02"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/agree_text" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

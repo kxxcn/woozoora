@@ -1,10 +1,7 @@
 package dev.kxxcn.woozoora.data.source.api
 
 import dev.kxxcn.woozoora.BuildConfig
-import dev.kxxcn.woozoora.data.source.entity.AskEntity
-import dev.kxxcn.woozoora.data.source.entity.NoticeEntity
-import dev.kxxcn.woozoora.data.source.entity.TransactionEntity
-import dev.kxxcn.woozoora.data.source.entity.UserEntity
+import dev.kxxcn.woozoora.data.source.entity.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -56,6 +53,12 @@ interface ApiService {
         @Field("sponsor_id") sponsorId: String,
         @Field("transfer") transfer: Boolean,
     ): Response<String>
+
+    @PUT(USER_CODE)
+    suspend fun updateCode(
+        @Path("id") userId: String,
+        @Body code: CodeEntity,
+    ): Response<Unit>
 
     @FormUrlEncoded
     @POST(USER_YEAR)

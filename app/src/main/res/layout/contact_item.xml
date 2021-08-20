@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="dev.kxxcn.woozoora.ui.contact.ContactViewModel" />
+            type="dev.kxxcn.woozoora.ui.invite.InviteViewModel" />
 
         <variable
             name="item"
-            type="dev.kxxcn.woozoora.ui.contact.item.ContactItem" />
+            type="dev.kxxcn.woozoora.ui.invite.item.ContactItem" />
 
     </data>
 

@@ -117,6 +117,10 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionData?): Result<Any> {
         TODO("Not yet implemented")
     }

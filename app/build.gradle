@@ -16,8 +16,8 @@ android {
         applicationId "dev.kxxcn.woozoora"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 7
-        versionName "1.0.6"
+        versionCode 8
+        versionName "1.0.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,7 +47,7 @@ android {
 
         develop {
             dimension "api"
-            buildConfigField "String", URL, '"http://172.30.1.41:8000/v1/"'
+            buildConfigField "String", URL, '"http://172.30.1.8:8000/v1/"'
         }
         product {
             dimension "api"

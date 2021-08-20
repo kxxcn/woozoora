@@ -7,8 +7,8 @@ import dev.kxxcn.woozoora.base.BaseViewModelTest
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.model.UserData
-import dev.kxxcn.woozoora.ui.contact.ContactViewModel
-import dev.kxxcn.woozoora.ui.contact.item.ContactItem
+import dev.kxxcn.woozoora.ui.invite.InviteViewModel
+import dev.kxxcn.woozoora.ui.invite.item.ContactItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.junit.Before
@@ -18,11 +18,11 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class ContactViewModelTest : BaseViewModelTest() {
 
-    private lateinit var viewModel: ContactViewModel
+    private lateinit var viewModel: InviteViewModel
 
     @Before
     fun setupViewModel() {
-        viewModel = ContactViewModel(
+        viewModel = InviteViewModel(
             GetUserUseCase(repository)
         )
     }

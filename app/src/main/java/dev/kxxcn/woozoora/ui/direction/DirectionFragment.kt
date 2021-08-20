@@ -16,8 +16,8 @@ import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.InvitationData
 import dev.kxxcn.woozoora.domain.model.TimelineData
 import dev.kxxcn.woozoora.ui.base.BaseFragment
-import dev.kxxcn.woozoora.ui.invite.InviteFragment
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
+import dev.kxxcn.woozoora.ui.ticket.TicketFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nl.joery.animatedbottombar.AnimatedBottomBar
@@ -101,6 +101,9 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         })
         viewModel.contactEvent.observe(viewLifecycleOwner, EventObserver {
             contact()
+        })
+        viewModel.codeEvent.observe(viewLifecycleOwner, EventObserver {
+            code()
         })
         viewModel.inviteEvent.observe(viewLifecycleOwner, EventObserver {
             invitation(it)
@@ -200,10 +203,14 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         DirectionFragmentDirections.actionDirectionFragmentToContactFragment().show()
     }
 
+    private fun code() {
+        DirectionFragmentDirections.actionDirectionFragmentToCodeFragment().show()
+    }
+
     private fun invitation(invitation: InvitationData) {
-        InviteFragment()
+        TicketFragment()
             .apply { arguments = bundleOf(KEY_INVITATION_ITEM to invitation) }
-            .show(childFragmentManager, InviteFragment::class.java.name)
+            .show(childFragmentManager, TicketFragment::class.java.name)
     }
 
     private fun policy(requestType: PolicyFilterType) {

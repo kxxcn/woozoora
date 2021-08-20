@@ -57,21 +57,6 @@
             app:layout_constraintTop_toBottomOf="@id/group_text" />
 
         <TextView
-            android:id="@+id/invite_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:fontFamily="@font/font_nexon_light"
-            android:onClick="@{() -> viewModel.contact()}"
-            android:paddingVertical="10dp"
-            android:text="@string/invite_to_group_short"
-            android:textColor="@color/secondaryBlack"
-            android:textSize="@dimen/more_content_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/group_text"
-            app:layout_constraintTop_toBottomOf="@id/premium_text" />
-
-        <TextView
             android:id="@+id/notice_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,7 +69,7 @@
             android:textSize="@dimen/more_content_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/group_text"
-            app:layout_constraintTop_toBottomOf="@id/invite_text" />
+            app:layout_constraintTop_toBottomOf="@id/premium_text" />
 
         <TextView
             android:id="@+id/use_transaction_time_text"

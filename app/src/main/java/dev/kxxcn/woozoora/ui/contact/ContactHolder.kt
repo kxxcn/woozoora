@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import dev.kxxcn.woozoora.databinding.ContactItemBinding
 import dev.kxxcn.woozoora.ui.base.BaseHolder
-import dev.kxxcn.woozoora.ui.contact.item.ContactItem
+import dev.kxxcn.woozoora.ui.invite.InviteViewModel
+import dev.kxxcn.woozoora.ui.invite.item.ContactItem
 
 class ContactHolder(
     private val binding: ContactItemBinding
 ) : BaseHolder(binding) {
 
-    fun bind(viewModel: ContactViewModel, item: ContactItem) {
+    fun bind(viewModel: InviteViewModel, item: ContactItem) {
         with(binding) {
             this.lifecycleOwner = this@ContactHolder
             this.viewModel = viewModel

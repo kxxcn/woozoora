@@ -19,5 +19,5 @@ abstract class InviteModule {
     @Binds
     @IntoMap
     @ViewModelKey(InviteViewModel::class)
-    abstract fun bindViewModel(factory: InviteViewModel.Factory): AssistedSavedStateViewModelFactory<out ViewModel>
+    abstract fun bindViewModel(viewModel: InviteViewModel): ViewModel
 }

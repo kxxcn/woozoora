@@ -1,86 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="dev.kxxcn.woozoora.ui.contact.ContactViewModel" />
+            type="dev.kxxcn.woozoora.ui.invite.InviteViewModel" />
 
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/contact_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/contact_fragment_scene">
-
-        <ImageView
-            android:id="@+id/close_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:onClick="@{() -> viewModel.close()}"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_left"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/primaryBlack"
-            tools:ignore="ContentDescription" />
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
-            app:layout_constraintDimensionRatio="16:9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_typing.json"
-            app:lottie_loop="true" />
-
-        <View
-            android:id="@+id/list_background"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/top_all_round_solid_navy"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/animation_view" />
-
-        <TextView
-            android:id="@+id/invite_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/font_recipe"
-            android:overScrollMode="never"
-            android:text="@string/invite_to_group_short"
-            android:textColor="@color/white01"
-            android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="@id/list_background"
-            app:layout_constraintTop_toTopOf="@id/list_background" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contact_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layoutAnimation="@anim/slide_down_animation"
-            app:contacts="@{viewModel.contacts}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/invite_text" />
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+        app:contacts="@{viewModel.contacts}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </layout>

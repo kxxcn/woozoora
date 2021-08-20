@@ -179,6 +179,14 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_directionFragment_to_codeFragment"
+            app:destination="@id/codeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -286,9 +294,9 @@
 
     <fragment
         android:id="@+id/contactFragment"
-        android:name="dev.kxxcn.woozoora.ui.contact.ContactFragment"
+        android:name="dev.kxxcn.woozoora.ui.invite.InviteFragment"
         android:label="ContactFragment"
-        tools:layout="@layout/contact_fragment" />
+        tools:layout="@layout/invite_fragment" />
 
     <fragment
         android:id="@+id/policyFragment"
@@ -385,5 +393,11 @@
             app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="dev.kxxcn.woozoora.ui.code.CodeFragment"
+        android:label="CodeFragment"
+        tools:layout="@layout/code_fragment" />
 
 </navigation>

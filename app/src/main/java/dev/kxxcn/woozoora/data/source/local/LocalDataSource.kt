@@ -129,19 +129,6 @@ class LocalDataSource(
         throw InvalidRequestException()
     }
 
-    override suspend fun updateCode(code: String?) {
-        withContext(ioDispatcher) {
-            try {
-                userDao.getUsers()
-                    .firstOrNull()
-                    ?.let { userDao.updateUser(it.copy(code = code)) }
-                Result.Success("")
-            } catch (e: Exception) {
-                Result.Error(e)
-            }
-        }
-    }
-
     override suspend fun updateUser(
         userId: String,
         sponsorId: String,
@@ -167,6 +154,21 @@ class LocalDataSource(
                 .find { it.id == userId }
                 ?.let { userDao.updateUser(it.copy(budget = budget)) }
             Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun updateCode(
+        userId: String,
+        code: String?,
+        isTransfer: Boolean,
+    ) = withContext(ioDispatcher) {
+        try {
+            userDao.getUsers()
+                .firstOrNull()
+                ?.let { userDao.updateUser(it.copy(code = code)) }
+            Result.Success("")
         } catch (e: Exception) {
             Result.Error(e)
         }

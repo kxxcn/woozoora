@@ -9,7 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.kakao.sdk.user.model.User
 import dev.kxxcn.woozoora.data.source.entity.*
 import dev.kxxcn.woozoora.domain.model.*
-import dev.kxxcn.woozoora.ui.contact.item.ContactItem
+import dev.kxxcn.woozoora.ui.invite.item.ContactItem
 
 fun UserData.toEntity(): UserEntity {
     return UserEntity(

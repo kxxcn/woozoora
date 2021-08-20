@@ -51,13 +51,13 @@ interface DataSource {
 
     suspend fun updateToken(userId: String, token: String?)
 
-    suspend fun updateCode(code: String?)
-
     suspend fun updateUser(userId: String, sponsorId: String, isTransfer: Boolean): Result<String?>
 
     suspend fun updateUser(userId: String, year: Int): Result<Any>
 
     suspend fun updateUser(userId: String, budget: Long): Result<Any>
+
+    suspend fun updateCode(userId: String, code: String?, isTransfer: Boolean): Result<Any>
 
     suspend fun updateNotification()
 
