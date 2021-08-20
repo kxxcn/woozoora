@@ -1,53 +1,44 @@
 package dev.kxxcn.woozoora.ui.invite
 
-import androidx.lifecycle.*
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import dev.kxxcn.woozoora.common.Event
-import dev.kxxcn.woozoora.common.KEY_INVITATION_ITEM
-import dev.kxxcn.woozoora.data.succeeded
-import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
-import dev.kxxcn.woozoora.domain.UpdateUserUseCase
-import dev.kxxcn.woozoora.domain.model.InvitationData
+import dev.kxxcn.woozoora.data.Result
+import dev.kxxcn.woozoora.domain.GetUserUseCase
+import dev.kxxcn.woozoora.domain.model.UserData
+import dev.kxxcn.woozoora.ui.base.BaseViewModel
+import dev.kxxcn.woozoora.ui.invite.item.ContactItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InviteViewModel @AssistedInject constructor(
-    private val updateUserUseCase: UpdateUserUseCase,
-    @Assisted private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class InviteViewModel @Inject constructor(
+    private val getUserUseCase: GetUserUseCase,
+) : BaseViewModel() {
 
-    @AssistedInject.Factory
-    interface Factory : AssistedSavedStateViewModelFactory<InviteViewModel>
+    private val _contacts = MutableLiveData<List<ContactItem>>()
+    val contacts: LiveData<List<ContactItem>> = _contacts
 
-    val invitation = savedStateHandle.get<InvitationData>(KEY_INVITATION_ITEM)
+    private val _inviteEvent = MutableLiveData<Event<Pair<ContactItem, UserData>>>()
+    val inviteEvent: LiveData<Event<Pair<ContactItem, UserData>>> = _inviteEvent
 
-    private val _closeEvent = MutableLiveData<Event<Unit>>()
-    val closeEvent: LiveData<Event<Unit>> = _closeEvent
+    private val _currentFilterType = MutableLiveData<InviteFilterType>()
+        .apply { value = InviteFilterType.MESSAGE }
+    val currentFilterType: LiveData<InviteFilterType> = _currentFilterType
 
-    private val _completeEvent = MutableLiveData<Event<Unit>>()
-    val completeEvent: LiveData<Event<Unit>> = _completeEvent
-
-    private val _isAgree = MutableLiveData<Boolean>().apply { value = true }
-    val isAgree: LiveData<Boolean> = _isAgree
-
-    private val currentAgreeFlag: Boolean
-        get() = isAgree.value ?: true
-
-    fun close() {
-        _closeEvent.value = Event(Unit)
+    fun contact(contacts: List<ContactItem>) {
+        _contacts.value = contacts
     }
 
-    fun toggle() {
-        _isAgree.value = !currentAgreeFlag
+    fun setFiltering(requestType: InviteFilterType) {
+        _currentFilterType.value = requestType
     }
 
-    fun together() {
+    fun invite(contact: ContactItem) {
         viewModelScope.launch {
-            invitation?.id?.let {
-                val result = updateUserUseCase(it, currentAgreeFlag)
-                if (result.succeeded) {
-                    _completeEvent.value = Event(Unit)
-                }
+            val result = getUserUseCase()
+            if (result is Result.Success) {
+                _inviteEvent.value = Event(contact to result.data)
             }
         }
     }

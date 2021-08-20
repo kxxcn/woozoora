@@ -3,10 +3,11 @@ package dev.kxxcn.woozoora.ui.contact
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import dev.kxxcn.woozoora.ui.base.BaseAdapter
-import dev.kxxcn.woozoora.ui.contact.item.ContactItem
+import dev.kxxcn.woozoora.ui.invite.InviteViewModel
+import dev.kxxcn.woozoora.ui.invite.item.ContactItem
 
 class ContactAdapter(
-    private val viewModel: ContactViewModel
+    private val viewModel: InviteViewModel
 ) : BaseAdapter<ContactItem, ContactHolder>(InviteDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactHolder {

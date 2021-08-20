@@ -30,8 +30,8 @@ import javax.inject.Singleton
         DatePickerModule::class,
         TimelineModule::class,
         MoreModule::class,
-        ContactModule::class,
         InviteModule::class,
+        TicketModule::class,
         NotificationBuilder::class,
         PolicyModule::class,
         AskModule::class,
@@ -39,7 +39,10 @@ import javax.inject.Singleton
         NoticeModule::class,
         ProfileModule::class,
         ChangeModule::class,
-        ReplyModule::class
+        ReplyModule::class,
+        ContactModule::class,
+        CopyModule::class,
+        CodeModule::class,
     ]
 )
 interface ApplicationComponent : AndroidInjector<WoozooraApplication> {

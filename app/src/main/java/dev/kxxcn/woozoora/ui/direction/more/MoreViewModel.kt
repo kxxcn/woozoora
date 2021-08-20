@@ -25,6 +25,9 @@ class MoreViewModel @Inject constructor(
     private val _contactEvent = MutableLiveData<Event<Unit>>()
     val contactEvent: LiveData<Event<Unit>> = _contactEvent
 
+    private val _codeEvent = MutableLiveData<Event<Unit>>()
+    val codeEvent: LiveData<Event<Unit>> = _codeEvent
+
     private val _reviewEvent = MutableLiveData<Event<Unit>>()
     val reviewEvent: LiveData<Event<Unit>> = _reviewEvent
 
@@ -109,6 +112,10 @@ class MoreViewModel @Inject constructor(
 
     fun contact() {
         _contactEvent.value = Event(Unit)
+    }
+
+    fun code() {
+        _codeEvent.value = Event(Unit)
     }
 
     fun review() {

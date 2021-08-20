@@ -66,6 +66,9 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
         viewModel.contactEvent.observe(viewLifecycleOwner, EventObserver {
             contact()
         })
+        viewModel.codeEvent.observe(viewLifecycleOwner, EventObserver {
+            code()
+        })
         viewModel.reviewEvent.observe(viewLifecycleOwner, EventObserver {
             review()
         })
@@ -98,6 +101,10 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
 
     private fun contact() {
         sharedViewModel.contact()
+    }
+
+    private fun code() {
+        sharedViewModel.code()
     }
 
     private fun setNotificationOption(option: OptionData) {

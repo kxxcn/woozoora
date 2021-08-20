@@ -126,6 +126,8 @@
     <string name="communication">개발자와 소통하기</string>
     <string name="question">Q</string>
     <string name="answer">A</string>
+    <string name="enter_the_code">코드 입력하기</string>
+    <string name="copy">복사</string>
 
     <string name="try_again_after_a_while">잠시 후 다시 시도해주세요.</string>
     <string name="which_way_are_you_more_comfortable_getting_started_with">"어떤\n방법으로\n인증하는 것이\n더 편하신가요?"</string>
@@ -212,4 +214,13 @@
     <string name="enter_all_items">모든 항목을 입력해주세요.</string>
     <string name="close_app_press_back_button_more">뒤로가기 버튼을 한번 더 누르시면 앱이 종료됩니다.</string>
     <string name="use_transaction_time">지출 시간 사용</string>
+    <string name="send_to_message">문자 보내기</string>
+    <string name="copy_to_code">코드 복사하기</string>
+    <string name="input_transaction_code">코드를 입력하세요 :)</string>
+    <string name="issue_invite_code">초대코드 발급</string>
+    <string name="pass_the_issued_code">발급된 코드를 상대방에게 전달하세요 :D</string>
+    <string name="copied">복사되었습니다!</string>
+    <string name="check_the_invitation_code">초대코드를 확인해 주세요.</string>
+    <string name="enter_the_invitation_code">"초대코드\n입력하기"</string>
+    <string name="hint_invitation_code">초대코드를 입력해주세요.</string>
 </resources>

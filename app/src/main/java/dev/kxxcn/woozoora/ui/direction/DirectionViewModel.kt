@@ -40,6 +40,9 @@ class DirectionViewModel @AssistedInject constructor(
     private val _contactEvent = MutableLiveData<Event<Unit>>()
     val contactEvent: LiveData<Event<Unit>> = _contactEvent
 
+    private val _codeEvent = MutableLiveData<Event<Unit>>()
+    val codeEvent: LiveData<Event<Unit>> = _codeEvent
+
     private val _inviteEvent = MutableLiveData<Event<InvitationData>>()
     val inviteEvent: LiveData<Event<InvitationData>> = _inviteEvent
 
@@ -95,6 +98,10 @@ class DirectionViewModel @AssistedInject constructor(
 
     fun contact() {
         _contactEvent.value = Event(Unit)
+    }
+
+    fun code() {
+        _codeEvent.value = Event(Unit)
     }
 
     fun refresh() {

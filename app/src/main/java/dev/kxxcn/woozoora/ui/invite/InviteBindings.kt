@@ -1,16 +1,15 @@
 package dev.kxxcn.woozoora.ui.invite
 
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.airbnb.lottie.LottieAnimationView
+import dev.kxxcn.woozoora.R
+import dev.kxxcn.woozoora.common.extension.color
 
-@BindingAdapter("app:lottie_check")
-fun setLottieCheck(view: LottieAnimationView, isAgree: Boolean) {
-    if (isAgree) {
-        view.playAnimation()
-    } else {
-        if (view.isAnimating) {
-            view.cancelAnimation()
-        }
-        view.progress = 0f
+@BindingAdapter("app:inviteSelection")
+fun setInviteTabs(view: TextView, filterType: InviteFilterType) {
+    val colorRes = when (view.tag) {
+        filterType -> R.color.primaryBlack
+        else -> R.color.grey01
     }
+    view.setTextColor(view.context.color(colorRes))
 }

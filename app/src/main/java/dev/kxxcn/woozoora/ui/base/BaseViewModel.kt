@@ -24,6 +24,9 @@ open class BaseViewModel(
     private val _loadEvent = MutableLiveData<Event<Boolean>>()
     val loadEvent: LiveData<Event<Boolean>> = _loadEvent
 
+    private val _animationEvent = MutableLiveData<Event<String>>()
+    val animationEvent: LiveData<Event<String>> = _animationEvent
+
     private val _hideEvent = MutableLiveData<Event<Unit>>()
     val hideEvent: LiveData<Event<Unit>> = _hideEvent
 
@@ -72,6 +75,10 @@ open class BaseViewModel(
 
     fun loading(isVisible: Boolean) {
         _loadEvent.value = Event(isVisible)
+    }
+
+    fun loading(fileName: String) {
+        _animationEvent.value = Event(fileName)
     }
 
     fun toast(any: Any?) {

@@ -49,6 +49,8 @@ interface DataRepository {
 
     suspend fun updateNotification()
 
+    suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any>
+
     suspend fun deleteTransaction(transaction: TransactionData?): Result<Any>
 
     suspend fun sendAsk(ask: AskData): Result<Any>

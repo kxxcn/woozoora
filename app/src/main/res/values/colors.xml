@@ -21,7 +21,10 @@
     <color name="yellow01">#FFF5C0</color>
     <color name="yellow02">#FED32C</color>
     <color name="red01">#EC4646</color>
+    <color name="red02">#4F0E0E</color>
     <color name="purple">#845EC2</color>
+    <color name="brown">#BB8760</color>
+    <color name="pink">#FFDADA</color>
 
     <color name="white_alpha_20">#33FFFFFF</color>
     <color name="white_alpha_40">#66FFFFFF</color>
@@ -101,6 +104,11 @@
     <color name="budgetActive">#BBBBBB</color>
 
     <color name="groupCardBackground">#3C415C</color>
+
+    <color name="codeCardBackground">#D5EEBB</color>
+    <color name="codeCardPrimary">#7FC8A9</color>
+    <color name="codeCardText">#5F7A61</color>
+    <color name="codeCardAccent">#FFFFFF</color>
 
     <color name="generate_color_01">#94B5C0</color>
     <color name="generate_color_03">#BB8082</color>

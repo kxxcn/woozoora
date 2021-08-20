@@ -7,6 +7,7 @@ import dev.kxxcn.woozoora.common.extension.toData
 import dev.kxxcn.woozoora.common.extension.toEntity
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.ifSucceeded
+import dev.kxxcn.woozoora.data.source.api.CodeUpdateException
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.api.NoResultException
 import dev.kxxcn.woozoora.data.source.api.UnverifiedUserException
@@ -148,7 +149,7 @@ class DataRepositoryImpl @Inject constructor(
             val user = cache.data
             remoteDataSource
                 .updateUser(user.id, sponsorId, isTransfer)
-                .ifSucceeded { localDataSource.updateCode(it) }
+                .ifSucceeded { localDataSource.updateCode(user.id, it, isTransfer) }
         } else {
             Result.Error(UnverifiedUserException())
         }
@@ -180,6 +181,18 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun updateNotification() {
         localDataSource.updateNotification()
+    }
+
+    override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
+        val cache = localDataSource.getUser(null)
+        return if (cache is Result.Success) {
+            val user = cache.data
+            remoteDataSource
+                .updateCode(user.id, code, isTransfer)
+                .ifSucceeded { localDataSource.updateCode(user.id, code, isTransfer) }
+        } else {
+            Result.Error(CodeUpdateException())
+        }
     }
 
     override suspend fun deleteTransaction(transaction: TransactionData?): Result<Any> {

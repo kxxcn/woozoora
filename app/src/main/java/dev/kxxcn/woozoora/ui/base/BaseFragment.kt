@@ -134,6 +134,9 @@ abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
         viewModel.loadEvent.observe(viewLifecycleOwner, EventObserver {
             loading(it)
         })
+        viewModel.animationEvent.observe(viewLifecycleOwner, EventObserver {
+            loading(true, it)
+        })
         viewModel.hideEvent.observe(viewLifecycleOwner, EventObserver {
             hideKeyboard()
         })

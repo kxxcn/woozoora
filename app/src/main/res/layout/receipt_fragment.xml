@@ -331,7 +331,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="5dp"
-            android:background="@drawable/round_solid_red"
+            android:background="@drawable/round_solid_red_01"
             android:fontFamily="@font/font_nexon_regular"
             android:gravity="center"
             android:onClick="@{() -> viewModel.ask()}"
