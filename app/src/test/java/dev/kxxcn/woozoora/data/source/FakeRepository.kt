@@ -101,7 +101,7 @@ class FakeRepository : DataRepository {
         Result.Success(Unit)
     }
 
-    override suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<String?> {
+    override suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<Any> {
         TODO("Not yet implemented")
     }
 

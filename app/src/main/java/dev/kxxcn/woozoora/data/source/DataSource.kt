@@ -51,13 +51,17 @@ interface DataSource {
 
     suspend fun updateToken(userId: String, token: String?)
 
-    suspend fun updateUser(userId: String, sponsorId: String, isTransfer: Boolean): Result<String?>
+    suspend fun updateUser(
+        userId: String,
+        sponsorId: String,
+        isTransfer: Boolean,
+    ): Result<CodeEntity>
 
-    suspend fun updateUser(userId: String, year: Int): Result<Any>
+    suspend fun updateUser(userId: String, year: Int): Result<String>
 
-    suspend fun updateUser(userId: String, budget: Long): Result<Any>
+    suspend fun updateUser(userId: String, budget: Long): Result<String>
 
-    suspend fun updateCode(userId: String, code: String?, isTransfer: Boolean): Result<Any>
+    suspend fun updateCode(userId: String, code: String?, isTransfer: Boolean): Result<String>
 
     suspend fun updateNotification()
 
@@ -65,5 +69,5 @@ interface DataSource {
 
     suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any>
 
-    suspend fun leave(userId: String): Result<Any>
+    suspend fun leave(userId: String): Result<String>
 }

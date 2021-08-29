@@ -6,11 +6,9 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dev.kxxcn.woozoora.common.extension.toData
 import dev.kxxcn.woozoora.common.extension.toEntity
 import dev.kxxcn.woozoora.data.Result
+import dev.kxxcn.woozoora.data.flatMap
 import dev.kxxcn.woozoora.data.ifSucceeded
-import dev.kxxcn.woozoora.data.source.api.CodeUpdateException
-import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
-import dev.kxxcn.woozoora.data.source.api.NoResultException
-import dev.kxxcn.woozoora.data.source.api.UnverifiedUserException
+import dev.kxxcn.woozoora.data.map
 import dev.kxxcn.woozoora.di.ApplicationModule
 import dev.kxxcn.woozoora.domain.model.*
 import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
@@ -29,31 +27,17 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun getUser(userId: String?, dirtyCache: Boolean): Result<UserData> {
         val dataSource = if (dirtyCache) remoteDataSource else localDataSource
-        return when (val result = dataSource.getUser(userId)) {
-            is Result.Success -> {
-                val userEntity = result.data.also {
-                    if (dirtyCache) {
-                        localDataSource.saveUser(it)
-                    }
-                }
-                Result.Success(userEntity.toData())
+        return dataSource.getUser(userId)
+            .map {
+                if (dirtyCache) localDataSource.saveUser(it)
+                it.toData()
             }
-            is Result.Error -> Result.Error(result.exception)
-            else -> Result.Error(UnverifiedUserException())
-        }
     }
 
     override suspend fun getGroup(exclude: Boolean): Result<List<UserData>> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            return when (val result = remoteDataSource.getGroup(cache.data.id, exclude)) {
-                is Result.Success -> Result.Success(result.data.map { it.toData() })
-                is Result.Error -> Result.Error(result.exception)
-                else -> Result.Error(InvalidRequestException())
-            }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.getGroup(it.id, exclude) }
+            .map { group -> group.map { it.toData() } }
     }
 
     override suspend fun getOverview(): Result<OverviewData> {
@@ -69,23 +53,13 @@ class DataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNotice(): Result<List<NoticeData>> {
-        return when (val result = remoteDataSource.getNotice()) {
-            is Result.Success -> Result.Success(result.data.map { it.toData() })
-            is Result.Error -> Result.Error(result.exception)
-            else -> Result.Error(InvalidRequestException())
-        }
+        return remoteDataSource.getNotice()
+            .map { notices -> notices.map { it.toData() } }
     }
 
     override suspend fun getAsks(): Result<List<AskData>> {
-        return when (val result = remoteDataSource.getAsks()) {
-            is Result.Success -> Result.Success(
-                result.data
-                    .map { it.toData() }
-                    .sortedByDescending { it.date }
-            )
-            is Result.Error -> Result.Error(result.exception)
-            else -> Result.Error(InvalidRequestException())
-        }
+        return remoteDataSource.getAsks()
+            .map { asks -> asks.map { it.toData() }.sortedByDescending { it.date } }
     }
 
     override suspend fun getUsageTransactionTime(): Boolean {
@@ -134,49 +108,31 @@ class DataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateToken() {
-        val cache = localDataSource.getUser(null)
-        if (cache is Result.Success) {
-            val token = localDataSource.getToken() ?: getNewToken()
-            if (cache.data.token != token) {
-                remoteDataSource.updateToken(cache.data.id, token)
+        localDataSource.getUser(null)
+            .ifSucceeded {
+                val token = localDataSource.getToken() ?: getNewToken()
+                if (it.token != token) {
+                    remoteDataSource.updateToken(it.id, token)
+                }
             }
-        }
     }
 
-    override suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<String?> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val user = cache.data
-            remoteDataSource
-                .updateUser(user.id, sponsorId, isTransfer)
-                .ifSucceeded { localDataSource.updateCode(user.id, it, isTransfer) }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+    override suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<Any> {
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.updateUser(it.id, sponsorId, isTransfer) }
+            .flatMap { localDataSource.updateCode(it.userId, it.code, isTransfer) }
     }
 
     override suspend fun updateUser(year: Int): Result<Any> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val user = cache.data
-            remoteDataSource
-                .updateUser(user.id, year)
-                .ifSucceeded { localDataSource.updateUser(user.id, year) }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.updateUser(it.id, year) }
+            .flatMap { localDataSource.updateUser(it, year) }
     }
 
     override suspend fun updateUser(budget: Long): Result<Any> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val user = cache.data
-            remoteDataSource
-                .updateUser(user.id, budget)
-                .ifSucceeded { localDataSource.updateUser(user.id, budget) }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.updateUser(it.id, budget) }
+            .flatMap { localDataSource.updateUser(it, budget) }
     }
 
     override suspend fun updateNotification() {
@@ -184,15 +140,9 @@ class DataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val user = cache.data
-            remoteDataSource
-                .updateCode(user.id, code, isTransfer)
-                .ifSucceeded { localDataSource.updateCode(user.id, code, isTransfer) }
-        } else {
-            Result.Error(CodeUpdateException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.updateCode(it.id, code, isTransfer) }
+            .flatMap { localDataSource.updateCode(it, code, isTransfer) }
     }
 
     override suspend fun deleteTransaction(transaction: TransactionData?): Result<Any> {
@@ -200,24 +150,14 @@ class DataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun sendAsk(ask: AskData): Result<Any> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            remoteDataSource.sendAsk(cache.data.id, ask.toEntity())
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.sendAsk(it.id, ask.toEntity()) }
     }
 
     override suspend fun leave(): Result<Any> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val userId = cache.data.id
-            remoteDataSource
-                .leave(userId)
-                .ifSucceeded { localDataSource.leave(userId) }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
+        return localDataSource.getUser(null)
+            .flatMap { remoteDataSource.leave(it.id) }
+            .flatMap { localDataSource.leave(it) }
     }
 
     private suspend fun getNewToken() = suspendCoroutine<String?> { continuation ->
@@ -234,19 +174,16 @@ class DataRepositoryImpl @Inject constructor(
         year: Int? = null,
         month: Int? = null,
     ): Result<OverviewData> {
-        val cache = localDataSource.getUser(null)
-        return if (cache is Result.Success) {
-            val (startDate, endDate) = Converter.rangeOfHomeFilterType(
-                HomeFilterType.MONTHLY,
-                year,
-                month
-            )
-            when (val result = remoteDataSource.getOverview(cache.data.id, startDate, endDate)) {
-                is Result.Success -> Result.Success(result.data.toData(cache.data))
-                else -> Result.Error(NoResultException())
+        return localDataSource.getUser(null)
+            .flatMap { cache ->
+                val (startDate, endDate) = Converter.rangeOfHomeFilterType(
+                    HomeFilterType.MONTHLY,
+                    year,
+                    month
+                )
+                remoteDataSource
+                    .getOverview(cache.id, startDate, endDate)
+                    .map { it.toData(cache) }
             }
-        } else {
-            Result.Error(UnverifiedUserException())
-        }
     }
 }

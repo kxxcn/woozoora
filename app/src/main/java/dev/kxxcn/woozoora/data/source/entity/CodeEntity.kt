@@ -7,4 +7,6 @@ data class CodeEntity(
     val code: String?,
     @SerializedName("transfer")
     val transfer: Boolean,
+    @SerializedName("userId")
+    val userId: String,
 )

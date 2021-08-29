@@ -133,7 +133,7 @@ class LocalDataSource(
         userId: String,
         sponsorId: String,
         isTransfer: Boolean,
-    ): Result<String?> {
+    ): Result<CodeEntity> {
         throw InvalidRequestException()
     }
 
@@ -142,7 +142,7 @@ class LocalDataSource(
             userDao.getUsers()
                 .find { it.id == userId }
                 ?.let { userDao.updateUser(it.copy(year = year)) }
-            Result.Success(Unit)
+            Result.Success(userId)
         } catch (e: Exception) {
             Result.Error(e)
         }
@@ -153,7 +153,7 @@ class LocalDataSource(
             userDao.getUsers()
                 .find { it.id == userId }
                 ?.let { userDao.updateUser(it.copy(budget = budget)) }
-            Result.Success(Unit)
+            Result.Success(userId)
         } catch (e: Exception) {
             Result.Error(e)
         }
@@ -168,7 +168,7 @@ class LocalDataSource(
             userDao.getUsers()
                 .firstOrNull()
                 ?.let { userDao.updateUser(it.copy(code = code)) }
-            Result.Success("")
+            Result.Success(userId)
         } catch (e: Exception) {
             Result.Error(e)
         }
@@ -211,7 +211,7 @@ class LocalDataSource(
         return@withContext try {
             userDao.deleteAll()
             notificationDao.deleteAll()
-            Result.Success(Unit)
+            Result.Success(userId)
         } catch (e: Exception) {
             Result.Error(e)
         }
