@@ -41,7 +41,7 @@ interface DataRepository {
 
     suspend fun updateToken()
 
-    suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<String?>
+    suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<Any>
 
     suspend fun updateUser(year: Int): Result<Any>
 

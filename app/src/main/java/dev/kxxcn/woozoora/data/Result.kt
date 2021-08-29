@@ -13,13 +13,10 @@ sealed class Result<out R> {
             get() = (exception as? BaseException)?.res
     }
 
-    object Loading : Result<Nothing>()
-
     override fun toString(): String {
         return when (this) {
             is Success<*> -> "Success[ data = $data ]"
             is Error -> "Error[ exception = $exception ]"
-            Loading -> "Loading"
         }
     }
 }
@@ -45,4 +42,14 @@ inline fun <T> Result<T>.ifFailed(block: (Result.Error) -> Unit): Result<T> {
         block(this as Result.Error)
     }
     return this
+}
+
+inline fun <T, R> Result<T>.map(block: (T) -> R): Result<R> = when (this) {
+    is Result.Success -> Result.Success(block(data))
+    is Result.Error -> this
+}
+
+inline fun <T, R> Result<T>.flatMap(block: (T) -> Result<R>): Result<R> = when (this) {
+    is Result.Success -> block(data)
+    is Result.Error -> this
 }

@@ -8,7 +8,7 @@ class UpdateUserUseCase @Inject constructor(
     private val repository: DataRepository,
 ) {
 
-    suspend operator fun invoke(sponsorId: String, isTransfer: Boolean): Result<String?> {
+    suspend operator fun invoke(sponsorId: String, isTransfer: Boolean): Result<Any> {
         return repository.updateUser(sponsorId, isTransfer)
     }
 

@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class TicketViewModel @AssistedInject constructor(
     private val updateUserUseCase: UpdateUserUseCase,
-    @Assisted private val savedStateHandle: SavedStateHandle
+    @Assisted private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     @AssistedInject.Factory

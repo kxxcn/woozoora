@@ -155,33 +155,33 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         userId: String,
         sponsorId: String,
         isTransfer: Boolean,
-    ): Result<String?> {
+    ): Result<CodeEntity> {
         return try {
             apiService.updateUser(userId, sponsorId, isTransfer)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(it.body()) }
+                ?.let { Result.Success(CodeEntity(it.body(), isTransfer, userId)) }
                 ?: throw UserUpdateException()
         } catch (e: Exception) {
             Result.Error(e)
         }
     }
 
-    override suspend fun updateUser(userId: String, year: Int): Result<Any> {
+    override suspend fun updateUser(userId: String, year: Int): Result<String> {
         return try {
             apiService.updateUser(userId, year)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(userId) }
                 ?: throw UserUpdateException()
         } catch (e: Exception) {
             Result.Error(e)
         }
     }
 
-    override suspend fun updateUser(userId: String, budget: Long): Result<Any> {
+    override suspend fun updateUser(userId: String, budget: Long): Result<String> {
         return try {
             apiService.updateUser(userId, budget)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(userId) }
                 ?: throw UserUpdateException()
         } catch (e: Exception) {
             Result.Error(e)
@@ -192,11 +192,11 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         userId: String,
         code: String?,
         isTransfer: Boolean,
-    ): Result<Any> {
+    ): Result<String> {
         return try {
-            apiService.updateCode(userId, CodeEntity(code, isTransfer))
+            apiService.updateCode(userId, CodeEntity(code, isTransfer, userId))
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(userId) }
                 ?: throw CodeUpdateException()
         } catch (e: Exception) {
             Result.Error(e)
@@ -229,11 +229,11 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
-    override suspend fun leave(userId: String): Result<Any> {
+    override suspend fun leave(userId: String): Result<String> {
         return try {
             apiService.leave(userId)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(userId) }
                 ?: throw LeaveException()
         } catch (e: Exception) {
             Result.Error(e)
