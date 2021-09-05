@@ -92,7 +92,8 @@ enum class Category(
         R.string.category_insurance,
         R.color.categoryInsurance,
         R.drawable.ic_emoji_insurance
-    );
+    ),
+    NONE(-1, -1, -1);
 
     companion object {
 
