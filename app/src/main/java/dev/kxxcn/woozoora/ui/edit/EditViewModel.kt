@@ -118,7 +118,8 @@ class EditViewModel @AssistedInject constructor(
     }
 
     fun category(category: Category) {
-        _categoryFilterType.value = category
+        _categoryFilterType.value =
+            if (categoryFilterType.value == category) Category.NONE else category
     }
 
     fun setFilter(text: String?) {
@@ -154,7 +155,7 @@ class EditViewModel @AssistedInject constructor(
 
             val price = Converter.numberFormat(editPrice.value)?.takeIf { it > 0 }
 
-            if (isEmptyName.value == true || isEmptyDate.value == true || isEmptyTime.value == true || price == null || category == null || payment == null) {
+            if (isEmptyName.value == true || isEmptyDate.value == true || isEmptyTime.value == true || price == null || (category == null || category == Category.NONE) || payment == null) {
                 toast(R.string.enter_all_items)
                 return@launch
             }

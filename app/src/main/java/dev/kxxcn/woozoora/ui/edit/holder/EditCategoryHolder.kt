@@ -2,12 +2,10 @@ package dev.kxxcn.woozoora.ui.edit.holder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.doOnLayout
+import androidx.core.view.children
+import com.google.android.material.chip.Chip
 import dev.kxxcn.woozoora.common.Category
-import dev.kxxcn.woozoora.common.extension.dpToPx
 import dev.kxxcn.woozoora.databinding.EditCategoryItemBinding
-import dev.kxxcn.woozoora.ui.custom.CategorySelectorView
 import dev.kxxcn.woozoora.ui.edit.EditViewModel
 
 class EditCategoryHolder(
@@ -16,7 +14,7 @@ class EditCategoryHolder(
 
     override fun bind(viewModel: EditViewModel) {
         setupBinding(viewModel)
-        setupCategories(viewModel)
+        setupListener(viewModel)
     }
 
     private fun setupBinding(viewModel: EditViewModel) {
@@ -27,30 +25,14 @@ class EditCategoryHolder(
         }
     }
 
-    private fun setupCategories(viewModel: EditViewModel) {
-        val categories = Category.values()
-        categories
-            .mapIndexed { index, category ->
-                CategorySelectorView(context)
-                    .apply { bind(category, viewModel) }
-                    .apply {
-                        val marginEnd = if (index == categories.size - 1) 0 else 5.dpToPx
-                        layoutParams = LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                        ).apply { setMargins(0, 0, marginEnd, 0) }
-                    }
-            }
-            .forEach {
-                it.doOnLayout { view ->
-                    val location = IntArray(2)
-                    view.getLocationOnScreen(location)
-                    if (it.isSelectedCategory()) {
-                        binding.categoryEditScroll.scrollBy(location[0] - 20.dpToPx, 0)
-                    }
-                }
-                binding.categoryEditParent.addView(it)
-            }
+    private fun setupListener(viewModel: EditViewModel) {
+        binding.categoryGroup.setOnCheckedChangeListener { group, _ ->
+            group.children
+                .withIndex()
+                .filter { (it.value as Chip).isChecked }
+                .firstOrNull()?.index
+                ?.let { viewModel.category(Category.find(it)) }
+        }
     }
 
     companion object {
