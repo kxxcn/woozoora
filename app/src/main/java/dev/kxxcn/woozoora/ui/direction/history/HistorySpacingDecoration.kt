@@ -11,7 +11,7 @@ class HistorySpacingDecoration : RecyclerView.ItemDecoration() {
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         val position = parent.getChildLayoutPosition(view)
@@ -23,5 +23,6 @@ class HistorySpacingDecoration : RecyclerView.ItemDecoration() {
         }
 
         outRect.bottom = marginBottom
+        outRect.top = 10.dpToPx
     }
 }

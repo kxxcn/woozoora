@@ -1,8 +1,8 @@
 package dev.kxxcn.woozoora.ui.direction.history
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import dev.kxxcn.woozoora.common.base.IncomparableDiffCallback
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.ui.base.BaseAdapter
 import dev.kxxcn.woozoora.ui.direction.history.holder.HistoryEmptyHolder
@@ -10,7 +10,7 @@ import dev.kxxcn.woozoora.ui.direction.history.holder.HistoryTransactionHolder
 
 class HistoryTransactionAdapter(
     private val viewModel: HistoryViewModel,
-) : BaseAdapter<HistoryData, RecyclerView.ViewHolder>(HistoryDiffCallback()) {
+) : BaseAdapter<HistoryData, RecyclerView.ViewHolder>(IncomparableDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -40,19 +40,5 @@ class HistoryTransactionAdapter(
         const val TYPE_EMPTY = 0
 
         const val TYPE_VIEW = 1
-    }
-
-    class HistoryDiffCallback : DiffUtil.ItemCallback<HistoryData>() {
-
-        override fun areItemsTheSame(oldData: HistoryData, newData: HistoryData): Boolean {
-            return oldData.transaction == newData.transaction
-        }
-
-        override fun areContentsTheSame(
-            oldData: HistoryData,
-            newData: HistoryData,
-        ): Boolean {
-            return oldData == newData
-        }
     }
 }
