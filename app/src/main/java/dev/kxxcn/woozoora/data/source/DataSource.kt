@@ -34,7 +34,7 @@ interface DataSource {
 
     fun getNotifications(): LiveData<List<NotificationEntity>>
 
-    suspend fun saveUser(user: UserEntity): Result<Any>
+    suspend fun saveUser(user: UserEntity): Result<String?>
 
     suspend fun saveToken(newToken: String)
 

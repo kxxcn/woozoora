@@ -102,11 +102,11 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
-    override suspend fun saveUser(user: UserEntity): Result<Any> {
+    override suspend fun saveUser(user: UserEntity): Result<String?> {
         return try {
             apiService.saveUser(user)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(it.body()) }
                 ?: throw UserSaveException()
         } catch (e: Exception) {
             Result.Error(e)

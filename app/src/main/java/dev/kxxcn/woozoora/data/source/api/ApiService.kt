@@ -32,7 +32,7 @@ interface ApiService {
     @POST(USER_REGISTER)
     suspend fun saveUser(
         @Body user: UserEntity,
-    ): Response<Any?>
+    ): Response<String>
 
     @POST(TRANSACTION)
     suspend fun saveTransaction(

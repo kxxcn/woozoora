@@ -82,7 +82,8 @@ class LocalDataSource(
     override suspend fun saveUser(user: UserEntity) = withContext(ioDispatcher) {
         return@withContext try {
             userDao.deleteAll()
-            Result.Success(userDao.insertUser(user))
+            userDao.insertUser(user)
+            Result.Success(user.code)
         } catch (e: Exception) {
             Result.Error(e)
         }

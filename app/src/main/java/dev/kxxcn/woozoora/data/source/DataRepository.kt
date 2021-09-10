@@ -24,7 +24,7 @@ interface DataRepository {
 
     fun getNotifications(): LiveData<List<NotificationData>>
 
-    suspend fun saveUser(userData: UserData): Result<Any>
+    suspend fun saveUser(userData: UserData): Result<Any?>
 
     suspend fun saveToken(newToken: String)
 

@@ -9,7 +9,7 @@ class SaveUserUseCase @Inject constructor(
     private val repository: DataRepository,
 ) {
 
-    suspend operator fun invoke(user: UserData): Result<Any> {
+    suspend operator fun invoke(user: UserData): Result<Any?> {
         return repository.saveUser(user)
     }
 }
