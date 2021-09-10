@@ -74,14 +74,14 @@ class DataRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveUser(userData: UserData): Result<Any> {
+    override suspend fun saveUser(userData: UserData): Result<Any?> {
         val userEntity = userData
             .apply { this.token = getNewToken() }
             .toEntity()
 
         return remoteDataSource
             .saveUser(userEntity)
-            .ifSucceeded { localDataSource.saveUser(userEntity) }
+            .ifSucceeded { localDataSource.saveUser(userEntity.copy(code = it)) }
     }
 
     override suspend fun saveToken(newToken: String) {
