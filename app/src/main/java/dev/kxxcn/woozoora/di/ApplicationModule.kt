@@ -190,7 +190,7 @@ object ApplicationModule {
     }
 
     private fun alterNotificationTable(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE `Notification` ADD COLUMN transactionType INTEGER NOT NULL DEFAULT 0")
+        database.execSQL("ALTER TABLE `Notification` ADD COLUMN transactionType INTEGER DEFAULT 0")
     }
 }
 
