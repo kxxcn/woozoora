@@ -20,6 +20,7 @@ class StatisticUserFragment : Fragment() {
     private val userName by lazy { arguments?.getString(KEY_USER_NAME) }
     private val userProfile by lazy { arguments?.getString(KEY_USER_PROFILE) }
     private val userPrice by lazy { arguments?.getInt(KEY_USER_PRICE) }
+    private val userAsset by lazy { arguments?.getInt(KEY_USER_ASSET) }
     private val transactionCount by lazy { arguments?.getInt(KEY_USER_TRANSACTION_COUNT) }
     private val paymentCash by lazy { arguments?.getInt(KEY_USER_PAYMENT_CASH) }
     private val paymentCard by lazy { arguments?.getInt(KEY_USER_PAYMENT_CARD) }
@@ -38,6 +39,7 @@ class StatisticUserFragment : Fragment() {
             name = userName
             profile = userProfile
             price = userPrice
+            asset = userAsset
             count = transactionCount
             cash = paymentCash
             card = paymentCard

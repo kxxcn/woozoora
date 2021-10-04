@@ -32,11 +32,4 @@ class HistoryDayAdapter(
             return oldItem == newItem
         }
     }
-
-    companion object {
-
-        fun create(items: List<Pair<Int, Boolean>>): List<DayItem> {
-            return items.map { DayItem(it.first, it.second) }
-        }
-    }
 }

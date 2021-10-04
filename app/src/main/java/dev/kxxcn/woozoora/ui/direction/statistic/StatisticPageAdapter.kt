@@ -39,6 +39,7 @@ class StatisticPageAdapter(
                 KEY_USER_NAME to user?.name,
                 KEY_USER_PROFILE to user?.profile,
                 KEY_USER_PRICE to overview?.getTotalSpendingById(user?.id),
+                KEY_USER_ASSET to overview?.getTotalAssetById(user?.id),
                 KEY_USER_TRANSACTION_COUNT to overview?.getCountOfTransactionsById(user?.id),
                 KEY_USER_PAYMENT_CASH to overview?.getTotalSpendingByPayment(
                     user?.id,

@@ -14,10 +14,13 @@ import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.ui.base.AnimatableHolder
 import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
 import dev.kxxcn.woozoora.ui.direction.home.HomeViewModel
+import dev.kxxcn.woozoora.util.ColorGenerator
 
 class HomeCategoryHolder(
-    private val binding: HomeCategoryItemBinding
+    private val binding: HomeCategoryItemBinding,
 ) : AnimatableHolder(binding) {
+
+    private lateinit var colors: List<Int>
 
     override fun animate() {
         binding.overview?.let {
@@ -27,9 +30,11 @@ class HomeCategoryHolder(
     }
 
     fun bind(overview: OverviewData, viewModel: HomeViewModel) {
+        val size = overview.groupByCategory(overview.id, HomeFilterType.MONTHLY).size
         with(binding) {
             this.lifecycleOwner = this@HomeCategoryHolder
             this.overview = overview
+            this.colors = ColorGenerator.generate(size).also { this@HomeCategoryHolder.colors = it }
             this.viewModel = viewModel
             this.executePendingBindings()
         }
@@ -37,14 +42,15 @@ class HomeCategoryHolder(
 
     private fun animateChart(overview: OverviewData) {
         overview.groupByCategory(overview.id, HomeFilterType.MONTHLY)
-            .map { (category, transactions) ->
+            .takeIf { it.isNotEmpty() }
+            ?.toList()
+            ?.mapIndexed { index, (category, transactions) ->
                 PieEntry(
                     transactions.sumBy { it.price }.toFloat(),
-                    context.getString(category.nameRes),
-                    category.colorRes
+                    category,
+                    colors[index]
                 )
             }
-            .takeIf { it.isNotEmpty() }
             ?.let {
                 binding.categoryChart.updateValues<PieDataSet>(Easing.EaseInOutCirc) {
                     this.values = it

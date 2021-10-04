@@ -26,18 +26,16 @@
 
         <TextView
             android:id="@+id/category_name_text"
-            android:layout_width="0dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_nexon_regular"
             android:maxLines="2"
-            android:text="@{context.getString(history.transaction.categoryNameRes)}"
+            android:text="@{history.transaction.domain}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/date_text"
-            app:layout_constraintEnd_toStartOf="@id/transaction_name_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/transaction_name_text"
-            app:layout_constraintWidth_percent="0.3"
             tools:text="@string/category_membership_fees" />
 
         <TextView
@@ -47,77 +45,128 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:fontFamily="@font/font_nexon_regular"
-            android:maxLines="2"
+            android:maxLines="1"
             android:text="@{history.transaction.name}"
             android:textColor="@color/primaryBlack"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/price_text"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/profile_image"
             app:layout_constraintStart_toEndOf="@id/category_name_text"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.4"
-            tools:text="롯데시네마" />
+            tools:text="유가네" />
+
+        <ImageView
+            android:id="@+id/type_circle_icon"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:src="@drawable/round_oval_grey"
+            app:layout_constraintBottom_toBottomOf="@id/type_text"
+            app:layout_constraintStart_toStartOf="@id/transaction_name_text"
+            app:layout_constraintTop_toTopOf="@id/type_text"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/price_text"
-            android:layout_width="0dp"
+            android:id="@+id/type_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/font_nexon_regular"
-            android:gravity="end"
-            android:maxLines="1"
-            android:text="@{@string/format_price(Converter.INSTANCE.moneyFormat(history.transaction.price))}"
-            android:textColor="@color/red01"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/transaction_name_text"
-            app:layout_constraintTop_toTopOf="@id/transaction_name_text"
-            app:layout_constraintWidth_percent="0.3"
-            tools:text="14,000원" />
+            android:text="@{history.transaction.type == 0 ? @string/spending : @string/asset}"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/type_circle_icon"
+            app:layout_constraintTop_toBottomOf="@id/transaction_name_text"
+            tools:text="@string/asset" />
+
+        <ImageView
+            android:id="@+id/payment_circle_icon"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/round_oval_grey"
+            android:visibility="@{history.transaction.type == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/type_text"
+            app:layout_constraintStart_toEndOf="@id/type_text"
+            app:layout_constraintTop_toTopOf="@id/type_text"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/payment_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{context.getString(history.transaction.paymentNameRes)}"
+            android:textColor="@color/grey03"
+            android:textSize="12sp"
+            android:visibility="@{history.transaction.type == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toEndOf="@id/payment_circle_icon"
+            app:layout_constraintTop_toTopOf="@id/type_text"
+            tools:text="현금" />
+
+        <ImageView
+            android:id="@+id/date_circle_icon"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/round_oval_grey"
+            android:visibility="@{viewModel.usageTransactionTime ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/type_text"
+            app:layout_constraintStart_toEndOf="@id/payment_text"
+            app:layout_constraintTop_toTopOf="@id/type_text"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="20dp"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="@{history.time}"
+            android:text="@{viewModel.usageTransactionTime ? history.timeWithoutMarker : @string/empty}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/transaction_name_text"
-            app:layout_constraintTop_toBottomOf="@id/transaction_name_text"
-            tools:text="오후 4:55" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/font_nexon_regular"
-            android:text="@{context.getString(history.transaction.paymentNameRes)}"
-            android:textColor="@color/grey03"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/date_text"
-            app:layout_constraintTop_toTopOf="@id/date_text"
-            tools:text="현금" />
+            app:layout_constraintStart_toEndOf="@id/date_circle_icon"
+            app:layout_constraintTop_toTopOf="@id/type_text"
+            tools:text="16:55" />
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
             app:circleImage="@{history.profile}"
+            app:layout_constraintBottom_toBottomOf="@id/price_text"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/price_text"
+            app:layout_constraintTop_toTopOf="@id/transaction_name_text"
             tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="end"
+            android:maxLines="1"
+            android:text="@{history.transaction.type == 0 ? @string/format_price_minus(Converter.INSTANCE.moneyFormat(history.transaction.price)) : @string/format_price_plus(Converter.INSTANCE.moneyFormat(history.transaction.price))}"
+            android:textColor="@{history.transaction.type == 0 ? @color/primaryBlack : @color/green02}"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/transaction_name_text"
+            app:layout_constraintTop_toBottomOf="@id/date_text"
+            tools:text="+14,000원"
+            tools:textColor="@color/green02" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:background="@color/grey01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@id/price_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

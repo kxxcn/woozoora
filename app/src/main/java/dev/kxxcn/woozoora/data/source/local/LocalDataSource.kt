@@ -8,7 +8,9 @@ import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.DataSource
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.entity.*
+import dev.kxxcn.woozoora.data.source.local.dao.AssetCategoryDao
 import dev.kxxcn.woozoora.data.source.local.dao.NotificationDao
+import dev.kxxcn.woozoora.data.source.local.dao.TransactionCategoryDao
 import dev.kxxcn.woozoora.data.source.local.dao.UserDao
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
@@ -19,6 +21,8 @@ class LocalDataSource(
     private val sharedPreferences: SharedPreferences,
     private val userDao: UserDao,
     private val notificationDao: NotificationDao,
+    private val assetCategoryDao: AssetCategoryDao,
+    private val transactionCategoryDao: TransactionCategoryDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : DataSource {
 
@@ -72,6 +76,22 @@ class LocalDataSource(
 
     override suspend fun getUsageTransactionTime(): Boolean {
         return sharedPreferences.getBoolean(PREF_USAGE_TRANSACTION_TIME, true)
+    }
+
+    override suspend fun getAssetCategory() = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(assetCategoryDao.getAssetCategories())
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun getTransactionCategory() = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(transactionCategoryDao.getTransactionCategories())
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override fun getNotifications(): LiveData<List<NotificationEntity>> {
@@ -188,6 +208,7 @@ class LocalDataSource(
                         it.transactionName,
                         it.transactionDate,
                         it.transactionPrice,
+                        it.transactionType,
                         it.date,
                         1,
                     )

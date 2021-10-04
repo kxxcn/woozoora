@@ -2,6 +2,7 @@ package dev.kxxcn.woozoora.domain.model
 
 import android.os.Parcelable
 import dev.kxxcn.woozoora.common.FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY
+import dev.kxxcn.woozoora.common.FORMAT_TIME_HOUR_MINUTE
 import dev.kxxcn.woozoora.common.FORMAT_TIME_HOUR_MINUTE_WITH_MARKER
 import dev.kxxcn.woozoora.util.Converter
 import kotlinx.android.parcel.Parcelize
@@ -40,6 +41,12 @@ data class HistoryData(
         get() {
             val timeMs = transaction?.date
             return Converter.dateFormat(FORMAT_TIME_HOUR_MINUTE_WITH_MARKER, timeMs)
+        }
+
+    val timeWithoutMarker: String?
+        get() {
+            val timeMs = transaction?.date
+            return Converter.dateFormat(FORMAT_TIME_HOUR_MINUTE, timeMs)
         }
 
     private val predicate = { user: UserData -> user.id == transaction?.userId }

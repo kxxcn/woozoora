@@ -13,6 +13,7 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import androidx.databinding.adapters.ListenerUtil
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -160,4 +161,9 @@ fun setPercent(view: ProgressBar, percent: Int?) {
 @BindingAdapter("app:loadUrl")
 fun setWebView(view: WebView, url: String?) {
     url?.let { view.loadUrl(it) }
+}
+
+@BindingAdapter("app:lottie_file")
+fun setLottieFile(view: LottieAnimationView, fileName: String) {
+    view.setAnimation(fileName)
 }

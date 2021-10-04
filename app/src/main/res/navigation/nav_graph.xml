@@ -90,10 +90,8 @@
             app:popExitAnim="@anim/slide_out_right">
 
             <argument
-                android:name="history_item"
-                android:defaultValue="@null"
-                app:argType=".domain.model.HistoryData"
-                app:nullable="true" />
+                android:name="branch_type"
+                app:argType=".ui.edit.EditBranchType" />
 
         </action>
 

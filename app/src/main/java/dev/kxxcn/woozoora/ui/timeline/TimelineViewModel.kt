@@ -50,7 +50,7 @@ class TimelineViewModel @AssistedInject constructor(
             .replace(transaction) { it.id == transaction?.id }
             .filter { timeline?.inPrice(it.price) ?: true }
             .filter { timeline?.inRange(it.date) ?: true }
-            .filter { timeline?.inCategory(it.category) ?: true }
+            .filter { timeline?.inCategory(it.domain) ?: true }
             .also { _transactions.value = it }
     }
 

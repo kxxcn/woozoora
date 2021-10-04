@@ -20,6 +20,10 @@
             type="Integer" />
 
         <variable
+            name="asset"
+            type="Integer" />
+
+        <variable
             name="count"
             type="Integer" />
 
@@ -45,11 +49,11 @@
 
         <ImageView
             android:id="@+id/profile_image"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:circleImage="@{profile}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/user_name_text"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -65,39 +69,62 @@
             tools:text="홍기찬님" />
 
         <TextView
+            android:id="@+id/user_asset_price_desc_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@string/asset"
+            android:textColor="@color/primaryBlack"
+            app:layout_constraintStart_toStartOf="@id/user_name_text"
+            app:layout_constraintTop_toBottomOf="@id/user_name_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:includeFontPadding="false"
+            android:text="@{asset == 0 ? @string/format_price(Converter.INSTANCE.moneyFormat(asset)) : @string/format_price_plus(Converter.INSTANCE.moneyFormat(asset))}"
+            android:textColor="@color/green02"
+            app:layout_constraintBottom_toBottomOf="@id/user_asset_price_desc_text"
+            app:layout_constraintStart_toEndOf="@id/user_asset_price_desc_text"
+            app:layout_constraintTop_toTopOf="@id/user_asset_price_desc_text"
+            tools:text="+300,000원" />
+
+        <TextView
             android:id="@+id/user_price_desc_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="@string/spending_of_this_month"
+            android:text="@string/spending"
             android:textColor="@color/primaryBlack"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@id/user_name_text"
-            app:layout_constraintTop_toBottomOf="@id/user_name_text" />
+            app:layout_constraintStart_toStartOf="@id/user_asset_price_desc_text"
+            app:layout_constraintTop_toBottomOf="@id/user_asset_price_desc_text" />
 
         <TextView
             android:id="@+id/user_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
             android:fontFamily="@font/font_nexon_regular"
             android:includeFontPadding="false"
-            android:text="@{@string/format_price(Converter.INSTANCE.moneyFormat(price))}"
+            android:text="@{price == 0 ? @string/format_price(Converter.INSTANCE.moneyFormat(price)) : @string/format_price_minus(Converter.INSTANCE.moneyFormat(price))}"
             android:textColor="@color/primaryBlack"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@id/user_name_text"
-            app:layout_constraintTop_toBottomOf="@id/user_price_desc_text"
-            tools:text="100,000원" />
+            app:layout_constraintBottom_toBottomOf="@id/user_price_desc_text"
+            app:layout_constraintStart_toEndOf="@id/user_price_desc_text"
+            app:layout_constraintTop_toTopOf="@id/user_price_desc_text"
+            tools:text="-100,000원" />
 
         <LinearLayout
             android:id="@+id/transaction_count_parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@id/user_name_text"
-            app:layout_constraintTop_toBottomOf="@id/user_price_text">
+            app:layout_constraintTop_toBottomOf="@id/user_price_desc_text">
 
             <TextView
                 android:id="@+id/transaction_count_desc_text"
@@ -123,7 +150,7 @@
             android:id="@+id/cash_parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="@id/user_name_text"
             app:layout_constraintTop_toBottomOf="@id/transaction_count_parent">

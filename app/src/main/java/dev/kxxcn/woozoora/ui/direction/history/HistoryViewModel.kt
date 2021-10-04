@@ -13,7 +13,9 @@ import dev.kxxcn.woozoora.domain.GetOverviewUseCase
 import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.OverviewData
+import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
+import dev.kxxcn.woozoora.ui.direction.history.item.DayItem
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -89,18 +91,18 @@ open class HistoryViewModel @AssistedInject constructor(
         _receiptEvent.value = Event(history)
     }
 
-    private fun hasTransactionsForDay(day: Int): Boolean {
+    private fun transactionIfMatchedDay(day: Int): List<TransactionData> {
         return overview.value?.transactions
-            ?.any { it.date.day == day }
-            ?: false
+            ?.filter { it.date.day == day }
+            ?: emptyList()
     }
 
-    private fun getMaximumDay(year: Int, month: Int): List<Pair<Int, Boolean>> {
+    private fun getMaximumDay(year: Int, month: Int): List<DayItem> {
         val maximum = Calendar.getInstance()
             .apply { set(Calendar.YEAR, year) }
             .apply { set(Calendar.MONTH, month) }
             .getActualMaximum(Calendar.DAY_OF_MONTH)
-        return IntRange(1, maximum).map { it to hasTransactionsForDay(it) }
+        return IntRange(1, maximum).map { DayItem(it, transactionIfMatchedDay(it)) }
     }
 
     private fun createHistory(

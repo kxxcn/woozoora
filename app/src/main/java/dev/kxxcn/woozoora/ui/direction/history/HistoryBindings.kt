@@ -5,17 +5,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.faltenreich.skeletonlayout.Skeleton
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.domain.model.HistoryData
+import dev.kxxcn.woozoora.ui.direction.history.item.DayItem
 
 @BindingAdapter("app:dayItem")
-fun setDays(view: RecyclerView, items: List<Pair<Int, Boolean>>?) {
+fun setDays(view: RecyclerView, items: List<DayItem>?) {
     items?.let {
         val skeleton = view.getTag(R.id.tag_skeleton_history_day_list) as? Skeleton
         if (skeleton != null) {
             skeleton.showOriginal()
             view.setTag(R.id.tag_skeleton_history_day_list, null)
         }
-        val days = HistoryDayAdapter.create(it)
-        (view.adapter as? HistoryDayAdapter)?.submitListAndScroll(days)
+        (view.adapter as? HistoryDayAdapter)?.submitListAndScroll(it)
     }
 }
 

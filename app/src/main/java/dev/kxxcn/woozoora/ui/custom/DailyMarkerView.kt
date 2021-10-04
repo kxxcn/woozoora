@@ -17,7 +17,7 @@ class DailyMarkerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    layoutResource: Int
+    layoutResource: Int,
 ) : MarkerView(context, layoutResource) {
 
     private val dayText: TextView = findViewById(R.id.day_text)
@@ -72,8 +72,7 @@ class DailyMarkerView @JvmOverloads constructor(
             null
         } else {
             val size = resources.size
-            val res = resources.first() as Int
-            val name = context.getString(res)
+            val name = resources.first() as String
             if (size == 1) {
                 name
             } else {

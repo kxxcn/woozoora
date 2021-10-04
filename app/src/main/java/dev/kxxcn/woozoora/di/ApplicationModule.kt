@@ -4,7 +4,9 @@ import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.faltenreich.skeletonlayout.SkeletonConfig
 import com.faltenreich.skeletonlayout.SkeletonLayout
 import dagger.Binds
@@ -25,6 +27,7 @@ import dev.kxxcn.woozoora.data.source.local.LocalDatabase
 import dev.kxxcn.woozoora.data.source.remote.RemoteDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import java.util.*
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -58,6 +61,8 @@ object ApplicationModule {
             sharedPreferences,
             database.userDao(),
             database.notificationDao(),
+            database.assetCategoryDao(),
+            database.transactionCategoryDao(),
             ioDispatcher
         )
     }
@@ -69,7 +74,10 @@ object ApplicationModule {
             application.applicationContext,
             LocalDatabase::class.java,
             "Woozoora.db"
-        ).addMigrations(*ALL_MIGRATIONS).fallbackToDestructiveMigrationOnDowngrade().build()
+        ).fallbackToDestructiveMigrationOnDowngrade()
+            .addCallback(CALLBACK)
+            .addMigrations(*ALL_MIGRATIONS)
+            .build()
     }
 
     @Singleton
@@ -111,9 +119,79 @@ object ApplicationModule {
         )
     }
 
-    val ALL_MIGRATIONS = arrayOf<Migration>(
-
+    private val ASSET_CATEGORY = listOf(
+        "월급",
+        "예금",
+        "적금",
+        "부동산",
+        "가상화폐",
+        "주식",
+        "펀드",
+        "현금"
     )
+    private val TRANSACTION_CATEGORY = listOf(
+        "식비",
+        "교통/차량",
+        "문화생활",
+        "마트/편의점",
+        "패션/미용",
+        "생활용품",
+        "주거/통신",
+        "건강",
+        "교육",
+        "경조사/회비",
+        "부모님",
+        "기타",
+        "카페",
+        "육아",
+        "의료",
+        "대출",
+        "보험",
+    )
+
+    val CALLBACK = object : RoomDatabase.Callback() {
+        override fun onCreate(database: SupportSQLiteDatabase) {
+            super.onCreate(database)
+            insertAssetCategories(database)
+            insertTransactionCategories(database)
+        }
+    }
+
+    val ALL_MIGRATIONS = arrayOf<Migration>(
+        object : Migration(1, 2) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                createAssetCategoryTable(database)
+                createTransactionCategoryTable(database)
+                insertAssetCategories(database)
+                insertTransactionCategories(database)
+                alterNotificationTable(database)
+            }
+        }
+    )
+
+    private fun createAssetCategoryTable(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE `ACategory` (`id` TEXT NOT NULL, `category` TEXT NOT NULL, `priority` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+    }
+
+    private fun createTransactionCategoryTable(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE `TCategory` (`id` INTEGER NOT NULL, `category` TEXT NOT NULL, `priority` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+    }
+
+    private fun insertAssetCategories(database: SupportSQLiteDatabase) {
+        ASSET_CATEGORY.forEachIndexed { index, category ->
+            database.execSQL("INSERT INTO `ACategory`(id, category, priority) VALUES('${UUID.randomUUID()}', '${category}', ${index})")
+        }
+    }
+
+    private fun insertTransactionCategories(database: SupportSQLiteDatabase) {
+        TRANSACTION_CATEGORY.forEachIndexed { index, category ->
+            database.execSQL("INSERT INTO `TCategory`(id, category, priority) VALUES(${index}, '${category}', ${index})")
+        }
+    }
+
+    private fun alterNotificationTable(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE `Notification` ADD COLUMN transactionType INTEGER DEFAULT 0")
+    }
 }
 
 @Module

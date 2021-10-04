@@ -90,11 +90,10 @@ class AlarmReceiver : DaggerBroadcastReceiver() {
                     overview.groupByCategory(overview.id, HomeFilterType.WEEKLY)
                         .map { (category, transactions) ->
                             appendLine()
-                            val categoryName = context.getString(category.nameRes)
                             val spending = transactions.sumBy { it.price }
                             append(
                                 context.getString(R.string.format_category,
-                                    categoryName,
+                                    category,
                                     Converter.moneyFormat(spending),
                                     transactions.size)
                             )

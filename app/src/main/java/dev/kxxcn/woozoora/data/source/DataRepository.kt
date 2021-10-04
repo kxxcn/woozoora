@@ -22,6 +22,10 @@ interface DataRepository {
 
     suspend fun getUsageTransactionTime(): Boolean
 
+    suspend fun getAssetCategory(): Result<List<AssetCategoryData>>
+
+    suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>>
+
     fun getNotifications(): LiveData<List<NotificationData>>
 
     suspend fun saveUser(userData: UserData): Result<Any?>

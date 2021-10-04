@@ -29,10 +29,10 @@
             android:id="@+id/category_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:chip="@{viewModel.category}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_desc_text"
-            app:selectedChip="@{viewModel.categoryFilterType}"
             app:singleSelection="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

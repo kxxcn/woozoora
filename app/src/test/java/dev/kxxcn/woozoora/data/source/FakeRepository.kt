@@ -66,6 +66,14 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getAssetCategory(): Result<List<AssetCategoryData>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>> {
+        TODO("Not yet implemented")
+    }
+
     override fun getNotifications(): LiveData<List<NotificationData>> {
         TODO("Not yet implemented")
     }

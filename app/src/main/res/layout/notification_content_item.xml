@@ -33,21 +33,22 @@
             android:id="@+id/transaction_price_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/font_nexon_light"
-            android:text="@{@string/format_spending(notification.priceText)}"
-            android:textColor="@color/primaryBlack"
-            android:textSize="14sp"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{context.getString(notification.transactionNameTextRes, notification.priceText)}"
+            android:textColor="@{context.getColor(notification.transactionNameColorRes)}"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/transaction_name_text"
             app:layout_constraintStart_toEndOf="@id/profile_image"
             app:layout_constraintTop_toTopOf="@id/profile_image"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="지출 금액 20,000원" />
+            tools:text="+20,000원"
+            tools:textColor="@color/green02" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/font_nexon_light"
+            android:fontFamily="@font/font_nexon_regular"
             android:text="@{notification.timeText}"
             android:textColor="@color/primaryBlack"
             android:textSize="14sp"
@@ -56,51 +57,61 @@
             app:layout_constraintTop_toTopOf="@id/transaction_price_text"
             tools:text="15:30" />
 
+        <View
+            android:id="@+id/transaction_name_icon"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:background="@drawable/round_oval_grey"
+            app:layout_constraintBottom_toBottomOf="@id/transaction_name_text"
+            app:layout_constraintStart_toStartOf="@id/transaction_price_text"
+            app:layout_constraintTop_toTopOf="@id/transaction_name_text" />
+
         <TextView
             android:id="@+id/transaction_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/font_nexon_light"
+            android:fontFamily="@font/font_nexon_regular"
             android:text="@{notification.transactionName}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
-            app:layout_constraintStart_toStartOf="@id/transaction_price_text"
+            app:layout_constraintStart_toEndOf="@id/transaction_name_icon"
             app:layout_constraintTop_toBottomOf="@id/transaction_price_text"
             tools:text="(주)우아한형제들" />
 
         <View
+            android:id="@+id/transaction_date_icon"
             android:layout_width="3dp"
             android:layout_height="3dp"
-            android:background="@drawable/round_solid_grey_03"
-            app:layout_constraintBottom_toBottomOf="@id/transaction_name_text"
-            app:layout_constraintEnd_toStartOf="@id/transaction_date_text"
-            app:layout_constraintStart_toEndOf="@id/transaction_name_text"
-            app:layout_constraintTop_toTopOf="@id/transaction_name_text" />
+            android:background="@drawable/round_oval_grey"
+            app:layout_constraintBottom_toBottomOf="@id/transaction_date_text"
+            app:layout_constraintStart_toStartOf="@id/transaction_name_icon"
+            app:layout_constraintTop_toTopOf="@id/transaction_date_text" />
 
         <TextView
             android:id="@+id/transaction_date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:fontFamily="@font/font_nexon_light"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="@font/font_nexon_regular"
             android:text="@{notification.transactionDateText}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/transaction_name_text"
-            app:layout_constraintStart_toEndOf="@id/transaction_name_text"
-            app:layout_constraintTop_toTopOf="@id/transaction_name_text"
+            app:layout_constraintStart_toEndOf="@id/transaction_date_icon"
+            app:layout_constraintTop_toBottomOf="@id/transaction_name_text"
             tools:text="2021.3.25 (목) 01:32" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="20dp"
             android:background="@color/grey01"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@id/transaction_date_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -27,7 +27,7 @@ class EditAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return position
+        return getItem(position)
     }
 
     companion object {

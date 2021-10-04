@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="dev.kxxcn.woozoora.ui.edit.EditBranchType" />
+
         <variable
             name="viewModel"
             type="dev.kxxcn.woozoora.ui.direction.DirectionViewModel" />
@@ -51,7 +53,89 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <LinearLayout
+            android:id="@+id/fab_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:alpha="0"
+            android:background="@drawable/round_solid_blue_05"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="15dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/parent_fab"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.edit(EditBranchType.ASSET)}"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/asset_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_asset"
+                    app:tint="@color/white01"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/asset_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_nexon_regular"
+                    android:text="@string/register_incoming"
+                    android:textColor="@color/white01" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/white01" />
+
+            <LinearLayout
+                android:id="@+id/transaction_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.edit(EditBranchType.TRANSACTION)}"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/transaction_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_card"
+                    app:tint="@color/white01"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/transaction_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_nexon_regular"
+                    android:text="@string/register_spending"
+                    android:textColor="@color/white01" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/parent_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -60,6 +144,7 @@
             app:backgroundTint="@color/primaryOrange"
             app:layout_constraintBottom_toTopOf="@id/bottom_bar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:rippleColor="@android:color/transparent"
             app:tint="@color/white01"
             tools:ignore="ContentDescription" />
 

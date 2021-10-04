@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.children
 import com.google.android.material.chip.Chip
-import dev.kxxcn.woozoora.common.Category
 import dev.kxxcn.woozoora.databinding.EditCategoryItemBinding
 import dev.kxxcn.woozoora.ui.edit.EditViewModel
 
@@ -26,12 +25,11 @@ class EditCategoryHolder(
     }
 
     private fun setupListener(viewModel: EditViewModel) {
-        binding.categoryGroup.setOnCheckedChangeListener { group, _ ->
+        binding.categoryGroup.setOnCheckedChangeListener { group, checkedId ->
             group.children
-                .withIndex()
-                .filter { (it.value as Chip).isChecked }
-                .firstOrNull()?.index
-                ?.let { viewModel.category(Category.find(it)) }
+                .filter { (it as Chip).isChecked }
+                .firstOrNull()
+                ?.let { viewModel.category(it.id) }
         }
     }
 
