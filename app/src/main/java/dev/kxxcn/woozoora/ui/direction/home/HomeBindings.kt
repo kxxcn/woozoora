@@ -18,7 +18,6 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.vaibhavlakhera.circularprogressview.CircularProgressView
 import dev.kxxcn.woozoora.R
-import dev.kxxcn.woozoora.common.Category
 import dev.kxxcn.woozoora.common.DURATION_ONE_SECONDS
 import dev.kxxcn.woozoora.common.FORMAT_DATE_MONTH_DOT_DAY
 import dev.kxxcn.woozoora.common.Payment
@@ -104,8 +103,8 @@ fun setCountOfMostSpentWeekday(view: TextView, overview: OverviewData) {
 }
 
 @BindingAdapter("app:mostSpentCategory")
-fun setMostSpentCategory(view: TextView, category: Category?) {
-    category?.let { view.text = view.context.getString(it.nameRes) }
+fun setMostSpentCategory(view: TextView, category: String?) {
+    category?.let { view.text = it }
 }
 
 @BindingAdapter("app:mostSpentPayment")
@@ -160,18 +159,18 @@ fun setPayment(view: LinearLayout, ratios: List<Pair<Payment, Float>>) {
     }
 }
 
-@BindingAdapter("app:category")
-fun setCategory(view: GridLayout, overview: OverviewData) {
+@BindingAdapter("app:overview", "app:colors")
+fun setCategory(view: GridLayout, overview: OverviewData, colors: List<Int>) {
     view.removeAllViews()
     overview.groupByCategory(overview.id, HomeFilterType.MONTHLY)
         .takeIf { it.isNotEmpty() }
         ?.toList()
-        ?.map { (category, transactions) ->
+        ?.mapIndexed { index, (category, transactions) ->
             CategoryPriceView(view.context)
                 .apply {
                     bind(
-                        category.nameRes,
-                        category.colorRes,
+                        category,
+                        colors[index],
                         transactions.sumBy { it.price }
                     )
                 }.apply {

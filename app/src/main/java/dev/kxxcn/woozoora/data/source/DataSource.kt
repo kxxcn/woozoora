@@ -32,6 +32,10 @@ interface DataSource {
 
     suspend fun getUsageTransactionTime(): Boolean
 
+    suspend fun getAssetCategory(): Result<List<AssetCategoryEntity>>
+
+    suspend fun getTransactionCategory(): Result<List<TransactionCategoryEntity>>
+
     fun getNotifications(): LiveData<List<NotificationEntity>>
 
     suspend fun saveUser(user: UserEntity): Result<String?>

@@ -49,10 +49,10 @@ class CategoryPriceView @JvmOverloads constructor(
         }
     }
 
-    fun bind(nameRes: Int, colorRes: Int, price: Int) {
+    fun bind(category: String?, colorRes: Int, price: Int) {
         with(binding) {
             this.lifecycleOwner = this@CategoryPriceView
-            this.nameRes = nameRes
+            this.category = category
             this.colorRes = colorRes
             this.executePendingBindings()
         }

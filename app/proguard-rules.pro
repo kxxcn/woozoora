@@ -31,3 +31,4 @@
 
 -keep class dev.kxxcn.woozoora.ui.policy.PolicyFilterType
 -keep class dev.kxxcn.woozoora.ui.edit.EditFilterType
+-keep class dev.kxxcn.woozoora.ui.edit.EditBranchType

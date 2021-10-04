@@ -7,6 +7,8 @@
 
         <import type="dev.kxxcn.woozoora.ui.edit.EditFilterType" />
 
+        <import type="dev.kxxcn.woozoora.ui.edit.EditBranchType" />
+
         <variable
             name="viewModel"
             type="dev.kxxcn.woozoora.ui.edit.EditViewModel" />
@@ -22,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_nexon_light"
-            android:text="@string/transaction_name"
+            android:text="@{viewModel.branch == EditBranchType.TRANSACTION ? @string/transaction_name : @string/asset_name}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"

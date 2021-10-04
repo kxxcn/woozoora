@@ -37,6 +37,10 @@ data class NotificationEntity(
     @ColumnInfo
     val transactionPrice: Int?,
 
+    @SerializedName("transactionType")
+    @ColumnInfo
+    val transactionType: Int?,
+
     @SerializedName("date")
     @ColumnInfo
     val date: Long?,

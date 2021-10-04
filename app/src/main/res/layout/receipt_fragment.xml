@@ -20,7 +20,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryBlue">
+        android:background="@{viewModel.history.transaction.type == 0 ? @color/primaryBlue : @color/green02}"
+        tools:background="@color/green02">
 
         <View
             android:id="@+id/receipt_background"
@@ -108,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="@{viewModel.history.isNew ? @string/account_has_been_successfully_registered : context.getString(viewModel.history.transaction.categoryNameRes)}"
+            android:text="@{viewModel.history.isNew ? @string/account_has_been_successfully_registered : viewModel.history.transaction.domain}"
             android:textColor="@color/grey03"
             app:layout_constraintBottom_toTopOf="@id/money_text"
             app:layout_constraintEnd_toEndOf="parent"
@@ -227,7 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="@string/transaction_name_no_spacing"
+            android:text="@{viewModel.history.transaction.type == 0 ? @string/transaction_name_no_spacing : @string/asset_name_no_spacing}"
             android:textColor="@color/grey03"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/name_text"
@@ -256,6 +257,7 @@
             android:text="@string/transaction_method_no_spacing"
             android:textColor="@color/grey03"
             android:textSize="12sp"
+            android:visibility="@{viewModel.history.transaction.type == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintTop_toTopOf="@id/name_desc_text" />
 
@@ -267,6 +269,7 @@
             android:text="@{context.getString(viewModel.history.transaction.paymentNameRes)}"
             android:textColor="@color/primaryNavy"
             android:textSize="16sp"
+            android:visibility="@{viewModel.history.transaction.type == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintTop_toTopOf="@id/name_text"
             tools:text="현금" />

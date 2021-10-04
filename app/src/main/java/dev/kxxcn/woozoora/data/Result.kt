@@ -30,6 +30,9 @@ val Result<*>.failed
 val Result<*>.userNotFound
     get() = this is Result.Error && this.exception is UserNotFoundException
 
+val <T> Result<T>.getContentIfSucceeded: T?
+    get() = if (this is Result.Success) data else null
+
 inline fun <T> Result<T>.ifSucceeded(block: (T) -> Unit): Result<T> {
     if (this is Result.Success) {
         block(this.data)
@@ -44,10 +47,8 @@ inline fun <T> Result<T>.ifFailed(block: (Result.Error) -> Unit): Result<T> {
     return this
 }
 
-inline fun <T, R> Result<T>.map(block: (T) -> R): Result<R> = when (this) {
-    is Result.Success -> Result.Success(block(data))
-    is Result.Error -> this
-}
+inline fun <T, R> Result<T>.map(block: (T) -> R): Result<R> =
+    flatMap { data -> Result.Success(block(data)) }
 
 inline fun <T, R> Result<T>.flatMap(block: (T) -> Result<R>): Result<R> = when (this) {
     is Result.Success -> block(data)

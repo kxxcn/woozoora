@@ -28,6 +28,10 @@ data class TransactionEntity(
     @ColumnInfo
     val name: String?,
 
+    @SerializedName("domain")
+    @ColumnInfo
+    val domain: String?,
+
     @SerializedName("category")
     @ColumnInfo
     val category: Int,
@@ -42,5 +46,9 @@ data class TransactionEntity(
 
     @SerializedName("date")
     @ColumnInfo
-    val date: Long
+    val date: Long,
+
+    @SerializedName("type")
+    @ColumnInfo
+    val type: Int,
 )

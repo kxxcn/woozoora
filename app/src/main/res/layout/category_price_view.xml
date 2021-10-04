@@ -8,8 +8,8 @@
         <import type="dev.kxxcn.woozoora.util.Converter" />
 
         <variable
-            name="nameRes"
-            type="Integer" />
+            name="category"
+            type="String" />
 
         <variable
             name="colorRes"
@@ -38,7 +38,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/font_nexon_light"
             android:maxLines="1"
-            android:text="@{context.getString(nameRes)}"
+            android:text="@{category}"
             android:textColor="@color/secondaryBlack"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/circle_view"

@@ -1,32 +1,54 @@
 package dev.kxxcn.woozoora.ui.direction
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.*
 import dev.kxxcn.woozoora.common.base.Scrollable
+import dev.kxxcn.woozoora.common.extension.color
 import dev.kxxcn.woozoora.databinding.DirectionFragmentBinding
 import dev.kxxcn.woozoora.di.SavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.InvitationData
 import dev.kxxcn.woozoora.domain.model.TimelineData
 import dev.kxxcn.woozoora.ui.base.BaseFragment
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
 import dev.kxxcn.woozoora.ui.ticket.TicketFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import nl.joery.animatedbottombar.AnimatedBottomBar
 import javax.inject.Inject
+import kotlin.properties.Delegates
+import kotlin.reflect.KProperty
 
 class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
 
     @Inject
     lateinit var viewModelFactory: SavedStateViewModelFactory
+
+    private val expandAnimator = AnimatorSet()
+
+    private val collapseAnimator = AnimatorSet()
+
+    private lateinit var expandColorAnimator: ValueAnimator
+
+    private lateinit var collapseColorAnimator: ValueAnimator
+
+    private var expandable by Delegates.observable(false, ::onChange)
 
     override val viewModel by viewModels<DirectionViewModel> {
         viewModelFactory.create(
@@ -63,11 +85,17 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
             setupPager()
             setupListener()
             setupBackPressed()
+            setupAnimatorSet()
         }
     }
 
     override fun onDestroyView() {
         binding.directionPager.adapter = null
+        expandAnimator.removeAllListeners()
+        collapseAnimator.removeAllListeners()
+        expandable = false
+        expandColorAnimator.removeAllUpdateListeners()
+        collapseColorAnimator.removeAllUpdateListeners()
         super.onDestroyView()
     }
 
@@ -88,10 +116,12 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         binding.bottomBar.onTabReselected = { scrollToTop(it) }
 
         viewModel.createEvent.observe(viewLifecycleOwner, EventObserver {
-            edit()
+            create()
         })
         viewModel.editEvent.observe(viewLifecycleOwner, EventObserver {
-            edit(it)
+            if (expandable) {
+                edit(it)
+            }
         })
         viewModel.receiptEvent.observe(viewLifecycleOwner, EventObserver {
             receipt(it)
@@ -133,6 +163,48 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
             viewLifecycleOwner,
             backPressedCallback
         )
+    }
+
+    private fun setupAnimatorSet() {
+        expandColorAnimator = ValueAnimator.ofArgb(
+            requireContext().color(R.color.primaryOrange),
+            requireContext().color(R.color.grey01)
+        ).apply {
+            addUpdateListener { updateBackgroundColor(it.animatedValue as Int) }
+            doOnStart { binding.fabSelector.isVisible = true }
+        }
+        collapseColorAnimator = ValueAnimator.ofArgb(
+            requireContext().color(R.color.grey01),
+            requireContext().color(R.color.primaryOrange)
+        ).apply {
+            addUpdateListener { updateBackgroundColor(it.animatedValue as Int) }
+            doOnEnd { binding.fabSelector.isVisible = false }
+        }
+
+        expandAnimator.playTogether(
+            ObjectAnimator.ofFloat(binding.fabSelector, View.TRANSLATION_Y, -200f),
+            ObjectAnimator.ofFloat(binding.fabSelector, View.ALPHA, 1f),
+            ObjectAnimator.ofFloat(binding.parentFab, View.ROTATION, 45f),
+            expandColorAnimator
+        )
+        collapseAnimator.playTogether(
+            ObjectAnimator.ofFloat(binding.fabSelector, View.TRANSLATION_Y, 0f),
+            ObjectAnimator.ofFloat(binding.fabSelector, View.ALPHA, 0f),
+            ObjectAnimator.ofFloat(binding.parentFab, View.ROTATION, 0f),
+            collapseColorAnimator
+        )
+    }
+
+    private fun updateBackgroundColor(color: Int) {
+        binding.parentFab.backgroundTintList = ColorStateList.valueOf(color)
+    }
+
+    private fun onChange(property: KProperty<*>, oldValue: Boolean, newValue: Boolean) {
+        if (newValue) {
+            expandAnimator.start()
+        } else {
+            collapseAnimator.start()
+        }
     }
 
     private fun moveTab(tab: AnimatedBottomBar.Tab) {
@@ -187,8 +259,14 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         return binding.directionPager.currentItem != DirectionPageAdapter.PAGE_HOME
     }
 
-    private fun edit(history: HistoryData? = null) {
-        DirectionFragmentDirections.actionDirectionFragmentToEditFragment(history).show()
+    private fun create() {
+        if (!expandAnimator.isRunning && !collapseAnimator.isRunning) {
+            expandable = !expandable
+        }
+    }
+
+    private fun edit(branchType: EditBranchType) {
+        DirectionFragmentDirections.actionDirectionFragmentToEditFragment(branchType).show()
     }
 
     private fun receipt(history: HistoryData) {

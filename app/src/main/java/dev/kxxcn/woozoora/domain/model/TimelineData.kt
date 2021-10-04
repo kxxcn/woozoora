@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class TimelineData(
     val transactions: List<TransactionData>,
     val range: Pair<Long, Long>? = null,
-    val category: Int? = null,
+    val category: String? = null,
 ) : Parcelable {
 
     fun inPrice(price: Int): Boolean {
@@ -22,11 +22,11 @@ data class TimelineData(
         }
     }
 
-    fun inCategory(ordinal: Int): Boolean {
+    fun inCategory(domain: String?): Boolean {
         return if (category == null) {
             true
         } else {
-            category == ordinal
+            category == domain
         }
     }
 }

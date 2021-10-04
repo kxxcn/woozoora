@@ -6,14 +6,16 @@ import com.squareup.inject.assisted.AssistedInject
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.*
 import dev.kxxcn.woozoora.data.Result
+import dev.kxxcn.woozoora.data.getContentIfSucceeded
 import dev.kxxcn.woozoora.data.succeeded
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
-import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
-import dev.kxxcn.woozoora.domain.GetUserUseCase
-import dev.kxxcn.woozoora.domain.SaveTransactionUseCase
+import dev.kxxcn.woozoora.domain.*
+import dev.kxxcn.woozoora.domain.model.AssetCategoryData
 import dev.kxxcn.woozoora.domain.model.HistoryData
+import dev.kxxcn.woozoora.domain.model.TransactionCategoryData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.base.MotionViewModel
+import dev.kxxcn.woozoora.ui.edit.item.EditCategory
 import dev.kxxcn.woozoora.util.Converter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -25,6 +27,8 @@ class EditViewModel @AssistedInject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val saveTransactionUseCase: SaveTransactionUseCase,
     private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
+    private val getAssetCategoryUseCase: GetAssetCategoryUseCase,
+    private val getTransactionCategoryUseCase: GetTransactionCategoryUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : MotionViewModel(savedStateHandle) {
 
@@ -32,8 +36,48 @@ class EditViewModel @AssistedInject constructor(
     interface Factory : AssistedSavedStateViewModelFactory<EditViewModel>
 
     val history = savedStateHandle.get<HistoryData>(KEY_HISTORY_ITEM)
+    val branch = history?.transaction?.type
+        ?.let { EditBranchType.find(it) }
+        ?: savedStateHandle.get<EditBranchType>(KEY_BRANCH_TYPE)
+        ?: EditBranchType.TRANSACTION
 
     val isEditable = history != null
+
+    val editTransition = liveData {
+        emit(
+            when (branch) {
+                EditBranchType.ASSET -> Event(R.id.scene_edit_start_asset)
+                else -> Event(R.id.scene_edit_start_transaction)
+            }
+        )
+    }
+
+    val editColor = liveData {
+        emit(
+            when (branch) {
+                EditBranchType.ASSET -> R.color.green02
+                else -> R.color.primaryBlue
+            }
+        )
+    }
+
+    val editTitle = liveData {
+        emit(
+            when (branch) {
+                EditBranchType.ASSET -> if (isEditable) R.string.modify_incoming else R.string.register_incoming
+                else -> if (isEditable) R.string.modify_spending else R.string.register_spending
+            }
+        )
+    }
+
+    val editLottie = liveData {
+        emit(
+            when (branch) {
+                EditBranchType.ASSET -> "lottie_delivery.json"
+                else -> "lottie_astronaut.json"
+            }
+        )
+    }
 
     val editName = MutableLiveData<String?>().apply {
         value = history?.transaction?.name
@@ -93,15 +137,22 @@ class EditViewModel @AssistedInject constructor(
     val isSelectCash = paymentFilterType.map { it == Payment.CASH }
     val isSelectCard = paymentFilterType.map { it == Payment.CARD }
 
-    private val _categoryFilterType = MutableLiveData<Category>()
-        .apply { value = history?.transaction?.category?.let { Category.find(it) } }
-    val categoryFilterType: LiveData<Category> = _categoryFilterType
-
     private var currentFilterType: EditFilterType? = null
 
     private var saveJob: Job? = null
 
-    val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
+    val usageTransactionTime = liveData {
+        emit(getUsageTransactionTimeUseCase())
+    }
+
+    val category = MutableLiveData<List<EditCategory>>().apply {
+        viewModelScope.launch {
+            value = when (branch) {
+                EditBranchType.ASSET -> convertEditCategoryFromAsset(getAssetCategoryUseCase().getContentIfSucceeded)
+                else -> convertEditCategoryFromTransaction(getTransactionCategoryUseCase().getContentIfSucceeded)
+            }
+        }
+    }
 
     fun edit(filterType: EditFilterType) {
         setFiltering(filterType)
@@ -117,9 +168,10 @@ class EditViewModel @AssistedInject constructor(
         paymentFilterType.value = payment
     }
 
-    fun category(category: Category) {
-        _categoryFilterType.value =
-            if (categoryFilterType.value == category) Category.NONE else category
+    fun category(checkedId: Int) {
+        category.value
+            ?.map { if (it.id == checkedId) it.toggle() else it.release() }
+            .also { category.value = it }
     }
 
     fun setFilter(text: String?) {
@@ -150,12 +202,12 @@ class EditViewModel @AssistedInject constructor(
             val date = Converter.dateParse(FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, editDate.value)
             val time = Converter.dateParse(FORMAT_TIME_HOUR_MINUTE_WITH_MARKER, editTime.value)
 
-            val category = categoryFilterType.value
+            val category = category.value?.firstOrNull { it.isSelected }
             val payment = paymentFilterType.value
 
             val price = Converter.numberFormat(editPrice.value)?.takeIf { it > 0 }
 
-            if (isEmptyName.value == true || isEmptyDate.value == true || isEmptyTime.value == true || price == null || (category == null || category == Category.NONE) || payment == null) {
+            if (isEmptyName.value == true || isEmptyDate.value == true || isEmptyTime.value == true || price == null || category == null || (branch == EditBranchType.TRANSACTION && payment == null)) {
                 toast(R.string.enter_all_items)
                 return@launch
             }
@@ -178,10 +230,12 @@ class EditViewModel @AssistedInject constructor(
                 user.code,
                 editDescription.value,
                 editName.value,
+                category.name,
                 category.ordinal,
-                payment.ordinal,
+                payment?.ordinal ?: 0,
                 price,
-                dateMs
+                dateMs,
+                branch.ordinal
             )
 
             if (data == history?.transaction) {
@@ -237,5 +291,24 @@ class EditViewModel @AssistedInject constructor(
 
     private fun receipt(history: HistoryData) {
         _receiptEvent.value = Event(history)
+    }
+
+    private fun convertEditCategoryFromAsset(from: List<AssetCategoryData>?): List<EditCategory> {
+        return from?.map {
+            EditCategory(
+                name = it.category,
+                isSelected = it.category == history?.transaction?.domain
+            )
+        } ?: emptyList()
+    }
+
+    private fun convertEditCategoryFromTransaction(from: List<TransactionCategoryData>?): List<EditCategory> {
+        return from?.map {
+            EditCategory(
+                name = it.category,
+                ordinal = it.id,
+                isSelected = it.category == history?.transaction?.domain
+            )
+        } ?: emptyList()
     }
 }

@@ -1,6 +1,5 @@
 package dev.kxxcn.woozoora.domain.model
 
-import dev.kxxcn.woozoora.common.Category
 import dev.kxxcn.woozoora.common.Payment
 import dev.kxxcn.woozoora.common.extension.day
 import dev.kxxcn.woozoora.common.extension.weekday
@@ -76,19 +75,23 @@ data class OverviewData(
             .sumBy { it.price }
     }
 
+    fun getTotalAssetById(userId: String?): Int {
+        return filterTransactionToId(userId, 1).sumBy { it.price }
+    }
+
     fun groupByCategory(
         userId: String? = null,
         filterType: HomeFilterType,
         year: Int? = null,
         month: Int? = null,
-    ): Map<Category, List<TransactionData>> {
+    ): Map<String?, List<TransactionData>> {
         return filterTransactionToType(userId, filterType, year, month)
             .groupBy { it.category }
-            .mapKeys { Category.find(it.key) }
+            .mapKeys { it.value.firstOrNull()?.domain }
     }
 
-    fun getResourceOfCategory(userId: String?, day: Int): List<Int> {
-        return filterTransactionToDay(userId, day).map { it.categoryNameRes }
+    fun getResourceOfCategory(userId: String?, day: Int): List<String?> {
+        return filterTransactionToDay(userId, day).map { it.domain }
     }
 
     fun getRatioByPayment(
@@ -159,7 +162,7 @@ data class OverviewData(
             ?: 0
     }
 
-    fun getMostSpentCategory(): Category? {
+    fun getMostSpentCategory(): String? {
         return groupByCategory(filterType = HomeFilterType.MONTHLY)
             .maxWithOrNull { o1, o2 -> o1.value.size.compareTo(o2.value.size) }
             ?.key
@@ -169,13 +172,13 @@ data class OverviewData(
         return filterTransactionToId(userId).size
     }
 
-    fun filterTransactionToId(userId: String?): List<TransactionData> {
+    fun filterTransactionToId(userId: String?, branch: Int = 0): List<TransactionData> {
         val predicate = if (userId == null) {
             { true }
         } else {
             { t: TransactionData -> t.userId == userId }
         }
-        return transactions.filter(predicate)
+        return transactions.filter(predicate).filter { it.type == branch }
     }
 
     fun filterTransactionToRange(

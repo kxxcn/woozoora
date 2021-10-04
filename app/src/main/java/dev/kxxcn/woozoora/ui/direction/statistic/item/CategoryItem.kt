@@ -1,10 +1,10 @@
 package dev.kxxcn.woozoora.ui.direction.statistic.item
 
-import dev.kxxcn.woozoora.common.Category
 import dev.kxxcn.woozoora.domain.model.TransactionData
+import dev.kxxcn.woozoora.util.ColorGenerator
 
 data class CategoryItem(
-    val category: Category,
+    val category: String?,
     val transactions: List<TransactionData>,
     val usageRate: Float,
 ) {
@@ -14,4 +14,7 @@ data class CategoryItem(
 
     val percent: Int
         get() = (usageRate * 100).toInt()
+
+    val colorRes: Int
+        get() = ColorGenerator.random()
 }

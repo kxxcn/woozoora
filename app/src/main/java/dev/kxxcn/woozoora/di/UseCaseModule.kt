@@ -53,6 +53,18 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideGetAssetCategoryUseCase(repository: DataRepository): GetAssetCategoryUseCase {
+        return GetAssetCategoryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetTransactionCategoryUseCase(repository: DataRepository): GetTransactionCategoryUseCase {
+        return GetTransactionCategoryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideSaveUserUseCase(repository: DataRepository): SaveUserUseCase {
         return SaveUserUseCase(repository)
     }

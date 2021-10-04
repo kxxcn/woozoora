@@ -66,6 +66,16 @@ class DataRepositoryImpl @Inject constructor(
         return localDataSource.getUsageTransactionTime()
     }
 
+    override suspend fun getAssetCategory(): Result<List<AssetCategoryData>> {
+        return localDataSource.getAssetCategory()
+            .map { categories -> categories.map { it.toData() } }
+    }
+
+    override suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>> {
+        return localDataSource.getTransactionCategory()
+            .map { categories -> categories.map { it.toData() } }
+    }
+
     override fun getNotifications(): LiveData<List<NotificationData>> {
         return MediatorLiveData<List<NotificationData>>().apply {
             addSource(localDataSource.getNotifications()) {

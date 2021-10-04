@@ -15,17 +15,13 @@
             name="sharedViewModel"
             type="dev.kxxcn.woozoora.ui.input.InputViewModel" />
 
-        <variable
-            name="editItems"
-            type="List&lt;Integer>" />
-
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motion_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primaryBlue"
+        android:background="@{context.getColor(viewModel.editColor)}"
         app:layoutDescription="@xml/edit_fragment_scene">
 
         <ImageView
@@ -51,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            app:lottie_fileName="lottie_astronaut.json"
+            app:lottie_file="@{viewModel.editLottie}"
             app:lottie_loop="true" />
 
         <View
@@ -71,7 +67,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/font_recipe"
-            android:text="@{viewModel.isEditable ? @string/account_edit : @string/new_account}"
+            android:text="@{context.getString(viewModel.editTitle)}"
             android:textSize="28sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/list_background" />
@@ -81,12 +77,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:paddingHorizontal="20dp"
-            app:editItems="@{editItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/new_account_text" />
+            app:layout_constraintTop_toBottomOf="@id/new_account_text"
+            app:viewModel="@{viewModel}" />
 
         <View
             android:id="@+id/shadow_view"

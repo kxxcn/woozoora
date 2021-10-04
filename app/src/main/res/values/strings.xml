@@ -10,6 +10,8 @@
     <string name="format_month">%1$s월</string>
     <string name="format_day">%1$d일</string>
     <string name="format_price">%1$s원</string>
+    <string name="format_price_plus">+%1$s원</string>
+    <string name="format_price_minus">-%1$s원</string>
     <string name="format_date">%1$s ~ %2$s</string>
     <string name="format_date_with_bracket">(%1$s ~ %2$s)</string>
     <string name="format_date_with_new_line">%1$s ~ \n%2$s</string>
@@ -70,6 +72,7 @@
     <string name="saturday_short">토</string>
     <string name="sunday_short">일</string>
 
+    <string name="empty" />
     <string name="yes">예</string>
     <string name="no">아니오</string>
     <string name="next">다음</string>
@@ -128,6 +131,8 @@
     <string name="answer">A</string>
     <string name="enter_the_code">코드 입력하기</string>
     <string name="copy">복사</string>
+    <string name="spending">소비</string>
+    <string name="asset">수입</string>
 
     <string name="try_again_after_a_while">잠시 후 다시 시도해주세요.</string>
     <string name="which_way_are_you_more_comfortable_getting_started_with">"어떤\n방법으로\n인증하는 것이\n더 편하신가요?"</string>
@@ -158,6 +163,12 @@
     <string name="transaction_name_no_spacing">결제내용</string>
     <string name="transaction_price_no_spacing">결제금액</string>
     <string name="transaction_method_no_spacing">결제방법</string>
+    <string name="asset_name">수입 내용</string>
+    <string name="asset_price">수입 금액</string>
+    <string name="asset_method">수입 방법</string>
+    <string name="asset_name_no_spacing">수입내용</string>
+    <string name="asset_price_no_spacing">수입금액</string>
+    <string name="asset_method_no_spacing">수입방법</string>
     <string name="enter_the_content">내용을 입력하세요.</string>
     <string name="enter_the_price">금액을 입력하세요.</string>
     <string name="enter_the_memo">메모를 입력하세요.</string>
@@ -168,10 +179,12 @@
     <string name="account_has_been_successfully_registered">가계부가 성공적으로 등록되었습니다.</string>
     <string name="what_day_did_you_consume_the_most_this_month">"이번 달 주로\n소비한 요일은?"</string>
     <string name="what_category_did_you_consume_the_most_this_month">"이번 달 주로\n소비한 카테고리는?"</string>
-    <string name="statistics_of_monthly">주차별 통계</string>
-    <string name="statistics_of_category">카테고리별 통계</string>
+    <string name="statistics_of_monthly">주차별 소비 통계</string>
+    <string name="statistics_of_category">카테고리별 소비 통계</string>
     <string name="spending_of_this_month">이달의 소비 금액</string>
     <string name="spending_of_today">오늘의 소비 금액</string>
+    <string name="asset_of_this_month">이달의 수입 금액</string>
+    <string name="asset_of_today">오늘의 수입 금액</string>
     <string name="count_of_transaction">소비건수</string>
     <string name="select_month">월 선택하기</string>
     <string name="maximum_spending">최대지출금액</string>
@@ -223,4 +236,8 @@
     <string name="check_the_invitation_code">초대코드를 확인해 주세요.</string>
     <string name="enter_the_invitation_code">"초대코드\n입력하기"</string>
     <string name="hint_invitation_code">초대코드를 입력해주세요.</string>
+    <string name="register_spending">지출 등록하기</string>
+    <string name="register_incoming">수입 등록하기</string>
+    <string name="modify_spending">지출 편집하기</string>
+    <string name="modify_incoming">수입 편집하기</string>
 </resources>

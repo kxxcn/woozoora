@@ -121,6 +121,7 @@ class NotificationFactory @Inject constructor(
                 transactionName = data[NOTIFICATION_TRANSACTION_NAME],
                 transactionDate = data[NOTIFICATION_TRANSACTION_DATE]?.toLong(),
                 transactionPrice = data[NOTIFICATION_TRANSACTION_PRICE]?.toInt(),
+                transactionType = data[NOTIFICATION_TRANSACTION_TYPE]?.toInt(),
                 date = data[NOTIFICATION_DATE]?.toLong()
             ).also {
                 saveNotificationUseCase(it)

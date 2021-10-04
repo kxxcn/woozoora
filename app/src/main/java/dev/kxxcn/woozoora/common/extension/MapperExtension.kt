@@ -48,10 +48,12 @@ fun TransactionData.toEntity(): TransactionEntity {
         code,
         description,
         name,
+        domain,
         category,
         payment,
         price,
-        date
+        date,
+        type
     )
 }
 
@@ -62,10 +64,12 @@ fun TransactionEntity.toData(): TransactionData {
         code,
         description,
         name,
+        domain,
         category,
         payment,
         price,
-        date
+        date,
+        type
     )
 }
 
@@ -108,6 +112,38 @@ fun ContactItem.toData(): InviteData {
     return InviteData(
         name,
         phone
+    )
+}
+
+fun AssetCategoryEntity.toData(): AssetCategoryData {
+    return AssetCategoryData(
+        id,
+        category,
+        priority
+    )
+}
+
+fun AssetCategoryData.toEntity(): AssetCategoryEntity {
+    return AssetCategoryEntity(
+        id,
+        category,
+        priority
+    )
+}
+
+fun TransactionCategoryEntity.toData(): TransactionCategoryData {
+    return TransactionCategoryData(
+        id,
+        category,
+        priority
+    )
+}
+
+fun TransactionCategoryData.toEntity(): TransactionCategoryEntity {
+    return TransactionCategoryEntity(
+        id,
+        category,
+        priority
     )
 }
 
@@ -188,6 +224,7 @@ fun NotificationData.toEntity(): NotificationEntity {
         transactionName = transactionName,
         transactionDate = transactionDate,
         transactionPrice = transactionPrice,
+        transactionType = transactionType,
         date = date,
         isChecked = if (isChecked) 1 else 0
     )
@@ -202,6 +239,7 @@ fun NotificationEntity.toData(): NotificationData {
         transactionName,
         transactionDate,
         transactionPrice,
+        transactionType ?: 0,
         date,
         isChecked == 1
     )

@@ -13,6 +13,7 @@ import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.InvitationData
 import dev.kxxcn.woozoora.domain.model.TimelineData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
 
 class DirectionViewModel @AssistedInject constructor(
@@ -28,8 +29,8 @@ class DirectionViewModel @AssistedInject constructor(
     private val _createEvent = MutableLiveData<Event<Unit>>()
     val createEvent: LiveData<Event<Unit>> = _createEvent
 
-    private val _editEvent = MutableLiveData<Event<HistoryData?>>()
-    val editEvent: LiveData<Event<HistoryData?>> = _editEvent
+    private val _editEvent = MutableLiveData<Event<EditBranchType>>()
+    val editEvent: LiveData<Event<EditBranchType>> = _editEvent
 
     private val _receiptEvent = MutableLiveData<Event<HistoryData>>()
     val receiptEvent: LiveData<Event<HistoryData>> = _receiptEvent
@@ -80,8 +81,8 @@ class DirectionViewModel @AssistedInject constructor(
         _createEvent.value = Event(Unit)
     }
 
-    fun edit(history: HistoryData? = null) {
-        _editEvent.value = Event(history)
+    fun edit(branchType: EditBranchType) {
+        _editEvent.value = Event(branchType)
     }
 
     fun saveInstanceState(position: Int) {

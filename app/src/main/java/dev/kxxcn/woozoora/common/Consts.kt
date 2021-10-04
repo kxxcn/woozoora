@@ -1,6 +1,6 @@
 package dev.kxxcn.woozoora.common
 
-const val ROOM_VERSION = 1
+const val ROOM_VERSION = 2
 
 const val DURATION_QUARTER_SECONDS = 250L
 const val DURATION_HALF_SECONDS = 500L

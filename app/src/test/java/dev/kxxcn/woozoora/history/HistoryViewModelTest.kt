@@ -13,6 +13,7 @@ import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.domain.model.UserData
 import dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.junit.Before
@@ -32,11 +33,34 @@ class HistoryViewModelTest : BaseViewModelTest() {
 
     private val user = UserData(TEST_USER_ID, name = "User 1", budget = 500000)
     private val transaction1 =
-        TransactionData(0, "user id 1", "code 1", "desc 1", "User 1", 0, 0, 20000, currentMs)
+        TransactionData(
+            0,
+            "user id 1",
+            "code 1",
+            "desc 1",
+            "User 1",
+            0,
+            0,
+            20000,
+            currentMs,
+            EditBranchType.TRANSACTION.ordinal
+        )
     private val transaction2 =
-        TransactionData(1, "user id 2", "code 2", "desc 2", "User 2", 1, 1, 5000, currentMs)
+        TransactionData(
+            1,
+            "user id 2",
+            "code 2",
+            "desc 2",
+            "User 2",
+            1,
+            1,
+            5000,
+            currentMs,
+            EditBranchType.TRANSACTION.ordinal
+        )
     private val transaction3 =
-        TransactionData(2,
+        TransactionData(
+            2,
             "user id 3",
             "code 3",
             "desc 3",
@@ -44,9 +68,12 @@ class HistoryViewModelTest : BaseViewModelTest() {
             0,
             0,
             35000,
-            currentMs + timeMsAfter60Days)
+            currentMs + timeMsAfter60Days,
+            EditBranchType.TRANSACTION.ordinal
+        )
     private val transaction4 =
-        TransactionData(3,
+        TransactionData(
+            3,
             "user id 4",
             "code 4",
             "desc 4",
@@ -54,9 +81,12 @@ class HistoryViewModelTest : BaseViewModelTest() {
             2,
             1,
             50000,
-            currentMs + timeMsAfter60Days)
+            currentMs + timeMsAfter60Days,
+            EditBranchType.TRANSACTION.ordinal
+        )
     private val transaction5 =
-        TransactionData(4,
+        TransactionData(
+            4,
             "user id 5",
             "code 5",
             "desc 5",
@@ -64,7 +94,9 @@ class HistoryViewModelTest : BaseViewModelTest() {
             5,
             1,
             5000,
-            currentMs + timeMsAfter60Days)
+            currentMs + timeMsAfter60Days,
+            EditBranchType.TRANSACTION.ordinal
+        )
 
 
     @Before

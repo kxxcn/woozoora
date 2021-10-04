@@ -98,6 +98,14 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override suspend fun getAssetCategory(): Result<List<AssetCategoryEntity>> {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun getTransactionCategory(): Result<List<TransactionCategoryEntity>> {
+        throw InvalidRequestException()
+    }
+
     override fun getNotifications(): LiveData<List<NotificationEntity>> {
         throw InvalidRequestException()
     }

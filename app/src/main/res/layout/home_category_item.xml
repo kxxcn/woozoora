@@ -7,6 +7,8 @@
 
         <import type="dev.kxxcn.woozoora.util.Calculator" />
 
+        <import type="java.util.List" />
+
         <variable
             name="overview"
             type="dev.kxxcn.woozoora.domain.model.OverviewData" />
@@ -14,6 +16,10 @@
         <variable
             name="viewModel"
             type="dev.kxxcn.woozoora.ui.direction.home.HomeViewModel" />
+
+        <variable
+            name="colors"
+            type="List&lt;Integer>" />
 
     </data>
 
@@ -86,7 +92,8 @@
                     android:layout_marginEnd="20dp"
                     android:columnCount="2"
                     android:orientation="horizontal"
-                    app:category="@{overview}"
+                    app:colors="@{colors}"
+                    app:overview="@{overview}"
                     tools:ignore="UselessLeaf" />
 
             </HorizontalScrollView>

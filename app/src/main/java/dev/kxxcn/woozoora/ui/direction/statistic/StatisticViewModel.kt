@@ -90,7 +90,7 @@ class StatisticViewModel @AssistedInject constructor(
         }
     }
 
-    fun timeline(transactions: List<TransactionData>, category: Int) {
+    fun timeline(transactions: List<TransactionData>, category: String?) {
         if (transactions.isNotEmpty()) {
             timeline(TimelineData(transactions, category = category))
         }

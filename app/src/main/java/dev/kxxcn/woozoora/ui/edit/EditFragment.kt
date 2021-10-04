@@ -43,19 +43,9 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         get() = binding.motionContainer
 
     override val endState: Int
-        get() = R.id.edit_end
+        get() = R.id.scene_edit_end
 
     override val sharedViewModel by navGraphViewModels<InputViewModel>(R.id.nav_graph)
-
-    private val editItems = listOf(
-        EditAdapter.TYPE_NAME,
-        EditAdapter.TYPE_DATE,
-        EditAdapter.TYPE_PRICE,
-        EditAdapter.TYPE_PAYMENT,
-        EditAdapter.TYPE_CATEGORY,
-        EditAdapter.TYPE_DESC,
-        EditAdapter.TYPE_COMPLETE
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +59,6 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         ).apply {
             viewModel = this@EditFragment.viewModel
             sharedViewModel = this@EditFragment.sharedViewModel
-            editItems = this@EditFragment.editItems
         }
         return binding.root
     }
@@ -96,6 +85,9 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
     }
 
     private fun setupListener() {
+        viewModel.editTransition.observe(viewLifecycleOwner, EventObserver {
+            motionContainer.setTransition(it, endState)
+        })
         viewModel.inputEvent.observe(viewLifecycleOwner, EventObserver {
             EditFragmentDirections.actionEditFragmentToInputFragment(it.first, it.second).show()
         })
