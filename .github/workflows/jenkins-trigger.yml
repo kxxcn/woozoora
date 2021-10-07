@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge pull request
-        run: curl -X POST 'http://woozoora:112cb53528846bfdb54f8a3b8dc9165407@3.36.8.193:9090/job/woozoora-uploader/build?token=generateBundle'
+        run: ${{ secrets.UPLOAD_PLAY_STORE }}
