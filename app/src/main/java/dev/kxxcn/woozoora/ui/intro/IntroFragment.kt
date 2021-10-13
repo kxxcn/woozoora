@@ -144,6 +144,7 @@ class IntroFragment : BaseFragment<IntroFragmentBinding>() {
     }
 
     private fun signInForGoogle() {
+        googleClient.signOut()
         startActivityForResult(googleClient.signInIntent, REQUEST_CODE_SIGN_IN_GOOGLE)
     }
 
