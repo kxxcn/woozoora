@@ -94,8 +94,10 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         expandAnimator.removeAllListeners()
         collapseAnimator.removeAllListeners()
         expandable = false
-        expandColorAnimator.removeAllUpdateListeners()
-        collapseColorAnimator.removeAllUpdateListeners()
+        if (::expandColorAnimator.isInitialized) {
+            expandColorAnimator.removeAllUpdateListeners()
+            collapseColorAnimator.removeAllUpdateListeners()
+        }
         super.onDestroyView()
     }
 
