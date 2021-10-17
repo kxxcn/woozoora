@@ -25,6 +25,15 @@ class SortHolder(
         }
     }
 
+    override fun onAttach() {
+        super.onAttach()
+        val viewModel = binding.viewModel ?: return
+        with(binding.sortCheck) {
+            isChecked = viewModel.isPressed(getSortItemId())
+            binding.sortCheck.setOnCheckedChangeListener { _, b -> viewModel.onPress(getSortItemId()) }
+        }
+    }
+
     override fun onDetach() {
         binding.sortCheck.setOnCheckedChangeListener(null)
         super.onDetach()
@@ -32,7 +41,6 @@ class SortHolder(
 
     fun bind(item: SortItem, viewModel: SortViewModel) {
         setupArguments(item, viewModel)
-        setupListener()
     }
 
     private fun setupArguments(item: SortItem, viewModel: SortViewModel) {
@@ -41,14 +49,6 @@ class SortHolder(
             this.item = item
             this.viewModel = viewModel
             this.executePendingBindings()
-            sortCheck.isChecked = viewModel.isPressed(getSortItemId())
-        }
-
-    }
-
-    private fun setupListener() {
-        binding.sortCheck.setOnCheckedChangeListener { _, b ->
-            binding.viewModel?.onPress(getSortItemId())
         }
     }
 

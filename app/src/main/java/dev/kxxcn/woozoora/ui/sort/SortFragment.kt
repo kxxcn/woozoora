@@ -49,6 +49,7 @@ class SortFragment : BaseFragment<SortFragmentBinding>() {
     private fun setupListAdapter() {
         with(binding.sortList) {
             addItemDecoration(SortSpacingDecoration())
+            itemAnimator = null
             adapter = SortAdapter(viewModel)
         }
     }

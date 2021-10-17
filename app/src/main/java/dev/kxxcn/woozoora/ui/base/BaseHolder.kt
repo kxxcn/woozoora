@@ -8,7 +8,7 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseHolder(
-    private val binding: ViewDataBinding
+    private val binding: ViewDataBinding,
 ) : RecyclerView.ViewHolder(binding.root), LifecycleOwner {
 
     private val lifecycleRegistry by lazy { LifecycleRegistry(this) }
@@ -24,7 +24,7 @@ abstract class BaseHolder(
         return lifecycleRegistry
     }
 
-    fun onAttach() {
+    open fun onAttach() {
         lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 

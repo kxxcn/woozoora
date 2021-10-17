@@ -1,9 +1,9 @@
 package dev.kxxcn.woozoora.ui.sort
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import dev.kxxcn.woozoora.common.base.IncomparableDiffCallback
 import dev.kxxcn.woozoora.common.base.ItemTouchHelperCallback
 import dev.kxxcn.woozoora.common.base.OnStartDragListener
 import dev.kxxcn.woozoora.ui.base.BaseAdapter
@@ -13,7 +13,7 @@ import java.util.*
 
 class SortAdapter(
     private val viewModel: SortViewModel,
-) : BaseAdapter<SortItem, SortHolder>(SortDiffCallback()),
+) : BaseAdapter<SortItem, SortHolder>(IncomparableDiffCallback()),
     ItemTouchHelperCallback.ItemTouchHelperAdapter, OnStartDragListener {
 
     private lateinit var refRecyclerView: WeakReference<RecyclerView>
@@ -59,16 +59,5 @@ class SortAdapter(
 
     override fun onStartDrag(viewHolder: RecyclerView.ViewHolder) {
         touchHelper.startDrag(viewHolder)
-    }
-
-    class SortDiffCallback : DiffUtil.ItemCallback<SortItem>() {
-
-        override fun areItemsTheSame(oldItem: SortItem, newItem: SortItem): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: SortItem, newItem: SortItem): Boolean {
-            return oldItem == newItem
-        }
     }
 }
