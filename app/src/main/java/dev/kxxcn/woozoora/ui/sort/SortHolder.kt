@@ -43,7 +43,6 @@ class SortHolder(
             this.executePendingBindings()
             sortCheck.isChecked = viewModel.isPressed(getSortItemId())
         }
-
     }
 
     private fun setupListener() {
