@@ -2,10 +2,12 @@ package dev.kxxcn.woozoora.data.source.local
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import dev.kxxcn.woozoora.common.*
 import dev.kxxcn.woozoora.common.extension.put
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.DataSource
+import dev.kxxcn.woozoora.data.source.api.CategoryDuplicateException
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.entity.*
 import dev.kxxcn.woozoora.data.source.local.dao.AssetCategoryDao
@@ -99,7 +101,9 @@ class LocalDataSource(
         return notificationDao.observeNotifications(date)
     }
 
-    override suspend fun saveUser(user: UserEntity) = withContext(ioDispatcher) {
+    override suspend fun saveUser(
+        user: UserEntity,
+    ): Result<String?> = withContext(ioDispatcher) {
         return@withContext try {
             userDao.deleteAll()
             userDao.insertUser(user)
@@ -146,6 +150,52 @@ class LocalDataSource(
         }
     }
 
+    override suspend fun saveTransactionCategory(
+        category: String,
+    ): Result<Any> = withContext(ioDispatcher) {
+        return@withContext try {
+            val all = transactionCategoryDao.getTransactionCategories()
+            val maxId = all.maxOfOrNull { it.id } ?: 0
+            val nextId = maxId + 1
+            val maxPriority = all.maxOfOrNull { it.priority + 1 } ?: 0
+            val nextPriority = maxPriority + 1
+            transactionCategoryDao
+                .getTransactionCategories()
+                .any { it.category == category }
+                .takeUnless { it }
+                ?.let {
+                    val entity = TransactionCategoryEntity(nextId, category, nextPriority)
+                    transactionCategoryDao.insertCategory(entity)
+                    Result.Success(Unit)
+                } ?: throw CategoryDuplicateException()
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun saveAssetCategory(category: String): Result<Any> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                val all = assetCategoryDao.getAssetCategories()
+                val maxPriority = all.maxOfOrNull { it.priority + 1 } ?: 0
+                val nextPriority = maxPriority + 1
+                assetCategoryDao
+                    .getAssetCategories()
+                    .any { it.category == category }
+                    .takeUnless { it }
+                    ?.let {
+                        val entity = AssetCategoryEntity(
+                            category = category,
+                            priority = nextPriority
+                        )
+                        assetCategoryDao.insertCategory(entity)
+                        Result.Success(Unit)
+                    } ?: throw CategoryDuplicateException()
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+
     override suspend fun updateToken(userId: String, token: String?) {
         throw InvalidRequestException()
     }
@@ -158,7 +208,10 @@ class LocalDataSource(
         throw InvalidRequestException()
     }
 
-    override suspend fun updateUser(userId: String, year: Int) = withContext(ioDispatcher) {
+    override suspend fun updateUser(
+        userId: String,
+        year: Int,
+    ): Result<String> = withContext(ioDispatcher) {
         return@withContext try {
             userDao.getUsers()
                 .find { it.id == userId }
@@ -169,7 +222,10 @@ class LocalDataSource(
         }
     }
 
-    override suspend fun updateUser(userId: String, budget: Long) = withContext(ioDispatcher) {
+    override suspend fun updateUser(
+        userId: String,
+        budget: Long,
+    ): Result<String> = withContext(ioDispatcher) {
         return@withContext try {
             userDao.getUsers()
                 .find { it.id == userId }
@@ -184,7 +240,7 @@ class LocalDataSource(
         userId: String,
         code: String?,
         isTransfer: Boolean,
-    ) = withContext(ioDispatcher) {
+    ): Result<String> = withContext(ioDispatcher) {
         try {
             userDao.getUsers()
                 .firstOrNull()
@@ -221,21 +277,81 @@ class LocalDataSource(
         }
     }
 
+    override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
+        withContext(ioDispatcher) {
+            try {
+                list.forEach { transactionCategoryDao.updateCategory(it) }
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
+    override suspend fun updateAssetCategory(list: List<AssetCategoryEntity>) {
+        withContext(ioDispatcher) {
+            try {
+                list.forEach { assetCategoryDao.updateCategory(it) }
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
+        }
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any> {
         throw InvalidRequestException()
+    }
+
+    override suspend fun deleteTransactionCategory(
+        ids: List<Int>,
+    ): Result<Int> = withContext(ioDispatcher) {
+        try {
+            transactionCategoryDao.deleteAll(ids)
+            Result.Success(ids.size)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun deleteAssetCategory(
+        ids: List<String>,
+    ): Result<Int> = withContext(ioDispatcher) {
+        try {
+            assetCategoryDao.deleteAll(ids)
+            Result.Success(ids.size)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any> {
         throw InvalidRequestException()
     }
 
-    override suspend fun leave(userId: String) = withContext(ioDispatcher) {
+    override suspend fun leave(
+        userId: String,
+    ): Result<String> = withContext(ioDispatcher) {
         return@withContext try {
             userDao.deleteAll()
             notificationDao.deleteAll()
             Result.Success(userId)
         } catch (e: Exception) {
             Result.Error(e)
+        }
+    }
+
+    override fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>> {
+        return try {
+            transactionCategoryDao.observeCategories()
+        } catch (e: Exception) {
+            MutableLiveData(emptyList())
+        }
+    }
+
+    override fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>> {
+        return try {
+            assetCategoryDao.observeCategories()
+        } catch (e: Exception) {
+            MutableLiveData(emptyList())
         }
     }
 }

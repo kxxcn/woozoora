@@ -143,6 +143,9 @@ abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
         viewModel.toastEvent.observe(viewLifecycleOwner, EventObserver {
             showToast(it)
         })
+        viewModel.toastWithArgsEvent.observe(viewLifecycleOwner, EventObserver {
+            showToast(it.first, *it.second)
+        })
         viewModel.dateEvent.observe(viewLifecycleOwner, EventObserver {
             date(it)
         })
@@ -194,9 +197,13 @@ abstract class BaseFragment<T : ViewDataBinding> : DaggerFragment() {
         }
     }
 
-    private fun showToast(message: Any) {
+    private fun showToast(message: Any, vararg args: Any) {
         if (message is Int) {
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            if (args.isEmpty()) {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, getString(message, *args), Toast.LENGTH_SHORT).show()
+            }
         } else if (message is String) {
             Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
         }

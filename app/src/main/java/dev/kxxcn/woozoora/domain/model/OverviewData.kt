@@ -86,7 +86,7 @@ data class OverviewData(
         month: Int? = null,
     ): Map<String?, List<TransactionData>> {
         return filterTransactionToType(userId, filterType, year, month)
-            .groupBy { it.category }
+            .groupBy { it.domain }
             .mapKeys { it.value.firstOrNull()?.domain }
     }
 

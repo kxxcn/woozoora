@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="dev.kxxcn.woozoora.ui.sort.item.SortItem" />
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.sort.SortViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sort_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{viewModel.deleteSet.contains(item.id) ? @drawable/round_solid_blue_04 : @drawable/round_solid_white_01}"
+        tools:background="@drawable/round_solid_blue_04">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/sort_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:buttonTint="@color/primaryBlue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sort_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_regular"
+            android:text="@{item.category}"
+            android:textColor="@color/primaryBlack"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/sort_check"
+            app:layout_constraintStart_toEndOf="@id/sort_check"
+            app:layout_constraintTop_toTopOf="@id/sort_check"
+            tools:text="@string/category_cafe" />
+
+        <ImageView
+            android:id="@+id/sort_icon"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_sort"
+            android:visibility="@{viewModel.deleteSet.empty ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/sort_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/sort_check"
+            app:tint="@color/grey03"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -68,6 +68,9 @@ class DirectionViewModel @AssistedInject constructor(
     private val _profileEvent = MutableLiveData<Event<Unit>>()
     val profileEvent: LiveData<Event<Unit>> = _profileEvent
 
+    private val _sortEvent = MutableLiveData<Event<EditBranchType>>()
+    val sortEvent: LiveData<Event<EditBranchType>> = _sortEvent
+
     init {
         savedStateHandle.get<InvitationData>(KEY_INVITATION_ITEM)
             ?.takeIf { it.hasInvitation }
@@ -127,6 +130,10 @@ class DirectionViewModel @AssistedInject constructor(
 
     fun profile() {
         _profileEvent.value = Event(Unit)
+    }
+
+    fun sort(branch: EditBranchType) {
+        _sortEvent.value = Event(branch)
     }
 
     private fun invite(invitation: InvitationData) {

@@ -158,6 +158,9 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         viewModel.profileEvent.observe(viewLifecycleOwner, EventObserver {
             profile()
         })
+        viewModel.sortEvent.observe(viewLifecycleOwner, EventObserver {
+            sort(it)
+        })
     }
 
     private fun setupBackPressed() {
@@ -311,5 +314,9 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
 
     private fun profile() {
         DirectionFragmentDirections.actionDirectionFragmentToProfileFragment().show()
+    }
+
+    private fun sort(branch: EditBranchType) {
+        DirectionFragmentDirections.actionDirectionFragmentToSortFragment(branch).show()
     }
 }

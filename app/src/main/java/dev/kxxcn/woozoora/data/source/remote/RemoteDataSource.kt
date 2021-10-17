@@ -151,6 +151,14 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override suspend fun saveTransactionCategory(category: String): Result<Any> {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun saveAssetCategory(category: String): Result<Any> {
+        throw InvalidRequestException()
+    }
+
     override suspend fun updateToken(userId: String, token: String?) {
         try {
             apiService.updateToken(userId, token)
@@ -215,6 +223,14 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun updateAssetCategory(list: List<AssetCategoryEntity>) {
+        throw InvalidRequestException()
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any> {
         return try {
             apiService.deleteTransaction(transaction)
@@ -224,6 +240,14 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int> {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun deleteAssetCategory(ids: List<String>): Result<Int> {
+        throw InvalidRequestException()
     }
 
     override suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any> {
@@ -246,5 +270,13 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>> {
+        throw InvalidRequestException()
+    }
+
+    override fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>> {
+        throw InvalidRequestException()
     }
 }

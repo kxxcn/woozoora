@@ -53,6 +53,10 @@ interface DataSource {
 
     suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean>
 
+    suspend fun saveTransactionCategory(category: String): Result<Any>
+
+    suspend fun saveAssetCategory(category: String): Result<Any>
+
     suspend fun updateToken(userId: String, token: String?)
 
     suspend fun updateUser(
@@ -67,11 +71,23 @@ interface DataSource {
 
     suspend fun updateCode(userId: String, code: String?, isTransfer: Boolean): Result<String>
 
+    suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>)
+
+    suspend fun updateAssetCategory(list: List<AssetCategoryEntity>)
+
     suspend fun updateNotification()
 
     suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any>
 
+    suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int>
+
+    suspend fun deleteAssetCategory(ids: List<String>): Result<Int>
+
     suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any>
 
     suspend fun leave(userId: String): Result<String>
+
+    fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>>
+
+    fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>>
 }

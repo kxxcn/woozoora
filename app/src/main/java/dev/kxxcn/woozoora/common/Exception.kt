@@ -5,3 +5,5 @@ import dev.kxxcn.woozoora.common.base.BaseException
 class InvalidPositionException : BaseException()
 
 class InvalidFilterTypeException : BaseException()
+
+class InvalidHolderItemException : BaseException()
