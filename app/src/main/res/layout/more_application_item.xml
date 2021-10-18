@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="dev.kxxcn.woozoora.ui.edit.EditBranchType" />
+
         <variable
             name="viewModel"
             type="dev.kxxcn.woozoora.ui.direction.more.MoreViewModel" />
@@ -98,6 +100,34 @@
             app:lottie_fileName="lottie_toggle.json"
             app:lottie_loop="false"
             app:lottie_toggle="@{viewModel.usageTransactionTime}" />
+
+        <TextView
+            android:id="@+id/edit_transaction_category_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.sort(EditBranchType.TRANSACTION)}"
+            android:paddingVertical="10dp"
+            android:text="@string/edit_category_of_transaction"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/use_transaction_time_text"
+            app:layout_constraintTop_toBottomOf="@id/use_transaction_time_text" />
+
+        <TextView
+            android:id="@+id/edit_asset_category_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_nexon_light"
+            android:onClick="@{() -> viewModel.sort(EditBranchType.ASSET)}"
+            android:paddingVertical="10dp"
+            android:text="@string/edit_category_of_asset"
+            android:textColor="@color/secondaryBlack"
+            android:textSize="@dimen/more_content_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/edit_transaction_category_text"
+            app:layout_constraintTop_toBottomOf="@id/edit_transaction_category_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

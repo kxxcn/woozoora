@@ -10,6 +10,7 @@ import dev.kxxcn.woozoora.data.ifSucceeded
 import dev.kxxcn.woozoora.domain.*
 import dev.kxxcn.woozoora.domain.model.OptionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -110,6 +111,9 @@ class MoreViewModel @Inject constructor(
     private val currentNoticeFlag: Boolean
         get() = noticeNotification.value ?: false
 
+    private val _sortEvent = MutableLiveData<Event<EditBranchType>>()
+    val sortEvent: LiveData<Event<EditBranchType>> = _sortEvent
+
     fun contact() {
         _contactEvent.value = Event(Unit)
     }
@@ -170,6 +174,10 @@ class MoreViewModel @Inject constructor(
                 saveNotificationOption(it, value)
             }
         }
+    }
+
+    fun sort(branch: EditBranchType) {
+        _sortEvent.value = Event(branch)
     }
 
     private fun saveNotificationOption(option: OptionData, value: Boolean) {

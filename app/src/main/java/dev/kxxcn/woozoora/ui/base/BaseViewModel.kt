@@ -33,6 +33,9 @@ open class BaseViewModel(
     private val _toastEvent = MutableLiveData<Event<Any>>()
     val toastEvent: LiveData<Event<Any>> = _toastEvent
 
+    private val _toastWithArgsEvent = MutableLiveData<Event<Pair<Int, Array<out Any>>>>()
+    val toastWithArgsEvent: LiveData<Event<Pair<Int, Array<out Any>>>> = _toastWithArgsEvent
+
     private val _dateEvent = MutableLiveData<Event<DatePickerData>>()
     val dateEvent: LiveData<Event<DatePickerData>> = _dateEvent
 
@@ -54,9 +57,13 @@ open class BaseViewModel(
         observeBackPressed()
     }
 
-    fun toastAndClose(any: Any?, forceStop: Boolean) {
+    fun toastAndClose(any: Any?, forceStop: Boolean = false) {
         toast(any)
         close(forceStop)
+    }
+
+    fun toastWithArgs(res: Int, vararg args: Any) {
+        _toastWithArgsEvent.value = Event(res to args)
     }
 
     @JvmOverloads

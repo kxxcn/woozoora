@@ -18,6 +18,7 @@ import dev.kxxcn.woozoora.databinding.MoreFragmentBinding
 import dev.kxxcn.woozoora.domain.model.OptionData
 import dev.kxxcn.woozoora.ui.base.BaseFragment
 import dev.kxxcn.woozoora.ui.direction.DirectionViewModel
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import dev.kxxcn.woozoora.ui.policy.PolicyFilterType
 import java.util.*
 import javax.inject.Inject
@@ -87,6 +88,9 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
         viewModel.policyEvent.observe(viewLifecycleOwner, EventObserver {
             policy(it)
         })
+        viewModel.sortEvent.observe(viewLifecycleOwner, EventObserver {
+            sort(it)
+        })
     }
 
     private fun setupNotification() {
@@ -145,5 +149,9 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
 
     private fun profile() {
         sharedViewModel.profile()
+    }
+
+    private fun sort(branch: EditBranchType) {
+        sharedViewModel.sort(branch)
     }
 }

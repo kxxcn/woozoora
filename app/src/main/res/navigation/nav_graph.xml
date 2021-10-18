@@ -185,6 +185,20 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
+        <action
+            android:id="@+id/action_directionFragment_to_sortFragment"
+            app:destination="@id/sortFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="branch_type"
+                app:argType=".ui.edit.EditBranchType" />
+
+        </action>
+
     </fragment>
 
     <fragment
@@ -397,5 +411,37 @@
         android:name="dev.kxxcn.woozoora.ui.code.CodeFragment"
         android:label="CodeFragment"
         tools:layout="@layout/code_fragment" />
+
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="dev.kxxcn.woozoora.ui.sort.SortFragment"
+        android:label="SortFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/sort_fragment">
+
+        <action
+            android:id="@+id/action_sortFragment_to_createFragment"
+            app:destination="@id/createFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="branch_type"
+                app:argType=".ui.edit.EditBranchType" />
+
+        </action>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="dev.kxxcn.woozoora.ui.create.CreateFragment"
+        android:label="CreateFragment"
+        tools:layout="@layout/create_fragment" />
 
 </navigation>

@@ -2,6 +2,7 @@ package dev.kxxcn.woozoora.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
 import com.google.firebase.messaging.FirebaseMessaging
 import dev.kxxcn.woozoora.common.extension.toData
 import dev.kxxcn.woozoora.common.extension.toEntity
@@ -9,6 +10,8 @@ import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.flatMap
 import dev.kxxcn.woozoora.data.ifSucceeded
 import dev.kxxcn.woozoora.data.map
+import dev.kxxcn.woozoora.data.source.entity.AssetCategoryEntity
+import dev.kxxcn.woozoora.data.source.entity.TransactionCategoryEntity
 import dev.kxxcn.woozoora.di.ApplicationModule
 import dev.kxxcn.woozoora.domain.model.*
 import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
@@ -117,6 +120,14 @@ class DataRepositoryImpl @Inject constructor(
         return localDataSource.saveUsageTransactionTime(value)
     }
 
+    override suspend fun saveTransactionCategory(category: String): Result<Any> {
+        return localDataSource.saveTransactionCategory(category)
+    }
+
+    override suspend fun saveAssetCategory(category: String): Result<Any> {
+        return localDataSource.saveAssetCategory(category)
+    }
+
     override suspend fun updateToken() {
         localDataSource.getUser(null)
             .ifSucceeded {
@@ -155,8 +166,24 @@ class DataRepositoryImpl @Inject constructor(
             .flatMap { localDataSource.updateCode(it, code, isTransfer) }
     }
 
+    override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
+        return localDataSource.updateTransactionCategory(list)
+    }
+
+    override suspend fun updateAssetCategory(list: List<AssetCategoryEntity>) {
+        return localDataSource.updateAssetCategory(list)
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionData?): Result<Any> {
         return remoteDataSource.deleteTransaction(transaction?.toEntity())
+    }
+
+    override suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int> {
+        return localDataSource.deleteTransactionCategory(ids)
+    }
+
+    override suspend fun deleteAssetCategory(ids: List<String>): Result<Int> {
+        return localDataSource.deleteAssetCategory(ids)
     }
 
     override suspend fun sendAsk(ask: AskData): Result<Any> {
@@ -168,6 +195,16 @@ class DataRepositoryImpl @Inject constructor(
         return localDataSource.getUser(null)
             .flatMap { remoteDataSource.leave(it.id) }
             .flatMap { localDataSource.leave(it) }
+    }
+
+    override fun observeTransactionCategory(): LiveData<List<TransactionCategoryData>> {
+        return localDataSource.observeTransactionCategory()
+            .map { list -> list.map { it.toData() } }
+    }
+
+    override fun observeAssetCategory(): LiveData<List<AssetCategoryData>> {
+        return localDataSource.observeAssetCategory()
+            .map { list -> list.map { it.toData() } }
     }
 
     private suspend fun getNewToken() = suspendCoroutine<String?> { continuation ->

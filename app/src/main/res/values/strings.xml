@@ -37,6 +37,8 @@
     <string name="format_weekly_notification_title">주간 지출(%1$s~%2$s)</string>
     <string name="format_spending">지출 금액: %1$s원</string>
     <string name="format_category">%1$s: %2$s원(%3$d건)</string>
+    <string name="format_delete_category">카테고리 %1$d개 삭제</string>
+    <string name="format_delete_category_detail">%1$d개의 카테고리를 삭제하시겠습니까?</string>
 
     <string name="category_food_expenses">식비</string>
     <string name="category_transportation">교통/차량</string>
@@ -240,4 +242,13 @@
     <string name="register_incoming">수입 등록하기</string>
     <string name="modify_spending">지출 편집하기</string>
     <string name="modify_incoming">수입 편집하기</string>
+    <string name="edit_category_of_asset">수입 카테고리 편집</string>
+    <string name="edit_category_of_transaction">지출 카테고리 편집</string>
+    <string name="complete_deletion_to_category">카테고리가 삭제되었습니다.</string>
+    <string name="create_category">카테고리 추가</string>
+    <string name="create">추가하기</string>
+    <string name="enter_the_category_name_to_be_added">추가할 카테고리명을 입력하세요.</string>
+    <string name="add_the_categories_you_need">필요한 카테고리를 추가하세요 :D</string>
+    <string name="category_has_been_added">[ %1$s ] 카테고리가 추가되었습니다.</string>
+    <string name="duplicate_categories_cannot_be_added">중복되는 카테고리는 추가할 수 없어요ㅠㅠ</string>
 </resources>

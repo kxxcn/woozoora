@@ -53,7 +53,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             leaveUseCase()
                 .ifSucceeded { toastAndClose(R.string.thank_you_for_using, true) }
-                .ifFailed { toastAndClose(it.messageRes, false) }
+                .ifFailed { toastAndClose(it.messageRes) }
         }
     }
 }

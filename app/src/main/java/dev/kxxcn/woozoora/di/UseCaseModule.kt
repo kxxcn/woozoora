@@ -119,7 +119,31 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideDeleteTransactionCategoryUseCase(repository: DataRepository): DeleteTransactionCategoryUseCase {
+        return DeleteTransactionCategoryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteAssetCategoryUseCase(repository: DataRepository): DeleteAssetCategoryUseCase {
+        return DeleteAssetCategoryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideSendAskUseCase(repository: DataRepository): SendAskUseCase {
         return SendAskUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideObserveTransactionCategoryUseCase(repository: DataRepository): ObserveTransactionCategoryUseCase {
+        return ObserveTransactionCategoryUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideObserveAssetCategoryUseCase(repository: DataRepository): ObserveAssetCategoryUseCase {
+        return ObserveAssetCategoryUseCase(repository)
     }
 }

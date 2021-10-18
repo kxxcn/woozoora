@@ -94,8 +94,10 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         expandAnimator.removeAllListeners()
         collapseAnimator.removeAllListeners()
         expandable = false
-        expandColorAnimator.removeAllUpdateListeners()
-        collapseColorAnimator.removeAllUpdateListeners()
+        if (::expandColorAnimator.isInitialized) {
+            expandColorAnimator.removeAllUpdateListeners()
+            collapseColorAnimator.removeAllUpdateListeners()
+        }
         super.onDestroyView()
     }
 
@@ -155,6 +157,9 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
         })
         viewModel.profileEvent.observe(viewLifecycleOwner, EventObserver {
             profile()
+        })
+        viewModel.sortEvent.observe(viewLifecycleOwner, EventObserver {
+            sort(it)
         })
     }
 
@@ -309,5 +314,9 @@ class DirectionFragment : BaseFragment<DirectionFragmentBinding>() {
 
     private fun profile() {
         DirectionFragmentDirections.actionDirectionFragmentToProfileFragment().show()
+    }
+
+    private fun sort(branch: EditBranchType) {
+        DirectionFragmentDirections.actionDirectionFragmentToSortFragment(branch).show()
     }
 }

@@ -6,6 +6,8 @@ import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.api.SendAskException
+import dev.kxxcn.woozoora.data.source.entity.AssetCategoryEntity
+import dev.kxxcn.woozoora.data.source.entity.TransactionCategoryEntity
 import dev.kxxcn.woozoora.domain.model.*
 import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
 import dev.kxxcn.woozoora.util.Converter
@@ -105,6 +107,14 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun saveTransactionCategory(category: String): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveAssetCategory(category: String): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun updateToken() {
         Result.Success(Unit)
     }
@@ -129,7 +139,23 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateAssetCategory(list: List<AssetCategoryEntity>) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionData?): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun deleteAssetCategory(ids: List<String>): Result<Int> {
         TODO("Not yet implemented")
     }
 
@@ -142,6 +168,14 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun leave(): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
+    override fun observeTransactionCategory(): LiveData<List<TransactionCategoryData>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun observeAssetCategory(): LiveData<List<AssetCategoryData>> {
         TODO("Not yet implemented")
     }
 
