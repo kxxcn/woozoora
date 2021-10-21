@@ -43,14 +43,7 @@ class EditViewModel @AssistedInject constructor(
 
     val isEditable = history != null
 
-    val editTransition = liveData {
-        emit(
-            when (branch) {
-                EditBranchType.ASSET -> Event(R.id.scene_edit_start_asset)
-                else -> Event(R.id.scene_edit_start_transaction)
-            }
-        )
-    }
+    val editTransition = MutableLiveData<Event<Int>>()
 
     val editColor = liveData {
         emit(
@@ -151,6 +144,13 @@ class EditViewModel @AssistedInject constructor(
                 EditBranchType.ASSET -> convertEditCategoryFromAsset(getAssetCategoryUseCase().getContentIfSucceeded)
                 else -> convertEditCategoryFromTransaction(getTransactionCategoryUseCase().getContentIfSucceeded)
             }
+        }
+    }
+
+    fun start() {
+        editTransition.value = when (branch) {
+            EditBranchType.ASSET -> Event(R.id.scene_edit_start_asset)
+            else -> Event(R.id.scene_edit_start_transaction)
         }
     }
 
