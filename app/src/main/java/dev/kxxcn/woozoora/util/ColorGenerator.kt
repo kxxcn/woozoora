@@ -22,7 +22,7 @@ object ColorGenerator {
 
     fun generate(size: Int = COLOR_TEMPLATE.size): List<Int> {
         return try {
-            COLOR_TEMPLATE.subList(0, size)
+            (1..size).map { COLOR_TEMPLATE.random() }
         } catch (e: Exception) {
             COLOR_TEMPLATE
         }
