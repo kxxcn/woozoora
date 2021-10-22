@@ -67,6 +67,7 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         super.onViewCreated(view, savedInstanceState)
         setupListAdapter()
         setupListener()
+        start()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -103,6 +104,10 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         sharedViewModel.inputEvent.observe(viewLifecycleOwner, EventObserver {
             viewModel.setFilter(it)
         })
+    }
+
+    private fun start() {
+        viewModel.start()
     }
 
     private fun showDatePicker(source: String?) {

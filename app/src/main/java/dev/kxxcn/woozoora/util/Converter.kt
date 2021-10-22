@@ -103,7 +103,7 @@ object Converter {
             val decimalFormat = NumberFormat.getInstance(Locale.KOREA)
             decimalFormat.format(number)
         } catch (e: Exception) {
-            text
+            ""
         }
     }
 }

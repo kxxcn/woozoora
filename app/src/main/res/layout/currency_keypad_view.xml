@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="dev.kxxcn.woozoora.ui.input.InputViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/green03">
+
+        <TextView
+            android:id="@+id/input_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/round_solid_green_02"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.emitAndClose()}"
+            android:paddingVertical="20dp"
+            android:text="@string/input"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/one_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/one)}"
+            android:text="@string/one"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/four_text"
+            app:layout_constraintEnd_toStartOf="@id/two_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_text" />
+
+        <TextView
+            android:id="@+id/two_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/two)}"
+            android:text="@string/two"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/one_text"
+            app:layout_constraintEnd_toStartOf="@id/three_text"
+            app:layout_constraintStart_toEndOf="@id/one_text"
+            app:layout_constraintTop_toTopOf="@id/one_text" />
+
+        <TextView
+            android:id="@+id/three_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/three)}"
+            android:text="@string/three"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/one_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/two_text"
+            app:layout_constraintTop_toTopOf="@id/one_text" />
+
+        <TextView
+            android:id="@+id/four_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/four)}"
+            android:text="@string/four"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/seven_text"
+            app:layout_constraintEnd_toStartOf="@id/five_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/one_text" />
+
+        <TextView
+            android:id="@+id/five_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/five)}"
+            android:text="@string/five"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/four_text"
+            app:layout_constraintEnd_toStartOf="@id/six_text"
+            app:layout_constraintStart_toEndOf="@id/four_text"
+            app:layout_constraintTop_toTopOf="@id/four_text" />
+
+        <TextView
+            android:id="@+id/six_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/six)}"
+            android:text="@string/six"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/four_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/five_text"
+            app:layout_constraintTop_toTopOf="@id/four_text" />
+
+        <TextView
+            android:id="@+id/seven_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/seven)}"
+            android:text="@string/seven"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/double_zero_text"
+            app:layout_constraintEnd_toStartOf="@id/eight_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/four_text" />
+
+        <TextView
+            android:id="@+id/eight_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/eight)}"
+            android:text="@string/eight"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/seven_text"
+            app:layout_constraintEnd_toStartOf="@id/nine_text"
+            app:layout_constraintStart_toEndOf="@id/seven_text"
+            app:layout_constraintTop_toTopOf="@id/seven_text" />
+
+        <TextView
+            android:id="@+id/nine_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/nine)}"
+            android:text="@string/nine"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/seven_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/eight_text"
+            app:layout_constraintTop_toTopOf="@id/seven_text" />
+
+        <TextView
+            android:id="@+id/double_zero_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/hundreds)}"
+            android:text="@string/hundreds"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/zero_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/seven_text" />
+
+        <TextView
+            android:id="@+id/zero_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/font_recipe"
+            android:gravity="center"
+            android:onClick="@{() -> viewModel.onKey(@string/zero)}"
+            android:text="@string/zero"
+            android:textColor="@color/white01"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/double_zero_text"
+            app:layout_constraintEnd_toStartOf="@id/eraser_parent"
+            app:layout_constraintStart_toEndOf="@id/double_zero_text"
+            app:layout_constraintTop_toTopOf="@id/double_zero_text" />
+
+        <FrameLayout
+            android:id="@+id/eraser_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:onClick="@{() -> viewModel.onRemove()}"
+            app:layout_constraintBottom_toBottomOf="@id/double_zero_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/zero_text"
+            app:layout_constraintTop_toTopOf="@id/double_zero_text">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_eraser"
+                app:tint="@color/white01"
+                tools:ignore="ContentDescription" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

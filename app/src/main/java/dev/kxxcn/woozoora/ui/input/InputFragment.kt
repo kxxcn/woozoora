@@ -44,12 +44,12 @@ class InputFragment : BaseFragment<InputFragmentBinding>() {
     }
 
     private fun setupKeyboard() {
-        showKeyboard(findViewByFilterType())
+        findViewByFilterType()?.let { showKeyboard(it) }
     }
 
-    private fun findViewByFilterType(): EditText {
+    private fun findViewByFilterType(): EditText? {
         return when (filterType) {
-            EditFilterType.PRICE -> binding.priceEdit
+            EditFilterType.PRICE -> null
             else -> binding.nameEdit
         }
     }
