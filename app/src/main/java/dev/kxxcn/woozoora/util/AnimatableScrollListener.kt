@@ -9,7 +9,7 @@ class AnimatableScrollListener : RecyclerView.OnScrollListener() {
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         val manager = recyclerView.layoutManager as? LinearLayoutManager ?: return
-        val position = manager.findLastCompletelyVisibleItemPosition()
+        val position = manager.findLastVisibleItemPosition()
         val holder = recyclerView.findViewHolderForAdapterPosition(position)
         (holder as? Animatable)?.playAnimation()
     }

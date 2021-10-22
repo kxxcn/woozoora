@@ -165,6 +165,7 @@ fun setCategory(view: GridLayout, overview: OverviewData, colors: List<Int>) {
     overview.groupByCategory(overview.id, HomeFilterType.MONTHLY)
         .takeIf { it.isNotEmpty() }
         ?.toList()
+        ?.sortedByDescending { group -> group.second.sumBy { it.price } }
         ?.mapIndexed { index, (category, transactions) ->
             CategoryPriceView(view.context)
                 .apply {
