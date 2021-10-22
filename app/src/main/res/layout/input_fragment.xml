@@ -79,10 +79,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
+            android:enabled="false"
             android:fontFamily="@font/font_nexon_regular"
             android:hint="@{context.getString(viewModel.currentFilterType.hintRes)}"
             android:imeOptions="actionDone"
-            android:maxLength="11"
             android:maxLines="1"
             android:paddingBottom="20dp"
             android:textColor="@color/primaryBlack"
@@ -108,9 +108,22 @@
             android:text="@string/input"
             android:textColor="@color/white01"
             android:textSize="16sp"
+            android:visibility="@{viewModel.currentFilterType == EditFilterType.PRICE ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <include
+            layout="@layout/currency_keypad_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:visibility="@{viewModel.currentFilterType == EditFilterType.PRICE ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/price_edit"
+            app:viewModel="@{viewModel}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
