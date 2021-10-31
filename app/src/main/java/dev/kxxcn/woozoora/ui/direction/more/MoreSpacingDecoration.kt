@@ -11,14 +11,13 @@ class MoreSpacingDecoration : RecyclerView.ItemDecoration() {
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val marginBottom = when (parent.getChildLayoutPosition(view)) {
-            state.itemCount - 1 -> 40.dpToPx
-            else -> 0
-        }
-        outRect.top = 10.dpToPx
-        outRect.bottom = marginBottom
+        val position = parent.getChildLayoutPosition(view)
+        outRect.left = if (position == 0) 0 else 20.dpToPx
+        outRect.right = if (position == 0) 0 else 20.dpToPx
+        outRect.top = if (position == 1) 20.dpToPx else 10.dpToPx
+        outRect.bottom = if (position == state.itemCount - 1) 40.dpToPx else 0
     }
 }

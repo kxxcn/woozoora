@@ -11,6 +11,10 @@ import android.widget.TimePicker
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.viewModels
 import androidx.navigation.navGraphViewModels
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.EventObserver
 import dev.kxxcn.woozoora.common.FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY
@@ -18,8 +22,11 @@ import dev.kxxcn.woozoora.common.FORMAT_TIME_HOUR_MINUTE_WITH_MARKER
 import dev.kxxcn.woozoora.common.base.Inputable
 import dev.kxxcn.woozoora.databinding.EditFragmentBinding
 import dev.kxxcn.woozoora.di.SavedStateViewModelFactory
+import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.ui.base.MotionFragment
 import dev.kxxcn.woozoora.ui.input.InputViewModel
+import dev.kxxcn.woozoora.util.AdGenerator
+import dev.kxxcn.woozoora.util.AdInterstitial
 import dev.kxxcn.woozoora.util.Converter
 import java.util.*
 import javax.inject.Inject
@@ -39,6 +46,8 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         )
     }
 
+    private var interstitialAd: InterstitialAd? = null
+
     override val motionContainer: MotionLayout
         get() = binding.motionContainer
 
@@ -46,6 +55,18 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         get() = R.id.scene_edit_end
 
     override val sharedViewModel by navGraphViewModels<InputViewModel>(R.id.nav_graph)
+
+    private val interstitialCallback = object : InterstitialAdLoadCallback() {
+        override fun onAdLoaded(ad: InterstitialAd) {
+            super.onAdLoaded(ad)
+            interstitialAd = ad
+        }
+
+        override fun onAdFailedToLoad(p0: LoadAdError) {
+            super.onAdFailedToLoad(p0)
+            loadAd()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +88,7 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
         super.onViewCreated(view, savedInstanceState)
         setupListAdapter()
         setupListener()
+        setupAd()
         start()
     }
 
@@ -99,15 +121,29 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
             showTimePicker(it)
         })
         viewModel.receiptEvent.observe(viewLifecycleOwner, EventObserver {
-            EditFragmentDirections.actionEditFragmentToReceiptFragment(it).show()
+            showAd(it)
         })
         sharedViewModel.inputEvent.observe(viewLifecycleOwner, EventObserver {
             viewModel.setFilter(it)
         })
     }
 
+    private fun setupAd() {
+        activity?.let {
+            AdGenerator(
+                AdInterstitial,
+                it,
+                it.getString(R.string.admob_interstitial_transaction_id)
+            ).also { adGenerator -> adGenerator.loadInterstitial(interstitialCallback) }
+        }
+    }
+
     private fun start() {
         viewModel.start()
+    }
+
+    private fun loadAd() {
+        setupAd()
     }
 
     private fun showDatePicker(source: String?) {
@@ -127,5 +163,24 @@ class EditFragment : MotionFragment<EditFragmentBinding>(),
             val minute = c.get(Calendar.MINUTE)
             context?.let { TimePickerDialog(it, this@EditFragment, hour, minute, false).show() }
         }
+    }
+
+    private fun showAd(history: HistoryData) {
+        if (interstitialAd != null) {
+            interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    super.onAdDismissedFullScreenContent()
+                    interstitialAd = null
+                    showReceiptScreen(history)
+                }
+            }
+            interstitialAd?.show(requireActivity())
+        } else {
+            showReceiptScreen(history)
+        }
+    }
+
+    private fun showReceiptScreen(history: HistoryData) {
+        EditFragmentDirections.actionEditFragmentToReceiptFragment(history).show()
     }
 }
