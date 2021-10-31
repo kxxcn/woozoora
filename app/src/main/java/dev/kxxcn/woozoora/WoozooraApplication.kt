@@ -3,6 +3,7 @@ package dev.kxxcn.woozoora
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
+import com.google.android.gms.ads.MobileAds
 import com.kakao.sdk.common.KakaoSdk
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -24,6 +25,7 @@ class WoozooraApplication : DaggerApplication() {
         super.onCreate()
         setupLogger()
         setupKakaoSdk()
+        setupAdmobSdk()
         setupChannel()
         setupAlarms()
     }
@@ -47,6 +49,10 @@ class WoozooraApplication : DaggerApplication() {
 
     private fun setupKakaoSdk() {
         KakaoSdk.init(this, getString(R.string.kakao_native_app_key))
+    }
+
+    private fun setupAdmobSdk() {
+        MobileAds.initialize(this)
     }
 
     private fun setupChannel() {

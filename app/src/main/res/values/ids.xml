@@ -8,7 +8,16 @@
     <item name="tag_skeleton_history_day_list" type="id" />
     <item name="tag_skeleton_history_transaction_list" type="id" />
     <item name="tag_skeleton_statistic_list" type="id" />
-    <item name="tag_notice_expand" type="id"/>
-    <item name="tag_notice_expand_animator" type="id"/>
-    <item name="tag_notice_rotate_animator" type="id"/>
+    <item name="tag_notice_expand" type="id" />
+    <item name="tag_notice_expand_animator" type="id" />
+    <item name="tag_notice_rotate_animator" type="id" />
+
+    <string name="admob_app_id">ca-app-pub-1655234429103343~3903708183</string>
+
+    <string name="admob_banner_test_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_interstitial_test_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="admob_native_test_id">ca-app-pub-3940256099942544/2247696110</string>
+
+    <string name="admob_banner_more_id">ca-app-pub-1655234429103343/4746016565</string>
+    <string name="admob_interstitial_transaction_id">ca-app-pub-1655234429103343/2756425272</string>
 </resources>

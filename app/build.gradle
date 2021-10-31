@@ -21,8 +21,8 @@ android {
         applicationId "dev.kxxcn.woozoora"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 14
-        versionName "1.0.13"
+        versionCode 15
+        versionName "1.0.14"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -112,7 +112,8 @@ dependencies {
     def material_version = "1.2.1"
     def lifecycle_version = "2.2.0"
     def firebase_version = "26.3.0"
-    def play_services_auth_version = "19.0.0"
+    def play_services_auth_version = "19.2.0"
+    def play_services_ads_version = "20.3.0"
     def dagger_version = "2.31"
     def dagger_assisted_version = "0.6.0"
     def retrofit_version = "2.9.0"
@@ -149,6 +150,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
+    implementation "com.google.android.gms:play-services-ads:$play_services_ads_version"
 
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
