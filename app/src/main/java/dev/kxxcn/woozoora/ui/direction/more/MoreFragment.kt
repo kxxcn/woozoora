@@ -61,7 +61,7 @@ class MoreFragment : BaseFragment<MoreFragmentBinding>() {
     private fun setupListAdapter() {
         binding.moreList.addItemDecoration(MoreSpacingDecoration())
         binding.moreList.adapter = MoreAdapter(
-            requireActivity(),
+            requireActivity().displayMetrics,
             viewModel
         ).apply { submitList(MoreAdapter.create()) }
     }

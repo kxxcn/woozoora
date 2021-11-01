@@ -1,6 +1,6 @@
 package dev.kxxcn.woozoora.ui.direction.more
 
-import android.app.Activity
+import android.util.DisplayMetrics
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.kxxcn.woozoora.common.base.IncomparableDiffCallback
@@ -8,13 +8,13 @@ import dev.kxxcn.woozoora.ui.base.BaseAdapter
 import dev.kxxcn.woozoora.ui.direction.more.holder.*
 
 class MoreAdapter(
-    private val activity: Activity,
+    private val metrics: DisplayMetrics,
     private val viewModel: MoreViewModel,
 ) : BaseAdapter<Int, RecyclerView.ViewHolder>(IncomparableDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            TYPE_BANNER -> MoreBannerHolder.from(activity, parent)
+            TYPE_BANNER -> MoreBannerHolder.from(metrics, parent)
             TYPE_APPLICATION -> MoreApplicationHolder.from(parent)
             TYPE_GROUP -> MoreGroupHolder.from(parent)
             TYPE_NOTIFICATION -> MoreNotificationHolder.from(parent)

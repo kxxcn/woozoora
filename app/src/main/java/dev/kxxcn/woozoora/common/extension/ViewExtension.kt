@@ -1,6 +1,7 @@
 package dev.kxxcn.woozoora.common.extension
 
 import android.animation.ValueAnimator
+import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.animation.addListener
@@ -245,3 +246,5 @@ fun RecyclerView.setItemDecoration(decor: RecyclerView.ItemDecoration) {
         addItemDecoration(decor)
     }
 }
+
+fun View.asTextView() = this as TextView
