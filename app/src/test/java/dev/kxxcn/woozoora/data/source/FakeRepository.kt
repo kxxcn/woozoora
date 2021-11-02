@@ -2,6 +2,7 @@ package dev.kxxcn.woozoora.data.source
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import dev.kxxcn.woozoora.common.TEST_USER_ID
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
@@ -12,6 +13,7 @@ import dev.kxxcn.woozoora.domain.model.*
 import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
 import dev.kxxcn.woozoora.util.Converter
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class FakeRepository : DataRepository {
 
@@ -20,6 +22,10 @@ class FakeRepository : DataRepository {
     private var transactionsData: LinkedHashMap<Int, TransactionData> = LinkedHashMap()
 
     private var asksData: LinkedList<AskData> = LinkedList()
+
+    private var notificationsData: LinkedList<NotificationData> = LinkedList()
+
+    private var statisticsData: LinkedList<StatisticData> = LinkedList()
 
     override suspend fun getUser(userId: String?, dirtyCache: Boolean): Result<UserData> {
         return try {
@@ -53,7 +59,7 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getOverview(startDate: Long, endDate: Long): Result<OverviewData> {
-        TODO("Not yet implemented")
+        return Result.Success(OverviewData(usersData[TEST_USER_ID]!!, emptyList(), emptyList()))
     }
 
     override suspend fun getNotificationOption(option: OptionData): Boolean {
@@ -81,11 +87,13 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getStatistics(): Result<List<StatisticData>> {
-        TODO("Not yet implemented")
+        val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
+        return Result.Success(statisticsData.filter { it.date > date })
     }
 
     override fun getNotifications(): LiveData<List<NotificationData>> {
-        TODO("Not yet implemented")
+        val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
+        return MutableLiveData(notificationsData.filter { (it.date ?: 0) > date })
     }
 
     override suspend fun saveUser(userData: UserData): Result<Any> {
@@ -144,11 +152,13 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun updateNotification() {
-        TODO("Not yet implemented")
+        notificationsData.clear()
+        notificationsData.addAll(notificationsData.map { it.copy(isChecked = true) })
     }
 
     override suspend fun updateStatistic() {
-        TODO("Not yet implemented")
+        statisticsData.clear()
+        statisticsData.addAll(statisticsData.map { it.copy(isChecked = true) })
     }
 
     override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
@@ -215,6 +225,20 @@ class FakeRepository : DataRepository {
     fun addTransactions(vararg transactions: TransactionData) {
         for (transaction in transactions) {
             transactionsData[transaction.id] = transaction
+        }
+    }
+
+    @VisibleForTesting
+    fun addNotifications(vararg notifications: NotificationData) {
+        for (notification in notifications) {
+            notificationsData.add(notification)
+        }
+    }
+
+    @VisibleForTesting
+    fun addStatistics(vararg statistics: StatisticData) {
+        for (statistic in statistics) {
+            statisticsData.add(statistic)
         }
     }
 
