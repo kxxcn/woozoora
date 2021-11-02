@@ -8,11 +8,13 @@ import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.GetNotificationsUseCase
 import dev.kxxcn.woozoora.domain.GetOverviewUseCase
+import dev.kxxcn.woozoora.domain.ObserveStatisticUseCase
 import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.ui.base.MotionViewModel
 
 class HomeViewModel @AssistedInject constructor(
     getNotificationsUseCase: GetNotificationsUseCase,
+    observeStatisticUseCase: ObserveStatisticUseCase,
     private val getOverviewUseCase: GetOverviewUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : MotionViewModel(savedStateHandle) {
@@ -22,12 +24,25 @@ class HomeViewModel @AssistedInject constructor(
 
     private val forceObserve = MutableLiveData<Boolean>()
 
-    val hasNewNotification = forceObserve.switchMap { force ->
+    private val hasUncheckedNotification = forceObserve.switchMap { force ->
         if (force) {
             getNotificationsUseCase().map { notifications -> notifications.any { !it.isChecked } }
         } else {
             MutableLiveData<Boolean>().apply { value = force }
         }
+    }
+
+    private val hasUncheckedStatistics = forceObserve.switchMap { force ->
+        if (force) {
+            observeStatisticUseCase().map { notifications -> notifications.any { !it.isChecked } }
+        } else {
+            MutableLiveData<Boolean>().apply { value = force }
+        }
+    }
+
+    val visibleDot = MediatorLiveData<Boolean>().apply {
+        addSource(hasUncheckedNotification) { value = it || hasUncheckedStatistics.value == true }
+        addSource(hasUncheckedStatistics) { value = it || hasUncheckedNotification.value == true }
     }
 
     private val _filterType =

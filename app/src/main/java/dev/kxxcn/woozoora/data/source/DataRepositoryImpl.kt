@@ -230,6 +230,11 @@ class DataRepositoryImpl @Inject constructor(
             .map { list -> list.map { it.toData() } }
     }
 
+    override fun observeStatistics(): LiveData<List<StatisticData>> {
+        return localDataSource.observeStatistics()
+            .map { list -> list.map { it.toData() } }
+    }
+
     private suspend fun getNewToken() = suspendCoroutine<String?> { continuation ->
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             if (it.isSuccessful) {

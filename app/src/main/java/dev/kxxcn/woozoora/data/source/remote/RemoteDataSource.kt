@@ -291,4 +291,8 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     override fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>> {
         throw InvalidRequestException()
     }
+
+    override fun observeStatistics(): LiveData<List<StatisticEntity>> {
+        throw InvalidRequestException()
+    }
 }

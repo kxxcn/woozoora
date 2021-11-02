@@ -16,6 +16,11 @@ data class StatisticData(
     val dateText: String?
         get() = Converter.dateFormat(FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, date)
 
+    val totalPrice = transactions.sumBy { it.price }
+
+    val hasTransactions: Boolean
+        get() = transactions.isNotEmpty()
+
     companion object {
 
         fun empty(): StatisticData {

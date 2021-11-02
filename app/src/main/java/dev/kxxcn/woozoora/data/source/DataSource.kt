@@ -96,4 +96,6 @@ interface DataSource {
     fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>>
 
     fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>>
+
+    fun observeStatistics(): LiveData<List<StatisticEntity>>
 }

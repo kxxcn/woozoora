@@ -73,13 +73,13 @@ object Converter {
 
     fun weekdayToResource(weekday: Float): Int {
         return when (weekday.toInt()) {
-            Calendar.SUNDAY -> R.string.sunday_short
             Calendar.MONDAY -> R.string.monday_short
             Calendar.TUESDAY -> R.string.tuesday_short
             Calendar.WEDNESDAY -> R.string.wednesday_short
             Calendar.THURSDAY -> R.string.thursday_short
             Calendar.FRIDAY -> R.string.friday_short
-            else -> R.string.saturday_short
+            Calendar.SATURDAY -> R.string.saturday_short
+            else -> R.string.sunday_short
         }
     }
 

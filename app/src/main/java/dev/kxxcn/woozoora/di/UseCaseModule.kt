@@ -164,4 +164,10 @@ class UseCaseModule {
     fun provideObserveAssetCategoryUseCase(repository: DataRepository): ObserveAssetCategoryUseCase {
         return ObserveAssetCategoryUseCase(repository)
     }
+
+    @Singleton
+    @Provides
+    fun provideObserveStatisticUseCase(repository: DataRepository): ObserveStatisticUseCase {
+        return ObserveStatisticUseCase(repository)
+    }
 }

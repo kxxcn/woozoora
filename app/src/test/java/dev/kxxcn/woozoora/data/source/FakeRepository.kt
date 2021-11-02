@@ -147,6 +147,10 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateStatistic() {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
         TODO("Not yet implemented")
     }
@@ -188,6 +192,10 @@ class FakeRepository : DataRepository {
     }
 
     override fun observeAssetCategory(): LiveData<List<AssetCategoryData>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun observeStatistics(): LiveData<List<StatisticData>> {
         TODO("Not yet implemented")
     }
 

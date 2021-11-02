@@ -86,4 +86,6 @@ interface DataRepository {
     fun observeTransactionCategory(): LiveData<List<TransactionCategoryData>>
 
     fun observeAssetCategory(): LiveData<List<AssetCategoryData>>
+
+    fun observeStatistics(): LiveData<List<StatisticData>>
 }

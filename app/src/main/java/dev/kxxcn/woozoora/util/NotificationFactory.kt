@@ -95,8 +95,9 @@ class NotificationFactory @Inject constructor(
             .build()
 
         notificationManager.notify(Random.nextInt(), notification)
-        createSummaryNotification(option.channel, groupKey)
-            ?.let { notificationManager.notify(summaryId, it) }
+        createSummaryNotification(option.channel, groupKey)?.let {
+            notificationManager.notify(summaryId, it)
+        }
     }
 
     private fun createSummaryNotification(channel: String, groupKey: String?): Notification? {
@@ -134,9 +135,9 @@ class NotificationFactory @Inject constructor(
     private suspend fun saveStatistic(data: Map<String, String>, option: OptionData) {
         try {
             option.takeIf { it == OptionData.WEEKLY }?.let {
-                val startDate = data[NOTIFICATION_START_DATE]?.toLong() ?: 0L
-                val endDate = data[NOTIFICATION_END_DATE]?.toLong() ?: 0L
-                if (startDate != 0L && endDate != 0L) {
+                val startDate = data[NOTIFICATION_START_DATE]?.toLong()
+                val endDate = data[NOTIFICATION_END_DATE]?.toLong()
+                if (startDate != null && endDate != null) {
                     val statistic = StatisticData(startDate, endDate)
                     saveStatisticUseCase(statistic)
                 }

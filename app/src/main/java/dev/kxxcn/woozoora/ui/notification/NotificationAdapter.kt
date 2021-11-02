@@ -37,7 +37,7 @@ class NotificationAdapter(
             oldItem: NotificationItem,
             newItem: NotificationItem,
         ): Boolean {
-            return oldItem.notification.id == newItem.notification.id
+            return oldItem.date == newItem.date
         }
 
         override fun areContentsTheSame(

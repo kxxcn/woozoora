@@ -390,4 +390,13 @@ class LocalDataSource(
             MutableLiveData(emptyList())
         }
     }
+
+    override fun observeStatistics(): LiveData<List<StatisticEntity>> {
+        return try {
+            val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
+            statisticDao.observeStatistics(date)
+        } catch (e: Exception) {
+            MutableLiveData(emptyList())
+        }
+    }
 }

@@ -71,12 +71,14 @@ class NotificationViewModel @Inject constructor(
                             it
                         )
                     }
-                } + statistics.map {
-                NotificationItem(
-                    NotificationAdapter.TYPE_STATISTIC,
-                    statistic = it
-                )
-            }.sortedByDescending { it.date }
+                } + statistics
+                .filter { it.hasTransactions }
+                .map {
+                    NotificationItem(
+                        NotificationAdapter.TYPE_STATISTIC,
+                        statistic = it
+                    )
+                }.sortedByDescending { it.date }
         }
     }
 }
