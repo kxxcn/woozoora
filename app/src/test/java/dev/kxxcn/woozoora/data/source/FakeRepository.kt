@@ -152,13 +152,15 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun updateNotification() {
+        val updateData = notificationsData.map { it.copy(isChecked = true) }
         notificationsData.clear()
-        notificationsData.addAll(notificationsData.map { it.copy(isChecked = true) })
+        notificationsData.addAll(updateData)
     }
 
     override suspend fun updateStatistic() {
+        val updateData = statisticsData.map { it.copy(isChecked = true) }
         statisticsData.clear()
-        statisticsData.addAll(statisticsData.map { it.copy(isChecked = true) })
+        statisticsData.addAll(updateData)
     }
 
     override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
