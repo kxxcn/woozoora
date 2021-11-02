@@ -41,6 +41,12 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideGetStatisticUseCase(repository: DataRepository): GetStatisticUseCase {
+        return GetStatisticUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideGetNoticeUseCase(repository: DataRepository): GetNoticeUseCase {
         return GetNoticeUseCase(repository)
     }
@@ -95,6 +101,12 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideSaveStatisticUseCase(repository: DataRepository): SaveStatisticUseCase {
+        return SaveStatisticUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideUpdateTokenUseCase(repository: DataRepository): UpdateTokenUseCase {
         return UpdateTokenUseCase(repository)
     }
@@ -107,8 +119,14 @@ class UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideUpdateNotification(repository: DataRepository): UpdateNotificationUseCase {
+    fun provideUpdateNotificationUseCase(repository: DataRepository): UpdateNotificationUseCase {
         return UpdateNotificationUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpdateStatisticUseCase(repository: DataRepository): UpdateStatisticUseCase {
+        return UpdateStatisticUseCase(repository)
     }
 
     @Singleton

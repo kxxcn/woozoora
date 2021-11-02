@@ -63,6 +63,7 @@ object ApplicationModule {
             database.notificationDao(),
             database.assetCategoryDao(),
             database.transactionCategoryDao(),
+            database.statisticDao(),
             ioDispatcher
         )
     }
@@ -157,7 +158,7 @@ object ApplicationModule {
         }
     }
 
-    val ALL_MIGRATIONS = arrayOf<Migration>(
+    val ALL_MIGRATIONS = arrayOf(
         object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 createAssetCategoryTable(database)
@@ -165,6 +166,11 @@ object ApplicationModule {
                 insertAssetCategories(database)
                 insertTransactionCategories(database)
                 alterNotificationTable(database)
+            }
+        },
+        object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                createStatisticTable(database)
             }
         }
     )
@@ -175,6 +181,10 @@ object ApplicationModule {
 
     private fun createTransactionCategoryTable(database: SupportSQLiteDatabase) {
         database.execSQL("CREATE TABLE `TCategory` (`id` INTEGER NOT NULL, `category` TEXT NOT NULL, `priority` INTEGER NOT NULL, PRIMARY KEY(`id`))")
+    }
+
+    private fun createStatisticTable(database: SupportSQLiteDatabase) {
+        database.execSQL("CREATE TABLE `Statistic` (`id` TEXT NOT NULL, `startDate` INTEGER NOT NULL, `endDate` INTEGER NOT NULL, `date` INTEGER NOT NULL, `isChecked` INTEGER NOT NULL, PRIMARY KEY(`id`))")
     }
 
     private fun insertAssetCategories(database: SupportSQLiteDatabase) {

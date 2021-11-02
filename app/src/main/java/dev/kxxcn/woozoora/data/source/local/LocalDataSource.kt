@@ -10,10 +10,7 @@ import dev.kxxcn.woozoora.data.source.DataSource
 import dev.kxxcn.woozoora.data.source.api.CategoryDuplicateException
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.entity.*
-import dev.kxxcn.woozoora.data.source.local.dao.AssetCategoryDao
-import dev.kxxcn.woozoora.data.source.local.dao.NotificationDao
-import dev.kxxcn.woozoora.data.source.local.dao.TransactionCategoryDao
-import dev.kxxcn.woozoora.data.source.local.dao.UserDao
+import dev.kxxcn.woozoora.data.source.local.dao.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -25,6 +22,7 @@ class LocalDataSource(
     private val notificationDao: NotificationDao,
     private val assetCategoryDao: AssetCategoryDao,
     private val transactionCategoryDao: TransactionCategoryDao,
+    private val statisticDao: StatisticDao,
     private val ioDispatcher: CoroutineDispatcher,
 ) : DataSource {
 
@@ -70,6 +68,15 @@ class LocalDataSource(
 
     override suspend fun getNotice(): Result<List<NoticeEntity>> {
         throw InvalidRequestException()
+    }
+
+    override suspend fun getStatistics() = withContext(ioDispatcher) {
+        return@withContext try {
+            val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
+            Result.Success(statisticDao.getStatistics(date))
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 
     override suspend fun getAsks(): Result<List<AskEntity>> {
@@ -136,6 +143,14 @@ class LocalDataSource(
     override suspend fun saveNotification(notification: NotificationEntity) {
         try {
             notificationDao.insertNotification(notification)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    override suspend fun saveStatistic(statistic: StatisticEntity) {
+        try {
+            statisticDao.insertStatistic(statistic)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -270,6 +285,27 @@ class LocalDataSource(
                     )
                 }.also {
                     notificationDao.updateNotifications(it)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override suspend fun updateStatistic() {
+        withContext(ioDispatcher) {
+            try {
+                val statistics = statisticDao.getStatistics()
+                statistics.map {
+                    StatisticEntity(
+                        it.startDate,
+                        it.endDate,
+                        it.date,
+                        1,
+                        it.id,
+                    )
+                }.also {
+                    statisticDao.updateStatistics(it)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -55,6 +55,15 @@ class DataRepositoryImpl @Inject constructor(
         return localDataSource.getNotificationOption(option.toEntity())
     }
 
+    override suspend fun getOverview(startDate: Long, endDate: Long): Result<OverviewData> {
+        return localDataSource.getUser(null)
+            .flatMap { cache ->
+                remoteDataSource
+                    .getOverview(cache.id, startDate, endDate)
+                    .map { it.toData(cache) }
+            }
+    }
+
     override suspend fun getNotice(): Result<List<NoticeData>> {
         return remoteDataSource.getNotice()
             .map { notices -> notices.map { it.toData() } }
@@ -77,6 +86,12 @@ class DataRepositoryImpl @Inject constructor(
     override suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>> {
         return localDataSource.getTransactionCategory()
             .map { categories -> categories.map { it.toData() } }
+    }
+
+    override suspend fun getStatistics(): Result<List<StatisticData>> {
+        return localDataSource
+            .getStatistics()
+            .map { statistics -> statistics.map { it.toData() } }
     }
 
     override fun getNotifications(): LiveData<List<NotificationData>> {
@@ -114,6 +129,10 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun saveNotification(notification: NotificationData) {
         localDataSource.saveNotification(notification.toEntity())
+    }
+
+    override suspend fun saveStatistic(statistic: StatisticData) {
+        localDataSource.saveStatistic(statistic.toEntity())
     }
 
     override suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean> {
@@ -158,6 +177,10 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun updateNotification() {
         localDataSource.updateNotification()
+    }
+
+    override suspend fun updateStatistic() {
+        localDataSource.updateStatistic()
     }
 
     override suspend fun updateCode(code: String, isTransfer: Boolean): Result<Any> {
@@ -221,16 +244,11 @@ class DataRepositoryImpl @Inject constructor(
         year: Int? = null,
         month: Int? = null,
     ): Result<OverviewData> {
-        return localDataSource.getUser(null)
-            .flatMap { cache ->
-                val (startDate, endDate) = Converter.rangeOfHomeFilterType(
-                    HomeFilterType.MONTHLY,
-                    year,
-                    month
-                )
-                remoteDataSource
-                    .getOverview(cache.id, startDate, endDate)
-                    .map { it.toData(cache) }
-            }
+        val (startDate, endDate) = Converter.rangeOfHomeFilterType(
+            HomeFilterType.MONTHLY,
+            year,
+            month
+        )
+        return getOverview(startDate, endDate)
     }
 }

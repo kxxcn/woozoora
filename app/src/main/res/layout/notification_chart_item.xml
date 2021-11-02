@@ -10,8 +10,8 @@
             type="dev.kxxcn.woozoora.ui.notification.NotificationViewModel" />
 
         <variable
-            name="notification"
-            type="dev.kxxcn.woozoora.domain.model.NotificationData" />
+            name="statistic"
+            type="dev.kxxcn.woozoora.domain.model.StatisticData" />
 
     </data>
 
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="결제 승인"
+            android:text="주간 리포트"
             android:textColor="@color/primaryBlack"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/font_nexon_regular"
-            android:text="@{notification.dateText}"
+            android:text="@{statistic.dateText}"
             android:textColor="@color/primaryBlack"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/divider"

@@ -16,6 +16,8 @@ interface DataRepository {
 
     suspend fun getOverview(year: Int?, month: Int?): Result<OverviewData>
 
+    suspend fun getOverview(startDate: Long, endDate: Long): Result<OverviewData>
+
     suspend fun getNotificationOption(option: OptionData): Boolean
 
     suspend fun getNotice(): Result<List<NoticeData>>
@@ -27,6 +29,8 @@ interface DataRepository {
     suspend fun getAssetCategory(): Result<List<AssetCategoryData>>
 
     suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>>
+
+    suspend fun getStatistics(): Result<List<StatisticData>>
 
     fun getNotifications(): LiveData<List<NotificationData>>
 
@@ -43,6 +47,8 @@ interface DataRepository {
 
     suspend fun saveNotification(notification: NotificationData)
 
+    suspend fun saveStatistic(statistic: StatisticData)
+
     suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean>
 
     suspend fun saveTransactionCategory(category: String): Result<Any>
@@ -58,6 +64,8 @@ interface DataRepository {
     suspend fun updateUser(budget: Long): Result<Any>
 
     suspend fun updateNotification()
+
+    suspend fun updateStatistic()
 
     suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>)
 

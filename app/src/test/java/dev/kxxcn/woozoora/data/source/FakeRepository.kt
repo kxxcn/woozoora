@@ -52,6 +52,10 @@ class FakeRepository : DataRepository {
         return Result.Success(overview)
     }
 
+    override suspend fun getOverview(startDate: Long, endDate: Long): Result<OverviewData> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getNotificationOption(option: OptionData): Boolean {
         TODO("Not yet implemented")
     }
@@ -73,6 +77,10 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getStatistics(): Result<List<StatisticData>> {
         TODO("Not yet implemented")
     }
 
@@ -100,6 +108,10 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun saveNotification(notification: NotificationData) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveStatistic(statistic: StatisticData) {
         TODO("Not yet implemented")
     }
 

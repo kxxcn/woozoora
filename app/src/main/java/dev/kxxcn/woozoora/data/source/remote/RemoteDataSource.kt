@@ -84,6 +84,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
+    override suspend fun getStatistics(): Result<List<StatisticEntity>> {
+        throw InvalidRequestException()
+    }
+
     override suspend fun getAsks(): Result<List<AskEntity>> {
         return try {
             apiService.getAsks().body()
@@ -144,6 +148,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     }
 
     override suspend fun saveNotification(notification: NotificationEntity) {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun saveStatistic(statistic: StatisticEntity) {
         throw InvalidRequestException()
     }
 
@@ -220,6 +228,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     }
 
     override suspend fun updateNotification() {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun updateStatistic() {
         throw InvalidRequestException()
     }
 

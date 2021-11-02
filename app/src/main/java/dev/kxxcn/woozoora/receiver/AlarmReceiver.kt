@@ -83,7 +83,8 @@ class AlarmReceiver : DaggerBroadcastReceiver() {
                 )
                 val contentBody = buildString {
                     append(
-                        context.getString(R.string.format_spending,
+                        context.getString(
+                            R.string.format_spending,
                             Converter.moneyFormat(totalSpending)
                         )
                     )
@@ -92,17 +93,21 @@ class AlarmReceiver : DaggerBroadcastReceiver() {
                             appendLine()
                             val spending = transactions.sumBy { it.price }
                             append(
-                                context.getString(R.string.format_category,
+                                context.getString(
+                                    R.string.format_category,
                                     category,
                                     Converter.moneyFormat(spending),
-                                    transactions.size)
+                                    transactions.size
+                                )
                             )
                         }
                 }
                 mapOf(
                     NOTIFICATION_CHANNEL to CHANNEL_WEEKLY,
                     NOTIFICATION_TITLE to contentTitle,
-                    NOTIFICATION_BODY to contentBody
+                    NOTIFICATION_BODY to contentBody,
+                    NOTIFICATION_START_DATE to range.first.toString(),
+                    NOTIFICATION_END_DATE to range.second.toString(),
                 ).also { data ->
                     notification(data)
                 }
