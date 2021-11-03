@@ -39,6 +39,8 @@ class ReceiptViewModel @AssistedInject constructor(
 
     val usageTransactionTime = liveData { emit(getUsageTransactionTimeUseCase()) }
 
+    val isProgress = _transactionEvent.map { it != null }
+
     fun edit() {
         history?.let { _editEvent.value = Event(it) }
     }

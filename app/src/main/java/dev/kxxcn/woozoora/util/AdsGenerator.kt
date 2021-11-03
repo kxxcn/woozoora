@@ -16,7 +16,8 @@ import java.lang.ref.WeakReference
 class AdsGenerator(
     private val filterType: AdType,
     private val context: Context,
-    private val adUnitId: String
+    private val adUnitId: String,
+    private val failedToLoad: (() -> Unit)? = null,
 ) {
 
     private lateinit var activityRef: WeakReference<Activity>
@@ -24,6 +25,8 @@ class AdsGenerator(
     private var interstitialAd: InterstitialAd? = null
 
     private var countRef = 0
+
+    private var isFailed = false
 
     private val isRequested: Boolean
         get() = countRef != 0
@@ -42,7 +45,8 @@ class AdsGenerator(
 
         override fun onAdFailedToLoad(p0: LoadAdError) {
             super.onAdFailedToLoad(p0)
-            loadInterstitial()
+            isFailed = true
+            if (isRequested) failedToLoad?.invoke()
         }
     }
 
@@ -76,7 +80,7 @@ class AdsGenerator(
     fun loadNative(
         option: NativeAdOptions,
         listener: AdListener,
-        block: NativeAd.() -> Unit
+        block: NativeAd.() -> Unit,
     ) {
         AdLoader.Builder(context, this@AdsGenerator.adUnitId or adTestId)
             .forNativeAd { block(it) }
@@ -87,16 +91,20 @@ class AdsGenerator(
     }
 
     fun showInterstitial(activity: Activity? = null, callback: FullScreenContentCallback? = null) {
-        val isEnable = callback != null && hasInterstitial
-        if (isEnable || isRequested) {
-            val canvas = activity ?: activityRef.get() ?: return
-            interstitialAd?.fullScreenContentCallback = callback ?: contentCallback
-            interstitialAd?.show(canvas)
+        if (isFailed) {
+            failedToLoad?.invoke()
         } else {
-            countRef++
+            val isEnable = callback != null && hasInterstitial
+            if (isEnable || isRequested) {
+                val canvas = activity ?: activityRef.get() ?: return
+                interstitialAd?.fullScreenContentCallback = callback ?: contentCallback
+                interstitialAd?.show(canvas)
+            } else {
+                countRef++
+            }
+            activityRef = WeakReference(activity)
+            contentCallback = callback
         }
-        activityRef = WeakReference(activity)
-        contentCallback = callback
     }
 
     fun release() {
