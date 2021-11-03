@@ -11,8 +11,12 @@ import dev.kxxcn.woozoora.domain.UpdateNotificationUseCase
 import dev.kxxcn.woozoora.domain.UpdateStatisticUseCase
 import dev.kxxcn.woozoora.domain.model.NotificationData
 import dev.kxxcn.woozoora.domain.model.StatisticData
+import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.domain.model.UserData
+import dev.kxxcn.woozoora.ui.direction.home.HomeFilterType
+import dev.kxxcn.woozoora.ui.edit.EditBranchType
 import dev.kxxcn.woozoora.ui.notification.NotificationViewModel
+import dev.kxxcn.woozoora.util.Converter
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -35,26 +39,45 @@ class NotificationViewModelTest : BaseViewModelTest() {
         val date = System.currentTimeMillis()
 
         val notifications = arrayOf(
-            NotificationData("Notification 1", date = date + 1000),
-            NotificationData("Notification 2", date = date + 2000),
-            NotificationData("Notification 3", date = date + 3000),
-            NotificationData("Notification 4", date = date - TimeUnit.DAYS.toMillis(60)),
-            NotificationData("Notification 5", date = date - TimeUnit.DAYS.toMillis(60)),
-            NotificationData("Notification 6", date = date - TimeUnit.DAYS.toMillis(60)),
+            NotificationData("Notification 1", transactionDate = date + 1000),
+            NotificationData("Notification 2", transactionDate = date + 2000),
+            NotificationData("Notification 3", transactionDate = date + 3000),
+            NotificationData("Notification 4", transactionDate = date - TimeUnit.DAYS.toMillis(60)),
+            NotificationData("Notification 5", transactionDate = date - TimeUnit.DAYS.toMillis(60)),
+            NotificationData("Notification 6", transactionDate = date - TimeUnit.DAYS.toMillis(60)),
         )
 
         repository.addNotifications(*notifications)
 
+        val (startDate, endDate) = Converter.rangeOfHomeFilterType(HomeFilterType.WEEKLY)
+
         val statistics = arrayOf(
-            StatisticData(0, 0, date = date + 4000, id = "Statistic 1"),
-            StatisticData(0, 0, date = date + 5000, id = "Statistic 2"),
-            StatisticData(0, 0, date = date + 6000, id = "Statistic 3"),
-            StatisticData(0, 0, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 4"),
-            StatisticData(0, 0, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 5"),
-            StatisticData(0, 0, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 6"),
+            StatisticData(startDate, endDate, date = date + 4000, id = "Statistic 1"),
+            StatisticData(startDate, endDate, date = date + 5000, id = "Statistic 2"),
+            StatisticData(startDate, endDate, date = date + 6000, id = "Statistic 3"),
+            StatisticData(startDate, endDate, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 4"),
+            StatisticData(startDate, endDate, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 5"),
+            StatisticData(startDate, endDate, date = date - TimeUnit.DAYS.toMillis(60), id = "Statistic 6"),
         )
 
         repository.addStatistics(*statistics)
+
+        val transaction =
+            TransactionData(
+                0,
+                TEST_USER_ID,
+                "code 1",
+                "desc 1",
+                "User 1",
+                "식비",
+                0,
+                0,
+                20000,
+                date,
+                EditBranchType.TRANSACTION.ordinal
+            )
+
+        repository.addTransactions(transaction)
 
         viewModel = NotificationViewModel(
             GetNotificationsUseCase(repository),
@@ -66,7 +89,7 @@ class NotificationViewModelTest : BaseViewModelTest() {
 
     @Test
     fun loadNotifications_exceptInvalidData() {
-        assertThat(LiveDataTestUtil.getValue(viewModel.notifications)).hasSize(3)
+        assertThat(LiveDataTestUtil.getValue(viewModel.notifications)).hasSize(4)
     }
 
     @Test

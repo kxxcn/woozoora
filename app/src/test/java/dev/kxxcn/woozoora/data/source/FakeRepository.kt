@@ -59,7 +59,13 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getOverview(startDate: Long, endDate: Long): Result<OverviewData> {
-        return Result.Success(OverviewData(usersData[TEST_USER_ID]!!, emptyList(), emptyList()))
+        return Result.Success(
+            OverviewData(
+                usersData[TEST_USER_ID]!!,
+                emptyList(),
+                transactionsData.values.toList()
+            )
+        )
     }
 
     override suspend fun getNotificationOption(option: OptionData): Boolean {
