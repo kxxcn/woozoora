@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.gms.ads.nativead.NativeAdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.gms.ads.nativead.MediaView
+            android:id="@+id/ad_media"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="2:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/ad_attribution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/round_solid_black"
+            android:fontFamily="@font/font_nexon_regular"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="2dp"
+            android:text="@string/app_ad_attribution"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="@id/ad_media"
+            app:layout_constraintTop_toTopOf="@id/ad_media"
+            tools:ignore="SmallSp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.5"
+            android:background="@drawable/native_ad_font_shadow_bottom_to_top"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ad_body" />
+
+        <TextView
+            android:id="@+id/ad_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/font_nexon_regular"
+            android:paddingVertical="10dp"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ad_media"
+            app:layout_constraintEnd_toStartOf="@id/ad_call_to_action"
+            app:layout_constraintStart_toStartOf="@id/ad_media" />
+
+        <TextView
+            android:id="@+id/ad_call_to_action"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/round_solid_blue_02"
+            android:fontFamily="@font/font_nexon_regular"
+            android:gravity="center"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/ad_body"
+            app:layout_constraintEnd_toEndOf="@id/ad_media"
+            app:layout_constraintTop_toTopOf="@id/ad_body"
+            tools:ignore="SmallSp"
+            tools:text="더보기" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.gms.ads.nativead.NativeAdView>

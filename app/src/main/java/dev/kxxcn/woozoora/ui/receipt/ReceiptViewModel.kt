@@ -67,6 +67,10 @@ class ReceiptViewModel @AssistedInject constructor(
         }
     }
 
+    fun isWatchable(): Boolean {
+        return history?.isNew == true
+    }
+
     private fun saveStateHandle(transactionData: TransactionData?) {
         _transactionEvent.value = transactionData
     }

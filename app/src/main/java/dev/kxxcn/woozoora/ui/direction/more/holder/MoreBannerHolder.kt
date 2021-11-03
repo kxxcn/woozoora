@@ -1,37 +1,18 @@
 package dev.kxxcn.woozoora.ui.direction.more.holder
 
-import android.app.Activity
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.google.android.gms.ads.AdSize
 import dev.kxxcn.woozoora.R
-import dev.kxxcn.woozoora.common.extension.getDisplaySize
 import dev.kxxcn.woozoora.databinding.BannerItemBinding
 import dev.kxxcn.woozoora.ui.base.BaseHolder
-import dev.kxxcn.woozoora.util.AdBanner
-import dev.kxxcn.woozoora.util.AdGenerator
+import dev.kxxcn.woozoora.util.AdsGenerator
+import dev.kxxcn.woozoora.util.Banner
 
 class MoreBannerHolder(
-    private val activity: Activity,
+    private val metrics: DisplayMetrics,
     private val binding: BannerItemBinding,
 ) : BaseHolder(binding) {
-
-    private val adSize: AdSize
-        get() {
-            val outMetrics = activity.getDisplaySize()
-            val density = outMetrics.density
-
-            var adWidthPixels = binding.container.width.toFloat()
-            if (adWidthPixels == 0f) {
-                adWidthPixels = outMetrics.widthPixels.toFloat()
-            }
-
-            val adWidth = (adWidthPixels / density).toInt()
-            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-                activity,
-                adWidth
-            )
-        }
 
     fun bind() {
         setupArguments()
@@ -46,19 +27,19 @@ class MoreBannerHolder(
     }
 
     private fun setupBanner() {
-        AdGenerator(
-            AdBanner,
-            activity,
+        AdsGenerator(
+            Banner,
+            context,
             context.getString(R.string.admob_banner_more_id)
-        ).loadBanner(binding.container, adSize)
+        ).loadBanner(binding.container, metrics)
     }
 
     companion object {
 
-        fun from(activity: Activity, parent: ViewGroup): MoreBannerHolder {
+        fun from(metrics: DisplayMetrics, parent: ViewGroup): MoreBannerHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = BannerItemBinding.inflate(inflater, parent, false)
-            return MoreBannerHolder(activity, binding)
+            return MoreBannerHolder(metrics, binding)
         }
     }
 }

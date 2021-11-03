@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.kxxcn.woozoora.common.extension.dpToPx
 import dev.kxxcn.woozoora.ui.direction.home.holder.HomeBudgetHolder
 import dev.kxxcn.woozoora.ui.direction.home.holder.HomeGroupHolder
+import dev.kxxcn.woozoora.ui.direction.home.holder.HomeNativeAdsHolder
 import dev.kxxcn.woozoora.ui.direction.home.holder.HomeTitleHolder
 
 class HomeSpacingDecoration : RecyclerView.ItemDecoration() {
@@ -21,7 +22,8 @@ class HomeSpacingDecoration : RecyclerView.ItemDecoration() {
 
         val marginTop = when (parent.findViewHolderForAdapterPosition(position)) {
             is HomeBudgetHolder,
-            is HomeGroupHolder -> 20.dpToPx
+            is HomeGroupHolder,
+            is HomeNativeAdsHolder -> 20.dpToPx
             is HomeTitleHolder -> 30.dpToPx
             else -> 10.dpToPx
         }

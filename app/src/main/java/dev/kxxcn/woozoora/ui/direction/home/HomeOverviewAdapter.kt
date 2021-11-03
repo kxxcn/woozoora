@@ -33,6 +33,7 @@ class HomeOverviewAdapter(
             TYPE_CATEGORY -> HomeCategoryHolder.from(parent)
             TYPE_BUDGET -> HomeBudgetHolder.from(parent)
             TYPE_PAYMENT -> HomePaymentHolder.from(parent)
+            TYPE_NATIVE_ADS -> HomeNativeAdsHolder.from(parent)
             TYPE_GROUP_TITLE -> HomeTitleHolder.from(parent)
             TYPE_GROUP -> HomeGroupHolder.from(parent)
             TYPE_EVENT -> HomeEventHolder.from(parent)
@@ -51,6 +52,7 @@ class HomeOverviewAdapter(
             is HomeGroupHolder -> holder.bind(item, viewModel)
             is HomeEventHolder -> holder.bind(item, viewModel)
             is HomeEmptyHolder -> holder.bind(viewModel)
+            is HomeNativeAdsHolder -> holder.bind()
         }
     }
 
@@ -95,15 +97,17 @@ class HomeOverviewAdapter(
 
         private const val TYPE_PAYMENT = 4
 
-        private const val TYPE_GROUP_TITLE = 5
+        private const val TYPE_NATIVE_ADS = 5
 
-        private const val TYPE_GROUP = 6
+        private const val TYPE_GROUP_TITLE = 6
 
-        private const val TYPE_EVENT = 7
+        private const val TYPE_GROUP = 7
 
-        private const val TYPE_EMPTY = 8
+        private const val TYPE_EVENT = 8
 
-        private const val TYPE_TRANSACTION = 9
+        private const val TYPE_EMPTY = 9
+
+        private const val TYPE_TRANSACTION = 10
 
         fun create(overview: OverviewData): List<OverviewItem> {
             val overviewRelatedToGroup = if (overview.hasGroup) {
@@ -125,7 +129,8 @@ class HomeOverviewAdapter(
                 OverviewItem(TYPE_USER_TITLE, overview),
                 OverviewItem(TYPE_BUDGET, overview),
                 OverviewItem(TYPE_CATEGORY, overview),
-                OverviewItem(TYPE_PAYMENT, overview)
+                OverviewItem(TYPE_PAYMENT, overview),
+                OverviewItem(TYPE_NATIVE_ADS, overview)
             ) + overviewRelatedToGroup
         }
     }

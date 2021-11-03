@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">우주라이트</string>
     <string name="app_name_en">Would U Write?</string>
+    <string name="app_ad_attribution">AD</string>
 
     <string name="play_store_app">market://details?id=%1$s</string>
     <string name="play_store_web">https://play.google.com/store/apps/details?id=%1$s</string>
