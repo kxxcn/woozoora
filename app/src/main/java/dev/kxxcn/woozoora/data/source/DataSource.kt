@@ -44,7 +44,7 @@ interface DataSource {
 
     suspend fun saveToken(newToken: String)
 
-    suspend fun saveTransaction(transaction: TransactionEntity): Result<Any>
+    suspend fun saveTransaction(transaction: TransactionEntity): Result<String?>
 
     suspend fun saveNotificationOption(
         option: OptionEntity,

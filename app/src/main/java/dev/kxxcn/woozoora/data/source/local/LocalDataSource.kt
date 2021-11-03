@@ -124,7 +124,7 @@ class LocalDataSource(
         sharedPreferences.put(PREF_NEW_TOKEN, newToken)
     }
 
-    override suspend fun saveTransaction(transaction: TransactionEntity): Result<Any> {
+    override suspend fun saveTransaction(transaction: TransactionEntity): Result<String?> {
         throw InvalidRequestException()
     }
 
@@ -142,7 +142,10 @@ class LocalDataSource(
 
     override suspend fun saveNotification(notification: NotificationEntity) {
         try {
-            notificationDao.insertNotification(notification)
+            val value = notificationDao.findNotification(notification.transactionId)
+                ?.let { notification.copy(id = it.id) }
+                ?: notification
+            notificationDao.insertNotification(value)
         } catch (e: Exception) {
             e.printStackTrace()
         }

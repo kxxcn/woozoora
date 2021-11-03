@@ -37,7 +37,7 @@ interface ApiService {
     @POST(TRANSACTION)
     suspend fun saveTransaction(
         @Body transaction: TransactionEntity,
-    ): Response<Any?>
+    ): Response<String?>
 
     @FormUrlEncoded
     @POST(USER_TOKEN)

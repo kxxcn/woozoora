@@ -129,11 +129,11 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
-    override suspend fun saveTransaction(transaction: TransactionEntity): Result<Any> {
+    override suspend fun saveTransaction(transaction: TransactionEntity): Result<String?> {
         return try {
             apiService.saveTransaction(transaction)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(it.body()) }
                 ?: throw TransactionSaveException()
         } catch (e: Exception) {
             Result.Error(e)

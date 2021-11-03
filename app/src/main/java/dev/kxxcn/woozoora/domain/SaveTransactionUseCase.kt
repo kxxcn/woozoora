@@ -9,7 +9,7 @@ class SaveTransactionUseCase @Inject constructor(
     private val repository: DataRepository
 ) {
 
-    suspend operator fun invoke(transaction: TransactionData): Result<Any> {
+    suspend operator fun invoke(transaction: TransactionData): Result<String?> {
         return repository.saveTransaction(transaction)
     }
 }

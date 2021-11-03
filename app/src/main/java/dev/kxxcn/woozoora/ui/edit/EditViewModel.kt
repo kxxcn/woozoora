@@ -7,13 +7,9 @@ import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.*
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.getContentIfSucceeded
-import dev.kxxcn.woozoora.data.succeeded
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.*
-import dev.kxxcn.woozoora.domain.model.AssetCategoryData
-import dev.kxxcn.woozoora.domain.model.HistoryData
-import dev.kxxcn.woozoora.domain.model.TransactionCategoryData
-import dev.kxxcn.woozoora.domain.model.TransactionData
+import dev.kxxcn.woozoora.domain.model.*
 import dev.kxxcn.woozoora.ui.base.MotionViewModel
 import dev.kxxcn.woozoora.ui.edit.item.EditCategory
 import dev.kxxcn.woozoora.util.Converter
@@ -26,6 +22,7 @@ import kotlin.coroutines.suspendCoroutine
 class EditViewModel @AssistedInject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val saveTransactionUseCase: SaveTransactionUseCase,
+    private val saveNotificationUseCase: SaveNotificationUseCase,
     private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
     private val getAssetCategoryUseCase: GetAssetCategoryUseCase,
     private val getTransactionCategoryUseCase: GetTransactionCategoryUseCase,
@@ -244,7 +241,18 @@ class EditViewModel @AssistedInject constructor(
             } else {
                 val result = saveTransactionUseCase(data)
                 loading(false)
-                if (result.succeeded) {
+                if (result is Result.Success) {
+                    val notification = NotificationData(
+                        userName = user.name,
+                        userProfile = user.profile,
+                        transactionId = result.data,
+                        transactionName = data.name,
+                        transactionDate = data.date,
+                        transactionPrice = data.price,
+                        transactionType = data.type,
+                    )
+                    saveNotificationUseCase(notification)
+
                     val newHistory = HistoryData(
                         data,
                         user,

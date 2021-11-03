@@ -116,7 +116,7 @@ class DataRepositoryImpl @Inject constructor(
         localDataSource.saveToken(newToken)
     }
 
-    override suspend fun saveTransaction(transactionData: TransactionData): Result<Any> {
+    override suspend fun saveTransaction(transactionData: TransactionData): Result<String?> {
         return remoteDataSource.saveTransaction(transactionData.toEntity())
     }
 

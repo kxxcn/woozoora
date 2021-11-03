@@ -38,7 +38,7 @@ interface DataRepository {
 
     suspend fun saveToken(newToken: String)
 
-    suspend fun saveTransaction(transactionData: TransactionData): Result<Any>
+    suspend fun saveTransaction(transactionData: TransactionData): Result<String?>
 
     suspend fun saveNotificationOption(
         option: OptionData,
