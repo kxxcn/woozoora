@@ -21,7 +21,9 @@ import java.util.*
 @BindingAdapter("app:notifications")
 fun setNotificationList(view: RecyclerView, notifications: List<NotificationItem>?) {
     notifications?.let {
-        (view.adapter as? NotificationAdapter)?.submitList(it)
+        val list =
+            if (it.isEmpty()) listOf(NotificationItem(NotificationAdapter.TYPE_EMPTY)) else it
+        (view.adapter as? NotificationAdapter)?.submitList(list)
     }
 }
 

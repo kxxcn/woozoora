@@ -3,8 +3,8 @@ package dev.kxxcn.woozoora.domain.model
 import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.FORMAT_DATE_TIME_DOT
 import dev.kxxcn.woozoora.common.FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY
-import dev.kxxcn.woozoora.common.FORMAT_TIME_HOUR_MINUTE
 import dev.kxxcn.woozoora.util.Converter
+import java.util.*
 
 data class NotificationData(
     val id: String = "",
@@ -20,10 +20,7 @@ data class NotificationData(
 ) {
 
     val dateText: String?
-        get() = Converter.dateFormat(FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, date)
-
-    val timeText: String?
-        get() = Converter.dateFormat(FORMAT_TIME_HOUR_MINUTE, date)
+        get() = Converter.dateFormat(FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, transactionDate)
 
     val transactionDateText: String?
         get() = Converter.dateFormat(FORMAT_DATE_TIME_DOT, transactionDate)
@@ -36,6 +33,17 @@ data class NotificationData(
 
     val priceText: String?
         get() = Converter.moneyFormat(transactionPrice)
+
+    val compare: Long
+        get() = Calendar.getInstance().apply {
+            timeInMillis = transactionDate ?: 0
+            set(Calendar.HOUR_OF_DAY, 0)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }.run {
+            timeInMillis
+        }
 
     companion object {
 

@@ -54,7 +54,7 @@ class NotificationAdapter(
 
         const val TYPE_DATE = 1
 
-        const val TYPE_CONTENT = 2
+        const val TYPE_NOTIFICATION = 2
 
         const val TYPE_STATISTIC = 3
     }

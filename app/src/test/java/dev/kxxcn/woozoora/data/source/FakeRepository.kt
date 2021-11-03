@@ -93,7 +93,7 @@ class FakeRepository : DataRepository {
 
     override fun getNotifications(): LiveData<List<NotificationData>> {
         val date = System.currentTimeMillis() - TimeUnit.DAYS.toMillis(30)
-        return MutableLiveData(notificationsData.filter { (it.date ?: 0) > date })
+        return MutableLiveData(notificationsData.filter { (it.transactionDate ?: 0) > date })
     }
 
     override suspend fun saveUser(userData: UserData): Result<Any> {

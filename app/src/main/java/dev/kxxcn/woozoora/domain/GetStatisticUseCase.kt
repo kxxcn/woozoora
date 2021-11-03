@@ -29,9 +29,9 @@ class GetStatisticUseCase @Inject constructor(
         val statistics = result.getContentIfSucceeded
             ?.map { statistic ->
                 val range = statistic.startDate to statistic.endDate
-                val transactions = overview
-                    .getContentIfSucceeded
-                    ?.filterTransactionToRange(range = range)
+                val content = overview.getContentIfSucceeded
+                val transactions = content
+                    ?.filterTransactionToRange(content.id, range)
                     ?: emptyList()
 
                 statistic.copy(transactions = transactions)
