@@ -105,7 +105,7 @@ class ReceiptFragment : BaseFragment<ReceiptFragmentBinding>() {
                 Interstitial,
                 it,
                 it.getString(R.string.admob_interstitial_transaction_id)
-            ).also { adGenerator -> adGenerator.loadInterstitial() }
+            ) { close() }.also { adGenerator -> adGenerator.loadInterstitial() }
         }
     }
 
