@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/notification_text"
-            app:notifications="@{viewModel.notifications}" />
+            app:notifications="@{viewModel.items}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

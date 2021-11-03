@@ -48,7 +48,10 @@ class NotificationFragment : BaseFragment<NotificationFragmentBinding>() {
 
     private fun setupListener() {
         viewModel.notifications.observe(viewLifecycleOwner, {
-            viewModel.update()
+            viewModel.updateNotifications()
+        })
+        viewModel.statistics.observe(viewLifecycleOwner, {
+            viewModel.updateStatistics()
         })
     }
 }

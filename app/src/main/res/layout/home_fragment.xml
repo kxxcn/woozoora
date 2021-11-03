@@ -117,7 +117,7 @@
             app:layout_constraintCircle="@id/notification_icon"
             app:layout_constraintCircleAngle="45"
             app:layout_constraintCircleRadius="15dp"
-            app:visibleOnMotionLayout="@{viewModel.hasNewNotification}"
+            app:visibleOnMotionLayout="@{viewModel.visibleDot}"
             tools:ignore="ContentDescription" />
 
         <dev.kxxcn.woozoora.ui.custom.SkeletonLoadingView

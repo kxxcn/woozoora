@@ -84,6 +84,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         }
     }
 
+    override suspend fun getStatistics(): Result<List<StatisticEntity>> {
+        throw InvalidRequestException()
+    }
+
     override suspend fun getAsks(): Result<List<AskEntity>> {
         return try {
             apiService.getAsks().body()
@@ -125,11 +129,11 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
-    override suspend fun saveTransaction(transaction: TransactionEntity): Result<Any> {
+    override suspend fun saveTransaction(transaction: TransactionEntity): Result<String?> {
         return try {
             apiService.saveTransaction(transaction)
                 .takeIf { it.isSuccessful }
-                ?.let { Result.Success(Unit) }
+                ?.let { Result.Success(it.body()) }
                 ?: throw TransactionSaveException()
         } catch (e: Exception) {
             Result.Error(e)
@@ -144,6 +148,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     }
 
     override suspend fun saveNotification(notification: NotificationEntity) {
+        throw InvalidRequestException()
+    }
+
+    override suspend fun saveStatistic(statistic: StatisticEntity) {
         throw InvalidRequestException()
     }
 
@@ -223,6 +231,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override suspend fun updateStatistic() {
+        throw InvalidRequestException()
+    }
+
     override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
         throw InvalidRequestException()
     }
@@ -277,6 +289,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
     }
 
     override fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>> {
+        throw InvalidRequestException()
+    }
+
+    override fun observeStatistics(): LiveData<List<StatisticEntity>> {
         throw InvalidRequestException()
     }
 }

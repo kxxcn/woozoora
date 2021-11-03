@@ -262,3 +262,23 @@ fun NoticeEntity.toData(): NoticeData {
         date
     )
 }
+
+fun StatisticData.toEntity(): StatisticEntity {
+    return StatisticEntity(
+        startDate,
+        endDate,
+        date,
+        if (isChecked) 1 else 0,
+        id
+    )
+}
+
+fun StatisticEntity.toData(): StatisticData {
+    return StatisticData(
+        startDate,
+        endDate,
+        date,
+        isChecked == 1,
+        id,
+    )
+}

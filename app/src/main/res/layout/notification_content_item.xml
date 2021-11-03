@@ -45,18 +45,6 @@
             tools:text="+20,000원"
             tools:textColor="@color/green02" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_nexon_regular"
-            android:text="@{notification.timeText}"
-            android:textColor="@color/primaryBlack"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@id/transaction_price_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/transaction_price_text"
-            tools:text="15:30" />
-
         <View
             android:id="@+id/transaction_name_icon"
             android:layout_width="3dp"

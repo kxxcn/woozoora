@@ -63,6 +63,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), Scrollable {
         start()
     }
 
+    override fun onResume() {
+        super.onResume()
+        observeNotification(true)
+    }
+
     override fun onPause() {
         observeNotification(false)
         super.onPause()

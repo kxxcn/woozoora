@@ -3,15 +3,9 @@ package dev.kxxcn.woozoora.ui.notification
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import dev.kxxcn.woozoora.common.FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY
-import dev.kxxcn.woozoora.domain.model.NotificationData
 import dev.kxxcn.woozoora.ui.base.BaseAdapter
-import dev.kxxcn.woozoora.ui.notification.holder.NotificationBaseHolder
-import dev.kxxcn.woozoora.ui.notification.holder.NotificationContentHolder
-import dev.kxxcn.woozoora.ui.notification.holder.NotificationDateHolder
-import dev.kxxcn.woozoora.ui.notification.holder.NotificationEmptyHolder
+import dev.kxxcn.woozoora.ui.notification.holder.*
 import dev.kxxcn.woozoora.ui.notification.item.NotificationItem
-import dev.kxxcn.woozoora.util.Converter
 
 class NotificationAdapter(
     private val viewModel: NotificationViewModel,
@@ -21,12 +15,16 @@ class NotificationAdapter(
         return when (viewType) {
             TYPE_EMPTY -> NotificationEmptyHolder.from(parent)
             TYPE_DATE -> NotificationDateHolder.from(parent)
+            TYPE_STATISTIC -> NotificationChartHolder.from(parent)
             else -> NotificationContentHolder.from(parent)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? NotificationBaseHolder)?.bind(viewModel, getItem(position).notification)
+        when (holder) {
+            is NotificationBaseHolder -> holder.bind(viewModel, getItem(position).notification)
+            is NotificationChartHolder -> holder.bind(viewModel, getItem(position).statistic)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -39,7 +37,7 @@ class NotificationAdapter(
             oldItem: NotificationItem,
             newItem: NotificationItem,
         ): Boolean {
-            return oldItem.notification.id == newItem.notification.id
+            return oldItem.date == newItem.date
         }
 
         override fun areContentsTheSame(
@@ -52,23 +50,12 @@ class NotificationAdapter(
 
     companion object {
 
-        private const val TYPE_EMPTY = 0
+        const val TYPE_EMPTY = 0
 
-        private const val TYPE_DATE = 1
+        const val TYPE_DATE = 1
 
-        private const val TYPE_CONTENT = 2
+        const val TYPE_NOTIFICATION = 2
 
-        fun create(notifications: List<NotificationData>): List<NotificationItem> {
-            return if (notifications.isEmpty()) {
-                listOf(NotificationItem(TYPE_EMPTY, NotificationData.empty()))
-            } else {
-                notifications
-                    .groupBy { Converter.dateFormat(FORMAT_DATE_YEAR_DOT_MONTH_DOT_DAY, it.date) }
-                    .flatMap { (_, notifications) ->
-                        listOf(NotificationItem(TYPE_DATE, notifications.first())) +
-                                notifications.map { NotificationItem(TYPE_CONTENT, it) }
-                    }
-            }
-        }
+        const val TYPE_STATISTIC = 3
     }
 }

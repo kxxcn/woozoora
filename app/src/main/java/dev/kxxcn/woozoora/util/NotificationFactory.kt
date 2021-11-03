@@ -19,8 +19,10 @@ import dev.kxxcn.woozoora.data.succeeded
 import dev.kxxcn.woozoora.domain.GetNotificationOptionUseCase
 import dev.kxxcn.woozoora.domain.GetUserUseCase
 import dev.kxxcn.woozoora.domain.SaveNotificationUseCase
+import dev.kxxcn.woozoora.domain.SaveStatisticUseCase
 import dev.kxxcn.woozoora.domain.model.NotificationData
 import dev.kxxcn.woozoora.domain.model.OptionData
+import dev.kxxcn.woozoora.domain.model.StatisticData
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
@@ -30,6 +32,7 @@ class NotificationFactory @Inject constructor(
     private val getUserUseCase: GetUserUseCase,
     private val getNotificationOptionUseCase: GetNotificationOptionUseCase,
     private val saveNotificationUseCase: SaveNotificationUseCase,
+    private val saveStatisticUseCase: SaveStatisticUseCase,
     private val coroutineScope: BaseCoroutineScope,
 ) : NotificationProvider.Factory, BaseCoroutineScope by coroutineScope {
 
@@ -50,8 +53,9 @@ class NotificationFactory @Inject constructor(
 
             if (isEnabled) {
                 notify(data, option)
-                saveNotification(data, option)
             }
+            saveNotification(data, option)
+            saveStatistic(data, option)
         }
     }
 
@@ -66,15 +70,14 @@ class NotificationFactory @Inject constructor(
             application,
             WoozooraActivity::class.java
         ).run {
+            val bundle = bundleOf(
+                KEY_DEFAULT_PAGE to Director.findPage(option),
+                KEY_DEFAULT_DATE to data[NOTIFICATION_TRANSACTION_DATE],
+            )
             NavDeepLinkBuilder(application)
                 .setGraph(R.navigation.nav_graph)
                 .setDestination(R.id.directionFragment)
-                .setArguments(
-                    bundleOf(
-                        KEY_DEFAULT_PAGE to Director.findPage(option),
-                        KEY_DEFAULT_DATE to data[NOTIFICATION_TRANSACTION_DATE],
-                    )
-                )
+                .setArguments(bundle)
                 .createPendingIntent()
         }
 
@@ -86,15 +89,15 @@ class NotificationFactory @Inject constructor(
             .setContentText(data[NOTIFICATION_BODY])
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(data[NOTIFICATION_BODY]))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(data[NOTIFICATION_BODY]))
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setGroup(groupKey)
             .build()
 
         notificationManager.notify(Random.nextInt(), notification)
-        createSummaryNotification(option.channel, groupKey)
-            ?.let { notificationManager.notify(summaryId, it) }
+        createSummaryNotification(option.channel, groupKey)?.let {
+            notificationManager.notify(summaryId, it)
+        }
     }
 
     private fun createSummaryNotification(channel: String, groupKey: String?): Notification? {
@@ -126,6 +129,21 @@ class NotificationFactory @Inject constructor(
             ).also {
                 saveNotificationUseCase(it)
             }
+        }
+    }
+
+    private suspend fun saveStatistic(data: Map<String, String>, option: OptionData) {
+        try {
+            option.takeIf { it == OptionData.WEEKLY }?.let {
+                val startDate = data[NOTIFICATION_START_DATE]?.toLong()
+                val endDate = data[NOTIFICATION_END_DATE]?.toLong()
+                if (startDate != null && endDate != null) {
+                    val statistic = StatisticData(startDate, endDate)
+                    saveStatisticUseCase(statistic)
+                }
+            }
+        } catch (e: Exception) {
+
         }
     }
 }

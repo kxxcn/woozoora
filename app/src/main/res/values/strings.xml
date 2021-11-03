@@ -262,4 +262,6 @@
     <string name="add_the_categories_you_need">필요한 카테고리를 추가하세요 :D</string>
     <string name="category_has_been_added">[ %1$s ] 카테고리가 추가되었습니다.</string>
     <string name="duplicate_categories_cannot_be_added">중복되는 카테고리는 추가할 수 없어요ㅠㅠ</string>
+    <string name="weekly_report">주간 리포트</string>
+    <string name="payment_approval">결제 승인</string>
 </resources>

@@ -36,13 +36,15 @@ interface DataSource {
 
     suspend fun getTransactionCategory(): Result<List<TransactionCategoryEntity>>
 
+    suspend fun getStatistics(): Result<List<StatisticEntity>>
+
     fun getNotifications(): LiveData<List<NotificationEntity>>
 
     suspend fun saveUser(user: UserEntity): Result<String?>
 
     suspend fun saveToken(newToken: String)
 
-    suspend fun saveTransaction(transaction: TransactionEntity): Result<Any>
+    suspend fun saveTransaction(transaction: TransactionEntity): Result<String?>
 
     suspend fun saveNotificationOption(
         option: OptionEntity,
@@ -50,6 +52,8 @@ interface DataSource {
     ): Result<Boolean>
 
     suspend fun saveNotification(notification: NotificationEntity)
+
+    suspend fun saveStatistic(statistic: StatisticEntity)
 
     suspend fun saveUsageTransactionTime(value: Boolean): Result<Boolean>
 
@@ -77,6 +81,8 @@ interface DataSource {
 
     suspend fun updateNotification()
 
+    suspend fun updateStatistic()
+
     suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any>
 
     suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int>
@@ -90,4 +96,6 @@ interface DataSource {
     fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>>
 
     fun observeAssetCategory(): LiveData<List<AssetCategoryEntity>>
+
+    fun observeStatistics(): LiveData<List<StatisticEntity>>
 }
