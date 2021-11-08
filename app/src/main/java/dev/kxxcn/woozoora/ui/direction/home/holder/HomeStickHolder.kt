@@ -5,7 +5,16 @@ import android.view.ViewGroup
 import dev.kxxcn.woozoora.databinding.HomeStickItemBinding
 import dev.kxxcn.woozoora.ui.base.BaseHolder
 
-class HomeStickHolder(binding: HomeStickItemBinding) : BaseHolder(binding) {
+class HomeStickHolder(
+    private val binding: HomeStickItemBinding
+) : BaseHolder(binding) {
+
+    fun bind() {
+        with(binding) {
+            this.lifecycleOwner = this@HomeStickHolder
+            this.executePendingBindings()
+        }
+    }
 
     companion object {
 

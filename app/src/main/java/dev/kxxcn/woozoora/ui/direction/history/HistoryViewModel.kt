@@ -4,9 +4,7 @@ import androidx.lifecycle.*
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import dev.kxxcn.woozoora.common.Event
-import dev.kxxcn.woozoora.common.extension.day
-import dev.kxxcn.woozoora.common.extension.month
-import dev.kxxcn.woozoora.common.extension.year
+import dev.kxxcn.woozoora.common.extension.*
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.GetOverviewUseCase
@@ -15,9 +13,11 @@ import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
+import dev.kxxcn.woozoora.ui.direction.history.item.CalendarItem
 import dev.kxxcn.woozoora.ui.direction.history.item.DayItem
 import kotlinx.coroutines.launch
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 open class HistoryViewModel @AssistedInject constructor(
     private val getOverviewUseCase: GetOverviewUseCase,
@@ -58,13 +58,18 @@ open class HistoryViewModel @AssistedInject constructor(
         }
     }
 
-    val dayItems = overview.map {
+    val selectors = overview.map {
         dateTimeMs.value?.let { getMaximumDay(it.year, it.month) }
     }
 
     val histories = MediatorLiveData<List<HistoryData>?>().apply {
         addSource(selectedDay) { value = createHistory(it, overview.value) }
         addSource(overview) { value = createHistory(selectedDay.value, it) }
+    }
+
+    val days = MediatorLiveData<List<CalendarItem>>().apply {
+        addSource(dateTimeMs) { value = createCalendarItems(it, overview.value) }
+        addSource(overview) { value = createCalendarItems(dateTimeMs.value, it) }
     }
 
     val stopEvent = histories.map { Event(it != null) }
@@ -118,6 +123,72 @@ open class HistoryViewModel @AssistedInject constructor(
                 .map { HistoryData(it, overview.user, overview.group) }
                 .takeIf { it.isNotEmpty() }
                 ?: listOf(HistoryData(null, overview.user, overview.group))
+        }
+    }
+
+    private fun createCalendarItems(
+        timeMs: Long?,
+        overviewData: OverviewData?
+    ): List<CalendarItem> {
+        return if (timeMs == null || overviewData == null) {
+            emptyList()
+        } else {
+            val lowerMs = Calendar.getInstance()
+                .apply { timeInMillis = timeMs }
+                .apply { set(Calendar.DAY_OF_MONTH, 1) }
+                .asBegin()
+                .run { timeInMillis }
+
+            val upperMs = Calendar.getInstance()
+                .apply { timeInMillis = timeMs }
+                .apply { set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH)) }
+                .asEnd()
+                .run { timeInMillis }
+
+            val days = calculateDaysToMillis(lowerMs, upperMs)
+
+            createCalendarItems(days, overviewData.transactions)
+        }
+    }
+
+    private fun calculateDaysToMillis(
+        lowerMs: Long,
+        upperMs: Long,
+        acc: List<Long> = emptyList()
+    ): List<Long> {
+        return when {
+            lowerMs > upperMs -> acc
+            else -> calculateDaysToMillis(
+                lowerMs + TimeUnit.DAYS.toMillis(1),
+                upperMs,
+                listOf(*acc.toTypedArray(), lowerMs)
+            )
+        }
+    }
+
+    private fun createCalendarItems(
+        days: List<Long>,
+        transactions: List<TransactionData>,
+        count: Int = days.first().weekday - 1,
+        acc: List<CalendarItem> = emptyList()
+    ): List<CalendarItem> {
+        return when (count) {
+            0 -> {
+                acc + days.map { timeMs ->
+                    CalendarItem(
+                        timeMs,
+                        transactions.filter { it.date.day == timeMs.day }
+                    )
+                }
+            }
+            else -> {
+                createCalendarItems(
+                    days,
+                    transactions,
+                    count - 1,
+                    listOf(*acc.toTypedArray(), CalendarItem.DUMMY)
+                )
+            }
         }
     }
 }

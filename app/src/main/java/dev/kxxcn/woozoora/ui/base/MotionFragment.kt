@@ -22,7 +22,7 @@ abstract class MotionFragment<T : ViewDataBinding> : BaseFragment<T>() {
 
     private fun setupListener() {
         motionContainer.doOnTransition(onTransitionCompleted = { _, id ->
-            viewModel.saveInstanceState(id)
+            viewModel.saveMotionState(id)
         })
     }
 

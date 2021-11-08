@@ -9,7 +9,7 @@ abstract class MotionViewModel(
     val currentMotionState: Int?
         get() = savedStateHandle.get<Int>(CURRENT_MOTION_SAVED_STATE_KEY)
 
-    fun saveInstanceState(currentId: Int) {
+    fun saveMotionState(currentId: Int) {
         savedStateHandle.set(CURRENT_MOTION_SAVED_STATE_KEY, currentId)
     }
 }

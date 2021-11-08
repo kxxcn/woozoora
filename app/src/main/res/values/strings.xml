@@ -13,6 +13,8 @@
     <string name="format_price">%1$s원</string>
     <string name="format_price_plus">+%1$s원</string>
     <string name="format_price_minus">-%1$s원</string>
+    <string name="format_price_plus_short">+%1$s</string>
+    <string name="format_price_minus_short">-%1$s</string>
     <string name="format_date">%1$s ~ %2$s</string>
     <string name="format_date_with_bracket">(%1$s ~ %2$s)</string>
     <string name="format_date_with_new_line">%1$s ~ \n%2$s</string>

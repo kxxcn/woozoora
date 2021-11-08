@@ -59,6 +59,7 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>(), Scrollable, Sele
         super.onViewCreated(view, savedInstanceState)
         setupListAdapter()
         setupListener()
+        setupMotionLayout()
         start()
     }
 
@@ -112,6 +113,10 @@ class HistoryFragment : BaseFragment<HistoryFragmentBinding>(), Scrollable, Sele
         sharedViewModel.refreshEvent.observe(viewLifecycleOwner, {
             viewModel.start()
         })
+    }
+
+    private fun setupMotionLayout() {
+        binding.motionContainer.isInteractionEnabled = false
     }
 
     private fun start() {
