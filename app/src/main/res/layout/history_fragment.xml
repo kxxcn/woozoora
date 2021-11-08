@@ -5,15 +5,19 @@
 
     <data>
 
+        <import type="dev.kxxcn.woozoora.util.Converter" />
+
         <variable
             name="viewModel"
             type="dev.kxxcn.woozoora.ui.direction.history.HistoryViewModel" />
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/history_fragment_scene">
 
         <LinearLayout
             android:id="@+id/date_parent"
@@ -73,28 +77,142 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:elevation="10dp"
-            app:dayItem="@{viewModel.dayItems}"
+            app:layout_constraintBottom_toTopOf="@id/stick_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_parent" />
+            app:layout_constraintTop_toBottomOf="@id/date_parent"
+            app:selectors="@{viewModel.selectors}" />
+
+        <LinearLayout
+            android:id="@+id/weekday_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/sunday_short"
+                android:textColor="@color/red01"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/monday_short"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/tuesday_short"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/wednesday_short"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/thursday_short"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/friday_short"
+                android:textColor="@color/primaryBlack"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/font_recipe"
+                android:gravity="center"
+                android:text="@string/saturday_short"
+                android:textColor="@color/secondaryBlue"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <GridLayout
+            android:id="@+id/calendar_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="50dp"
+            android:columnCount="7"
+            app:days="@{viewModel.days}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/weekday_parent" />
+
+        <View
+            android:id="@+id/transaction_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/top_all_round_solid_light_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/day_list" />
+
+        <View
+            android:id="@+id/stick_view"
+            android:layout_width="80dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_solid_grey_01"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/transaction_background" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/top_all_round_solid_light_blue"
             android:layoutAnimation="@anim/slide_down_animation"
             android:overScrollMode="never"
-            android:padding="20dp"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="20dp"
             app:histories="@{viewModel.histories}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/day_list"
+            app:layout_constraintTop_toBottomOf="@id/stick_view"
             tools:listitem="@layout/history_transaction_item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </layout>

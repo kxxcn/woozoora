@@ -45,6 +45,7 @@ class HomeOverviewAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position).overview
         when (holder) {
+            is HomeStickHolder -> holder.bind()
             is HomeTitleHolder -> if (isGroupTitle(position)) holder.bindGroupTitle() else holder.bindUserTitle()
             is HomeCategoryHolder -> holder.bind(item, viewModel)
             is HomeBudgetHolder -> holder.bind(item, viewModel)
