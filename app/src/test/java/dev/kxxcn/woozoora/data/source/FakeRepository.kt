@@ -21,6 +21,8 @@ class FakeRepository : DataRepository {
 
     private var transactionsData: LinkedHashMap<Int, TransactionData> = LinkedHashMap()
 
+    private var transactionsCategoryData: LinkedList<TransactionCategoryData> = LinkedList()
+
     private var asksData: LinkedList<AskData> = LinkedList()
 
     private var notificationsData: LinkedList<NotificationData> = LinkedList()
@@ -89,7 +91,7 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun getTransactionCategory(): Result<List<TransactionCategoryData>> {
-        TODO("Not yet implemented")
+        return Result.Success(transactionsCategoryData)
     }
 
     override suspend fun getStatistics(): Result<List<StatisticData>> {
@@ -228,6 +230,13 @@ class FakeRepository : DataRepository {
     @VisibleForTesting
     fun addUser(user: UserData) {
         usersData[user.id] = user
+    }
+
+    @VisibleForTesting
+    fun addTransactionCategories(vararg categories: TransactionCategoryData) {
+        for (category in categories) {
+            transactionsCategoryData.add(category)
+        }
     }
 
     @VisibleForTesting
