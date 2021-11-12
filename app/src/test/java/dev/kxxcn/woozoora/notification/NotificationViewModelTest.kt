@@ -106,7 +106,7 @@ class NotificationViewModelTest : BaseViewModelTest() {
 
     @Test
     fun uploadAllStatistics() {
-        runBlockingTest {
+        mainCoroutineRule.runBlockingTest {
             viewModel.updateStatistics()
             val statistics = repository.getStatistics()
             assertEquals(true, statistics.getContentIfSucceeded?.all { it.isChecked })
