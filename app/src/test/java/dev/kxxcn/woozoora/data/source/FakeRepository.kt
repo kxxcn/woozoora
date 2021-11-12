@@ -141,6 +141,10 @@ class FakeRepository : DataRepository {
         TODO("Not yet implemented")
     }
 
+    override fun saveEditAdsEnabledCount(count: Long) {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun updateToken() {
         Result.Success(Unit)
     }
@@ -202,6 +206,10 @@ class FakeRepository : DataRepository {
     }
 
     override suspend fun leave(): Result<Any> {
+        TODO("Not yet implemented")
+    }
+
+    override fun isEnableEditAds(): Result<Unit> {
         TODO("Not yet implemented")
     }
 

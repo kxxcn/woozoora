@@ -55,6 +55,8 @@ interface DataRepository {
 
     suspend fun saveAssetCategory(category: String): Result<Any>
 
+    fun saveEditAdsEnabledCount(count: Long)
+
     suspend fun updateToken()
 
     suspend fun updateUser(sponsorId: String, isTransfer: Boolean): Result<Any>
@@ -82,6 +84,8 @@ interface DataRepository {
     suspend fun sendAsk(ask: AskData): Result<Any>
 
     suspend fun leave(): Result<Any>
+
+    fun isEnableEditAds(): Result<Unit>
 
     fun observeTransactionCategory(): LiveData<List<TransactionCategoryData>>
 

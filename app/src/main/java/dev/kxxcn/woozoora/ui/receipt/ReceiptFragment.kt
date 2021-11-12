@@ -127,7 +127,7 @@ class ReceiptFragment : BaseFragment<ReceiptFragmentBinding>() {
     }
 
     private fun displayAds() {
-        if (::ads.isInitialized && viewModel.isWatchable()) {
+        if (::ads.isInitialized && viewModel.isEnabledAds()) {
             ads.showInterstitial(requireActivity(), contentCallback)
         } else {
             close()

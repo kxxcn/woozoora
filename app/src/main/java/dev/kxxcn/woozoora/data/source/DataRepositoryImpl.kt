@@ -117,7 +117,9 @@ class DataRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveTransaction(transactionData: TransactionData): Result<String?> {
-        return remoteDataSource.saveTransaction(transactionData.toEntity())
+        return remoteDataSource
+            .saveTransaction(transactionData.toEntity())
+            .also { localDataSource.updateTransactionCount() }
     }
 
     override suspend fun saveNotificationOption(
@@ -145,6 +147,10 @@ class DataRepositoryImpl @Inject constructor(
 
     override suspend fun saveAssetCategory(category: String): Result<Any> {
         return localDataSource.saveAssetCategory(category)
+    }
+
+    override fun saveEditAdsEnabledCount(count: Long) {
+        localDataSource.saveEditAdsEnabledCount(count)
     }
 
     override suspend fun updateToken() {
@@ -218,6 +224,10 @@ class DataRepositoryImpl @Inject constructor(
         return localDataSource.getUser(null)
             .flatMap { remoteDataSource.leave(it.id) }
             .flatMap { localDataSource.leave(it) }
+    }
+
+    override fun isEnableEditAds(): Result<Unit> {
+        return localDataSource.isEnableEditAds()
     }
 
     override fun observeTransactionCategory(): LiveData<List<TransactionCategoryData>> {

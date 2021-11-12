@@ -21,8 +21,8 @@ android {
         applicationId "dev.kxxcn.woozoora"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 18
-        versionName "1.0.17"
+        versionCode 19
+        versionName "1.0.18"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -148,6 +148,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-dynamic-links-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-config-ktx'
 
     implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
     implementation "com.google.android.gms:play-services-ads:$play_services_ads_version"

@@ -7,9 +7,11 @@ import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.common.Event
 import dev.kxxcn.woozoora.common.KEY_HISTORY_ITEM
 import dev.kxxcn.woozoora.data.ifSucceeded
+import dev.kxxcn.woozoora.data.succeeded
 import dev.kxxcn.woozoora.di.AssistedSavedStateViewModelFactory
 import dev.kxxcn.woozoora.domain.DeleteTransactionUseCase
 import dev.kxxcn.woozoora.domain.GetUsageTransactionTimeUseCase
+import dev.kxxcn.woozoora.domain.IsEnableEditAdsUseCase
 import dev.kxxcn.woozoora.domain.model.HistoryData
 import dev.kxxcn.woozoora.domain.model.TransactionData
 import dev.kxxcn.woozoora.ui.base.BaseViewModel
@@ -18,6 +20,7 @@ import kotlinx.coroutines.launch
 class ReceiptViewModel @AssistedInject constructor(
     private val deleteTransactionUseCase: DeleteTransactionUseCase,
     private val getUsageTransactionTimeUseCase: GetUsageTransactionTimeUseCase,
+    private val isEnableEditAdsUseCase: IsEnableEditAdsUseCase,
     @Assisted private val savedStateHandle: SavedStateHandle,
 ) : BaseViewModel() {
 
@@ -69,8 +72,9 @@ class ReceiptViewModel @AssistedInject constructor(
         }
     }
 
-    fun isWatchable(): Boolean {
-        return history?.isNew == true
+    fun isEnabledAds(): Boolean {
+        val result = isEnableEditAdsUseCase()
+        return history?.isNew == true && result.succeeded
     }
 
     private fun saveStateHandle(transactionData: TransactionData?) {

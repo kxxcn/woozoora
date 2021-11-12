@@ -8,6 +8,7 @@ import dev.kxxcn.woozoora.common.extension.put
 import dev.kxxcn.woozoora.data.Result
 import dev.kxxcn.woozoora.data.source.DataSource
 import dev.kxxcn.woozoora.data.source.api.CategoryDuplicateException
+import dev.kxxcn.woozoora.data.source.api.DisableEditAdsException
 import dev.kxxcn.woozoora.data.source.api.InvalidRequestException
 import dev.kxxcn.woozoora.data.source.entity.*
 import dev.kxxcn.woozoora.data.source.local.dao.*
@@ -214,6 +215,10 @@ class LocalDataSource(
             }
         }
 
+    override fun saveEditAdsEnabledCount(count: Long) {
+        sharedPreferences.put(PREF_EDIT_ADS_ENABLED_COUNT, count)
+    }
+
     override suspend fun updateToken(userId: String, token: String?) {
         throw InvalidRequestException()
     }
@@ -336,6 +341,14 @@ class LocalDataSource(
         }
     }
 
+    override fun updateTransactionCount() {
+        try {
+            val count = sharedPreferences.getLong(PREF_TRANSACTION_COUNT, 0)
+            sharedPreferences.put(PREF_TRANSACTION_COUNT, count + 1)
+        } catch (ignore: Exception) {
+        }
+    }
+
     override suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any> {
         throw InvalidRequestException()
     }
@@ -373,6 +386,19 @@ class LocalDataSource(
             userDao.deleteAll()
             notificationDao.deleteAll()
             Result.Success(userId)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override fun isEnableEditAds(): Result<Unit> {
+        return try {
+            val transactionCount = sharedPreferences.getLong(PREF_TRANSACTION_COUNT, 0)
+            val enabledCount = sharedPreferences.getLong(PREF_EDIT_ADS_ENABLED_COUNT, 0)
+            when {
+                transactionCount % enabledCount == 0L -> Result.Success(Unit)
+                else -> throw DisableEditAdsException()
+            }
         } catch (e: Exception) {
             Result.Error(e)
         }

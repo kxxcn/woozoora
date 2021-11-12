@@ -107,6 +107,12 @@ class UseCaseModule {
 
     @Singleton
     @Provides
+    fun provideSaveEditAdsEnabledCountUseCase(repository: DataRepository): SaveEditAdsEnabledCountUseCase {
+        return SaveEditAdsEnabledCountUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
     fun provideUpdateTokenUseCase(repository: DataRepository): UpdateTokenUseCase {
         return UpdateTokenUseCase(repository)
     }
@@ -151,6 +157,12 @@ class UseCaseModule {
     @Provides
     fun provideSendAskUseCase(repository: DataRepository): SendAskUseCase {
         return SendAskUseCase(repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideIsEnableEditAdsUseCase(repository: DataRepository): IsEnableEditAdsUseCase {
+        return IsEnableEditAdsUseCase(repository)
     }
 
     @Singleton
