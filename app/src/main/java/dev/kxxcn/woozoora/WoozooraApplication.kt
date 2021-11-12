@@ -62,6 +62,7 @@ class WoozooraApplication : DaggerApplication() {
 
     private fun setupAdmobSdk() {
         MobileAds.initialize(this)
+        MobileAds.setAppMuted(true)
     }
 
     private fun setupChannel() {
