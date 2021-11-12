@@ -30,3 +30,6 @@ class GetAsksException : BaseException(R.string.try_again_after_a_while)
 class LeaveException : BaseException(R.string.try_again_after_a_while)
 
 class CategoryDuplicateException : BaseException(R.string.duplicate_categories_cannot_be_added)
+
+class DisableEditAdsException : BaseException()
+

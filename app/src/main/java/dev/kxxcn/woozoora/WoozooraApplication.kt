@@ -4,6 +4,8 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import com.google.android.gms.ads.MobileAds
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.kakao.sdk.common.KakaoSdk
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -11,15 +13,21 @@ import com.orhanobut.logger.PrettyFormatStrategy
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dev.kxxcn.woozoora.common.EXTRA_TRIGGER_TIME
+import dev.kxxcn.woozoora.common.KEY_CONFIG_EDIT_ADS_ENABLED_COUNT
 import dev.kxxcn.woozoora.common.KEY_DEBUG
 import dev.kxxcn.woozoora.common.extension.notificationManager
 import dev.kxxcn.woozoora.common.extension.setAlarmToFireWhenTheDeviceIsIdle
 import dev.kxxcn.woozoora.common.extension.toChannel
 import dev.kxxcn.woozoora.di.DaggerApplicationComponent
+import dev.kxxcn.woozoora.domain.SaveEditAdsEnabledCountUseCase
 import dev.kxxcn.woozoora.domain.model.OptionData
 import dev.kxxcn.woozoora.receiver.AlarmReceiver
+import javax.inject.Inject
 
 class WoozooraApplication : DaggerApplication() {
+
+    @Inject
+    lateinit var saveEditAdsEnabledCountUseCase: SaveEditAdsEnabledCountUseCase
 
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +35,7 @@ class WoozooraApplication : DaggerApplication() {
         setupKakaoSdk()
         setupAdmobSdk()
         setupChannel()
+        setupRemoteConfig()
         setupAlarms()
     }
 
@@ -53,6 +62,7 @@ class WoozooraApplication : DaggerApplication() {
 
     private fun setupAdmobSdk() {
         MobileAds.initialize(this)
+        MobileAds.setAppMuted(true)
     }
 
     private fun setupChannel() {
@@ -60,6 +70,16 @@ class WoozooraApplication : DaggerApplication() {
             OptionData.values()
                 .map { it.toChannel(this) }
                 .also { notificationManager.createNotificationChannels(it) }
+        }
+    }
+
+    private fun setupRemoteConfig() {
+        with(Firebase.remoteConfig) {
+            setDefaultsAsync(R.xml.remote_config_defaults)
+            fetchAndActivate().addOnCompleteListener {
+                val count = getLong(KEY_CONFIG_EDIT_ADS_ENABLED_COUNT)
+                saveEditAdsEnabledCountUseCase(count)
+            }
         }
     }
 

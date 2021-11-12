@@ -167,6 +167,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override fun saveEditAdsEnabledCount(count: Long) {
+        throw InvalidRequestException()
+    }
+
     override suspend fun updateToken(userId: String, token: String?) {
         try {
             apiService.updateToken(userId, token)
@@ -235,6 +239,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         throw InvalidRequestException()
     }
 
+    override fun updateTransactionCount() {
+        throw InvalidRequestException()
+    }
+
     override suspend fun updateTransactionCategory(list: List<TransactionCategoryEntity>) {
         throw InvalidRequestException()
     }
@@ -282,6 +290,10 @@ class RemoteDataSource(private val apiService: ApiService) : DataSource {
         } catch (e: Exception) {
             Result.Error(e)
         }
+    }
+
+    override fun isEnableEditAds(): Result<Unit> {
+        throw InvalidRequestException()
     }
 
     override fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>> {

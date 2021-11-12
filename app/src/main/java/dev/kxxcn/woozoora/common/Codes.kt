@@ -23,6 +23,8 @@ const val PREF_NOTIFICATION_DAILY = "notification_daily"
 const val PREF_NOTIFICATION_WEEKLY = "notification_weekly"
 const val PREF_NOTIFICATION_NOTICE = "notification_notice"
 const val PREF_USAGE_TRANSACTION_TIME = "usage_transaction_time"
+const val PREF_EDIT_ADS_ENABLED_COUNT = "edit_ads_enabled_count"
+const val PREF_TRANSACTION_COUNT = "transaction_count"
 
 const val KEY_DEBUG = "Debug"
 const val KEY_HISTORY_ITEM = "history_item"
@@ -45,6 +47,8 @@ const val KEY_TIMELINE_ITEM = "timeline_item"
 const val KEY_CHANGE_ITEM = "change_item"
 const val KEY_EDIT_ITEM = "edit_item"
 const val KEY_EDIT_CONTENT = "edit_content"
+
+const val KEY_CONFIG_EDIT_ADS_ENABLED_COUNT = "edit_ads_enabled_count"
 
 const val CHANNEL_DEFAULT = "channel_default"
 const val CHANNEL_REGISTRATION = "channel_registration"

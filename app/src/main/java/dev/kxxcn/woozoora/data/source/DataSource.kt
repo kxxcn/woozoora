@@ -61,6 +61,8 @@ interface DataSource {
 
     suspend fun saveAssetCategory(category: String): Result<Any>
 
+    fun saveEditAdsEnabledCount(count: Long)
+
     suspend fun updateToken(userId: String, token: String?)
 
     suspend fun updateUser(
@@ -83,6 +85,8 @@ interface DataSource {
 
     suspend fun updateStatistic()
 
+    fun updateTransactionCount()
+
     suspend fun deleteTransaction(transaction: TransactionEntity?): Result<Any>
 
     suspend fun deleteTransactionCategory(ids: List<Int>): Result<Int>
@@ -92,6 +96,8 @@ interface DataSource {
     suspend fun sendAsk(userId: String, ask: AskEntity): Result<Any>
 
     suspend fun leave(userId: String): Result<String>
+
+    fun isEnableEditAds(): Result<Unit>
 
     fun observeTransactionCategory(): LiveData<List<TransactionCategoryEntity>>
 
