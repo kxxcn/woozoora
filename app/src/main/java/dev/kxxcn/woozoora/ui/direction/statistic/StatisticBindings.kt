@@ -14,12 +14,12 @@ import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.ui.direction.statistic.category.ChildCategoryAdapter
 import dev.kxxcn.woozoora.ui.direction.statistic.item.CategoryItem
 
-@BindingAdapter("app:overview", "app:userId", "app:month")
+@BindingAdapter("app:overview", "app:userId", "app:timeMs")
 fun setStatisticList(
     view: RecyclerView,
     overview: OverviewData?,
     userId: String?,
-    month: Int,
+    timeMs: Long,
 ) {
     if (overview == null || userId == null) return
     with(view) {
@@ -29,7 +29,7 @@ fun setStatisticList(
             view.setTag(R.id.tag_skeleton_statistic_list, null)
         }
         val adapter = adapter as? StatisticAdapter
-        val newList = StatisticAdapter.create(overview, userId, month)
+        val newList = StatisticAdapter.create(overview, userId, timeMs)
         setItemDecoration(StatisticSpacingDecoration())
         adapter?.submitListAndScroll(newList)
     }
