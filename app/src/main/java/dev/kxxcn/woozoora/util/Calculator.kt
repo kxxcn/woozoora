@@ -104,9 +104,11 @@ object Calculator {
     }
 
     fun calculateRangeByWeek(
+        year: Int = Calendar.getInstance().get(Calendar.YEAR),
         month: Int = Calendar.getInstance().get(Calendar.MONTH),
     ): MutableList<Pair<Long, Long>> {
         val upperMs = Calendar.getInstance()
+            .apply { set(Calendar.YEAR, year) }
             .apply { set(Calendar.MONTH, month) }
             .apply { set(Calendar.DAY_OF_MONTH, getActualMaximum(Calendar.DAY_OF_MONTH)) }
             .asEnd()
@@ -114,12 +116,14 @@ object Calculator {
 
         val ranges = mutableListOf<Pair<Long, Long>>()
         val calendar = Calendar.getInstance()
+            .apply { set(Calendar.YEAR, year) }
             .apply { set(Calendar.MONTH, month) }
             .apply { set(Calendar.DAY_OF_MONTH, 1) }
 
         do {
             val range = calculateRange(
                 HomeFilterType.WEEKLY,
+                year = calendar.get(Calendar.YEAR),
                 month = calendar.get(Calendar.MONTH),
                 day = calendar.get(Calendar.DAY_OF_MONTH)
             )

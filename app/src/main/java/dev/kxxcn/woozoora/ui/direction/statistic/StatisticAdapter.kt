@@ -4,6 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import dev.kxxcn.woozoora.R
+import dev.kxxcn.woozoora.common.extension.year
+import dev.kxxcn.woozoora.common.extension.month
 import dev.kxxcn.woozoora.domain.model.OverviewData
 import dev.kxxcn.woozoora.ui.base.BaseAdapter
 import dev.kxxcn.woozoora.ui.direction.statistic.holder.StatisticBaseHolder
@@ -82,7 +84,7 @@ class StatisticAdapter(
         fun create(
             overview: OverviewData,
             userId: String,
-            month: Int,
+            timeMs: Long,
         ): List<StatisticItem> {
             val categoryItems = if (overview.filterTransactionToId(userId).isNotEmpty()) {
                 listOf(
@@ -103,7 +105,7 @@ class StatisticAdapter(
                     emptyList(),
                     titleRes = R.string.statistics_of_monthly
                 )
-            ) + Calculator.calculateRangeByWeek(month).map {
+            ) + Calculator.calculateRangeByWeek(timeMs.year, timeMs.month).map {
                 val transactions = overview.filterTransactionToRange(userId, it)
                 StatisticItem(TYPE_WEEKLY, transactions, it)
             } + categoryItems

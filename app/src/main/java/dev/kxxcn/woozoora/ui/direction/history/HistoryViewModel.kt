@@ -28,8 +28,6 @@ open class HistoryViewModel @AssistedInject constructor(
     @AssistedInject.Factory
     interface Factory : AssistedSavedStateViewModelFactory<HistoryViewModel>
 
-    val selectedMonth = dateTimeMs.map { it.month }
-
     val selectedDay = MediatorLiveData<Int>().apply {
         addSource(dateTimeMs) { value = it.day }
     }
