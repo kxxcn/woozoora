@@ -21,8 +21,8 @@ android {
         applicationId "dev.kxxcn.woozoora"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 20
-        versionName "1.0.19"
+        versionCode 21
+        versionName "1.0.20"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -130,6 +130,7 @@ dependencies {
     def arch_testing_version = "2.1.0"
     def coroutines_version = "1.3.6"
     def truth_version = "0.44"
+    def billing_version = "4.0.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"
@@ -183,6 +184,8 @@ dependencies {
     implementation "nl.joery.animatedbottombar:library:$bottom_bar_version"
     implementation "com.robinhood.spark:spark:$spark_version"
     implementation "com.faltenreich:skeletonlayout:$skeleton_version"
+
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
 
     testImplementation 'junit:junit:4.+'
     testImplementation "androidx.arch.core:core-testing:$arch_testing_version"

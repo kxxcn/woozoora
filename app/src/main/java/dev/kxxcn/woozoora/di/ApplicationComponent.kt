@@ -45,6 +45,7 @@ import javax.inject.Singleton
         CodeModule::class,
         SortModule::class,
         CreateModule::class,
+        InvoiceModule::class,
     ]
 )
 interface ApplicationComponent : AndroidInjector<WoozooraApplication> {

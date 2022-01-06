@@ -6,6 +6,11 @@
     <string name="play_store_app">market://details?id=%1$s</string>
     <string name="play_store_web">https://play.google.com/store/apps/details?id=%1$s</string>
 
+    <string-array name="products">
+        <item name="basic">basic</item>
+        <item name="pro">pro</item>
+    </string-array>
+
     <string name="format_string">%1$s</string>
     <string name="format_home_filter_type">#%1$s</string>
     <string name="format_month">%1$s월</string>

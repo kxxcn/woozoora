@@ -16,6 +16,8 @@ import dev.kxxcn.woozoora.R
 import dev.kxxcn.woozoora.WoozooraApplication
 import dev.kxxcn.woozoora.common.base.BaseCoroutineScope
 import dev.kxxcn.woozoora.common.base.BaseCoroutineScopeImpl
+import dev.kxxcn.woozoora.common.base.BillingProvider
+import dev.kxxcn.woozoora.common.base.BillingProviderImpl
 import dev.kxxcn.woozoora.common.extension.color
 import dev.kxxcn.woozoora.common.extension.dpToPx
 import dev.kxxcn.woozoora.data.source.DataRepository
@@ -84,6 +86,10 @@ object ApplicationModule {
     @Singleton
     @Provides
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Singleton
+    @Provides
+    fun provideContext(application: WoozooraApplication): Context = application.applicationContext
 
     @Singleton
     @Provides
@@ -210,4 +216,8 @@ abstract class ApplicationModuleBinds {
     @Singleton
     @Binds
     abstract fun bindRepository(repo: DataRepositoryImpl): DataRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindProvider(billing: BillingProviderImpl): BillingProvider
 }
