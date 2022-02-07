@@ -217,7 +217,6 @@ abstract class ApplicationModuleBinds {
     @Binds
     abstract fun bindRepository(repo: DataRepositoryImpl): DataRepository
 
-    @Singleton
     @Binds
     abstract fun bindProvider(billing: BillingProviderImpl): BillingProvider
 }

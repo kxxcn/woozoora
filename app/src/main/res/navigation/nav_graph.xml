@@ -199,6 +199,14 @@
 
         </action>
 
+        <action
+            android:id="@+id/action_directionFragment_to_invoiceFragment"
+            app:destination="@id/invoiceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -443,5 +451,11 @@
         android:name="dev.kxxcn.woozoora.ui.create.CreateFragment"
         android:label="CreateFragment"
         tools:layout="@layout/create_fragment" />
+
+    <fragment
+        android:id="@+id/invoiceFragment"
+        android:name="dev.kxxcn.woozoora.ui.invoice.InvoiceFragment"
+        android:label="InvoiceFragment"
+        tools:layout="@layout/invoice_fragment" />
 
 </navigation>

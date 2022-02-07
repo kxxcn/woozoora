@@ -11,10 +11,11 @@ import dev.kxxcn.woozoora.common.EventObserver
 import dev.kxxcn.woozoora.databinding.InvoiceFragmentBinding
 import dev.kxxcn.woozoora.ui.base.BaseFragment
 import dev.kxxcn.woozoora.common.base.BillingProvider
+import dev.kxxcn.woozoora.common.base.BillingState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class InvoiceFragment : BaseFragment<InvoiceFragmentBinding>() {
+class InvoiceFragment : BaseFragment<InvoiceFragmentBinding>(), BillingState {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -42,6 +43,7 @@ class InvoiceFragment : BaseFragment<InvoiceFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupListener()
+        setupBillingProvider()
     }
 
     override fun onDestroyView() {
@@ -49,12 +51,23 @@ class InvoiceFragment : BaseFragment<InvoiceFragmentBinding>() {
         super.onDestroyView()
     }
 
+    override fun onConnected() {
+        lifecycleScope.launch {
+            viewModel.bind(billing.getProducts())
+        }
+    }
+
+    override fun onDisconnected() {
+
+    }
+
     private fun setupListener() {
-        billing.products.observe(viewLifecycleOwner, {
-            viewModel.bind(it)
-        })
         viewModel.purchaseEvent.observe(viewLifecycleOwner, EventObserver {
             billing.purchase(requireActivity(), it)
         })
+    }
+
+    private fun setupBillingProvider() {
+        billing.onConnect(this)
     }
 }
