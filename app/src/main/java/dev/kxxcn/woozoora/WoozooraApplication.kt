@@ -112,18 +112,18 @@ class WoozooraApplication : DaggerApplication() {
             putExtra(EXTRA_TRIGGER_TIME, triggerAtMillis)
         }
 
-        return PendingIntent.getBroadcast(
-            this,
-            option.requestCode,
-            intent,
-            PendingIntent.FLAG_NO_CREATE
-        )?.let {
-            return null
-        } ?: PendingIntent.getBroadcast(
-            this,
-            option.requestCode,
-            intent,
+        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_IMMUTABLE
+        } else {
             PendingIntent.FLAG_UPDATE_CURRENT
-        ) to triggerAtMillis
+        }
+
+        val newPendingIntent = PendingIntent.getBroadcast(
+            this,
+            option.requestCode,
+            intent,
+            flag
+        )
+        return newPendingIntent to triggerAtMillis
     }
 }
