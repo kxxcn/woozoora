@@ -49,7 +49,7 @@ class KakaoSignInClient @Inject constructor(
                 signOut()
                 close(error)
             } else if (t != null) {
-                offer(t)
+                trySend(t).isSuccess
             }
             Unit
         }

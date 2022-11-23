@@ -38,6 +38,7 @@ class ChangeViewModel @AssistedInject constructor(
         when (currentFilterType) {
             ChangeFilterType.YEAR -> updateYear()
             ChangeFilterType.BUDGET -> updateBudget()
+            else -> {}
         }
     }
 
