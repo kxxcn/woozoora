@@ -17,7 +17,7 @@ class AskViewModel @Inject constructor(
     private val sendAskUseCase: SendAskUseCase,
 ) : BaseViewModel() {
 
-    val editText = MutableLiveData<String>()
+    val editText = MutableLiveData<String?>()
 
     private var saveJob: Job? = null
 

@@ -34,8 +34,8 @@ class ReceiptViewModel @AssistedInject constructor(
     private val _editEvent = MutableLiveData<Event<HistoryData>>()
     val editEvent: LiveData<Event<HistoryData>> = _editEvent
 
-    private val _transactionEvent = MutableLiveData<TransactionData>()
-    val transactionEvent: LiveData<TransactionData> = _transactionEvent
+    private val _transactionEvent = MutableLiveData<TransactionData?>()
+    val transactionEvent: LiveData<TransactionData?> = _transactionEvent
 
     private val _deleteEvent = MutableLiveData<Event<Unit>>()
     val deleteEvent: LiveData<Event<Unit>> = _deleteEvent

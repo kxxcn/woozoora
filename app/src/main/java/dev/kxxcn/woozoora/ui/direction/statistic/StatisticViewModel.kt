@@ -27,8 +27,8 @@ class StatisticViewModel @AssistedInject constructor(
     val savedPageState: Int?
         get() = savedStateHandle.get<Int>(CURRENT_PAGE_SAVED_STATE_KEY)
 
-    private val _currentUserId = MutableLiveData<String>()
-    val currentUserId: LiveData<String> = _currentUserId
+    private val _currentUserId = MutableLiveData<String?>()
+    val currentUserId: LiveData<String?> = _currentUserId
 
     private val _timelineEvent = MutableLiveData<Event<TimelineData>>()
     val timelineEvent: LiveData<Event<TimelineData>> = _timelineEvent
