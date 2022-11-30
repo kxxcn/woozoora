@@ -112,18 +112,39 @@ class WoozooraApplication : DaggerApplication() {
             putExtra(EXTRA_TRIGGER_TIME, triggerAtMillis)
         }
 
-        val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.FLAG_IMMUTABLE
+        val flag = if (isHigherOrEqualThanAndroid12()) {
+            PendingIntent.FLAG_NO_CREATE or PendingIntent.FLAG_IMMUTABLE
         } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_NO_CREATE
         }
 
-        val newPendingIntent = PendingIntent.getBroadcast(
+        val registeredIntent = PendingIntent.getBroadcast(
             this,
             option.requestCode,
             intent,
             flag
         )
-        return newPendingIntent to triggerAtMillis
+
+        return if (registeredIntent == null) {
+            if (isHigherOrEqualThanAndroid12()) {
+                PendingIntent.FLAG_IMMUTABLE
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }.let {
+                val newPendingIntent = PendingIntent.getBroadcast(
+                    this,
+                    option.requestCode,
+                    intent,
+                    it
+                )
+                newPendingIntent to triggerAtMillis
+            }
+        } else {
+            null
+        }
+    }
+
+    private fun isHigherOrEqualThanAndroid12(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
 }
