@@ -21,8 +21,8 @@ android {
         applicationId "dev.kxxcn.woozoora"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 23
-        versionName "1.1.1"
+        versionCode 24
+        versionName "1.1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
